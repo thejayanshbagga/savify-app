@@ -51,12 +51,17 @@ Then, scan the QR code using the Expo Go app on your iOS or Android device.
 ```
 
 
-## Development Notes
+## 🛠 Development Notes
 
 - Ensure Expo CLI is installed globally:
 
+  ```bash
   npm install -g expo-cli
-
+  ```
 
 - For clean bundling, clear the cache:
-npx expo start --clear
+
+  ```bash
+  npx expo start --clear
+  ```
+
