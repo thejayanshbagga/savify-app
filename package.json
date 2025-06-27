@@ -9,10 +9,19 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~53.0.11",
+    "@react-navigation/native": "^7.1.11",
+    "@react-navigation/stack": "^7.3.4",
+    "expo": "^53.0.12",
+    "expo-auth-session": "^6.2.0",
+    "expo-secure-store": "^14.2.3",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
-    "react-native": "0.79.3"
+    "react-native": "^0.79.4",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-svg": "^15.11.2",
+    "tailwind-rn": "^4.2.0",
+    "twrnc": "^4.9.0",
+    "react-native-safe-area-context": "5.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
