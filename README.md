@@ -41,14 +41,15 @@ Then, scan the QR code using the Expo Go app on your iOS or Android device.
 
 ## Folder Structure
 
+```
 .
-├── assets/ # Images and app icons
-├── screens/ # React Native screens (Home, Login, Signup, Calculator)
-├── App.js # Main app component
-├── app.json # Expo configuration
-├── package.json # Project dependencies
+├── assets/               # Images and app icons
+├── screens/              # React Native screens (Home, Login, Signup, Calculator)
+├── App.js                # Main app component
+├── app.json              # Expo configuration
+├── package.json          # Project dependencies
+```
 
----
 
 ## Development Notes
 
