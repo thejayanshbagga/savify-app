@@ -15,40 +15,40 @@ A mobile-first fintech app built using React Native and Expo, designed to help u
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### 1. Clone the repository
 
+```bash
 git clone https://github.com/YOUR_USERNAME/savify-app.git
 cd savify-app
-
+```
 
 ### 2. Install dependencies
 
+```bash
 npm install
-
+```
 
 ### 3. Start the Expo development server
 
+```bash
 npx expo start
-
-yaml
-
+```
 
 Then, scan the QR code using the Expo Go app on your iOS or Android device.
 
----
 
-## Folder Structure
+## 📁 Folder Structure
 
 ```
-.
-├── assets/               # Images and app icons
-├── screens/              # React Native screens (Home, Login, Signup, Calculator)
-├── App.js                # Main app component
-├── app.json              # Expo configuration
-├── package.json          # Project dependencies
+├── assets/              # Images and app icons
+├── screens/             # React Native screens (Home, Login, Signup, Calculator)
+├── App.js               # Main app component
+├── app.json             # Expo configuration
+├── package.json         # Project dependencies
 ```
+
 
 
 ## 🛠 Development Notes
@@ -64,4 +64,3 @@ Then, scan the QR code using the Expo Go app on your iOS or Android device.
   ```bash
   npx expo start --clear
   ```
-
