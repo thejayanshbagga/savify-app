@@ -35,7 +35,7 @@ npx expo start
 yaml
 
 
-Then scan the QR code using the Expo Go app on your iOS or Android device.
+Then, scan the QR code using the Expo Go app on your iOS or Android device.
 
 ---
 
