@@ -30,19 +30,18 @@ export default function LoginScreen({navigation}) {
         />
 
         {/*Password input with show password eye icon*/}
-        <TextInput
-          style={tw`border border-gray-300 p-3 mb-4 rounded-2 bg-white`}
-          placeholder="Password"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
-        />
-        <TouchableOpacity
-            onPress={() => setShowPassword(!showPassword)}
-            style={tw`absolute right-9 top-102.5`}
-        >
-          <Feather name={showPassword ? 'eye-off' : 'eye'} size={22} color="#333" />
-        </TouchableOpacity>
+        <View style={tw`flex-row items-center border border-gray-300 rounded-2 bg-white mb-4 px-3`}>
+          <TextInput
+              style={tw`flex-1 py-3`}
+              placeholder="Password"
+              secureTextEntry={!showPassword}
+              value={password}
+              onChangeText={setPassword}
+          />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Feather name={showPassword ? 'eye-off' : 'eye'} size={22} color="#333" />
+          </TouchableOpacity>
+        </View>
 
         {/*Login button*/}
         <TouchableOpacity style={tw`bg-primary py-3 rounded`} onPress={handleLogin}>
