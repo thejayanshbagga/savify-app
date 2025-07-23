@@ -1,5 +1,13 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+# WebStorm
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
 # dependencies
 node_modules/
 
@@ -35,3 +43,7 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Logs
+logs/
+*.log
