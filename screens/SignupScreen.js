@@ -24,30 +24,30 @@ export default function SignupScreen() {
         {step === 1 ? (
           <>
             <TextInput
-              style={tw`border border-gray-300 p-3 rounded mb-4`}
+              style={tw`border border-gray-300 p-3 mb-4 rounded-2 bg-white`}
               placeholder="Email"
               value={email}
               keyboardType="email-address"
               onChangeText={setEmail}
             />
             <TouchableOpacity style={tw`bg-primary py-3 rounded`} onPress={() => setStep(2)}>
-              <Text style={tw`text-center text-white font-bold`}>Next</Text>
+              <Text style={tw`border border-white-300 p-3 rounded-2 bg-black text-center text-white font-bold`}>Next</Text>
             </TouchableOpacity>
           </>
         ) : (
           <>
             <TextInput
-              style={tw`border border-gray-300 p-3 rounded mb-4`}
+              style={tw`border border-gray-300 p-3 mb-4 rounded-2 bg-white`}
               placeholder="Password"
               secureTextEntry
               value={password}
               onChangeText={setPassword}
             />
-            <TouchableOpacity style={tw`bg-gray-200 py-3 rounded mb-3`} onPress={() => setStep(1)}>
-              <Text style={tw`text-center text-gray-700`}>Back</Text>
+            <TouchableOpacity style={tw`bg-primary py-3 rounded`} onPress={() => setStep(1)}>
+              <Text style={tw`border border-white-300 p-3 rounded-2 bg-black text-center text-white font-bold`}>Back</Text>
             </TouchableOpacity>
             <TouchableOpacity style={tw`bg-primary py-3 rounded`} onPress={handleSignup}>
-              <Text style={tw`text-center text-white font-bold`}>Sign Up</Text>
+              <Text style={tw`border border-white-300 p-3 rounded-2 bg-black text-center text-white font-bold`}>Sign Up</Text>
             </TouchableOpacity>
           </>
         )}
