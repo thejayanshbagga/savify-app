@@ -11,6 +11,7 @@ A mobile-first fintech app built using React Native and Expo, designed to help u
 - Savify Split – Handle shared expenses and remind friends.
 - Savify Score – Gamified financial progress tracking.
 - Onboard/Log In/Sign Up – Seamless user flow with a clean UI.
+- Google Sign-In Authentication – Secure and fast login using Google accounts.
 - Expandable FAQ Section – Answers key user questions directly on the home screen.
 
 ---
@@ -30,7 +31,17 @@ cd savify-app
 npm install
 ```
 
-### 3. Start the Expo development server
+### 3. Configure Google OAuth Client ID
+To enable Google Sign-In, follow these steps:
+1. Go to Google Cloud Console.
+2. Create OAuth 2.0 Client IDs for your app:
+   - Web client ID (for development in Expo Go).
+   - Android and/or iOS client IDs (for standalone apps).
+3. Add authorized redirect URIs:
+   - For Expo Go, use: https://auth.expo.io/@YOUR_EXPO_USERNAME/YOUR_PROJECT_SLUG
+4. Replace the CLIENT_ID constant in screens/LoginScreen.js with your Web client ID.
+
+### 4. Start the Expo development server
 
 ```bash
 npx expo start
