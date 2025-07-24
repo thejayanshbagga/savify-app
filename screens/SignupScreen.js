@@ -1,6 +1,6 @@
 // screens/SignupScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,9 +8,15 @@ export default function SignupScreen() {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignup = () => {
-    alert('✅ Signed up (hook up your API here)');
+    if(password !== confirmPassword) {
+      Alert.alert('Passwords do not match', 'Please ensure both passwords are the same.');
+      return;
+    }
+
+    Alert.alert("Signed up", 'Welcome to Savify!');
   };
 
   return (
@@ -42,6 +48,13 @@ export default function SignupScreen() {
               secureTextEntry
               value={password}
               onChangeText={setPassword}
+            />
+            <TextInput
+              style={tw`border border-gray-300 p-3 mb-4 rounded-2 bg-white`}
+              placeholder="Confirm Password"
+              secureTextEntry
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
             />
             <TouchableOpacity style={tw`bg-primary py-3 rounded`} onPress={() => setStep(1)}>
               <Text style={tw`border border-white-300 p-3 rounded-2 bg-black text-center text-white font-bold`}>Back</Text>
