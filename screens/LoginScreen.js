@@ -4,13 +4,25 @@ import { View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    if(rememberMe) {
+      try {
+        await AsyncStorage.setItem('userEmail', email);
+        await AsyncStorage.setItem('userPassword', password);
+      } catch (error) {
+        console.error('Error saving data', error);
+      }
+    }
+
     navigation.navigate('Home');
   };
 
@@ -40,6 +52,22 @@ export default function LoginScreen({navigation}) {
           />
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Feather name={showPassword ? 'eye-off' : 'eye'} size={22} color="#333" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={tw`flex-row justify-between items-center mb-4`}>
+          <TouchableOpacity 
+          style={tw`flex-row items-center`}
+          onPress={() => setRememberMe(!rememberMe)} 
+          >
+            <View style={tw`w-5 h-5 rounded-full border border-black mr-2 items-center justify-center bg-${rememberMe ? 'black' : 'white'}`}>
+              {rememberMe && <View style={tw`w-2.5 h-2.5 rounded-full bg-white`} />}
+            </View>
+            <Text style={tw`text-black`}>Remember Me</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+            <Text style={tw`text-black underline`}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
 
