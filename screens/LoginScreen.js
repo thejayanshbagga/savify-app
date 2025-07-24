@@ -1,6 +1,6 @@
 // screens/LoginScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
@@ -50,8 +50,26 @@ export default function LoginScreen({navigation}) {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={tw`mt-4 border border-primary py-3 rounded`}>
-          <Text style={tw`text-center text-primary font-bold`}>Continue with Google</Text>
+        {/*Or wish dash between regular sign in and sign in with Google*/}
+        <View style={tw`flex-row items-center my-6`}>
+          <View style={tw`flex-1 h-px bg-gray-300`} />
+          <Text style={tw`mx-4 text-gray-6000 text-base`}>Or with</Text>
+          <View style={tw`flex-1 h-px bg-gray-300`} />
+        </View>
+
+        <TouchableOpacity
+            style={[tw`mt-2 flex-row items-center justify-center bg-white py-4 rounded-lg border border-gray-300 self-center`, { width: 200 }]}
+            onPress={() => console.log('Google Sign In')}
+        >
+
+          <View style={tw`flex-row items-center`}>
+            <Image
+                source={require('../assets/google-logo.png')}
+                style={{ width: 20, height: 20, marginRight: 8 }}
+                resizeMode="contain"
+            />
+            <Text style={tw`text-black font-medium text-lg`}>Google</Text>
+          </View>
         </TouchableOpacity>
 
       </View>
