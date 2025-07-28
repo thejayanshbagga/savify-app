@@ -44,7 +44,7 @@ To enable Google Sign-In, follow these steps:
 ### 4. Start the Expo development server
 
 ```bash
-npx expo start
+npx expo start or npx expo start -c
 ```
 
 Then, scan the QR code using the Expo Go app on your iOS or Android device.
