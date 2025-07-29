@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import SaveScreen from '../screens/SaveScreen';
-import SplitScreen from '../screens/SplitScreen';
+import SplitScreen from '../screens/SplitFriendsScreen';
 import ScoreScreen from '../screens/ScoreScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
