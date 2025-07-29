@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import { View, Text, Switch, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import useTranslation from '../hooks/useTranslations';
 // import { supabase } from '../lib/supabase'; // Uncomment if using Supabase
 
 export default function ProfileScreen() {
+  const t = useTranslation();
   const [faceIdEnabled, setFaceIdEnabled] = useState(false);
 
   const handleLogout = async () => {
@@ -20,7 +22,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       {/* Page Label */}
-      <Text style={styles.pageLabel}>Profile</Text>
+      <Text style={styles.pageLabel}>{t.profileTitle}</Text>
 
       {/* User Card */}
       <View style={styles.headerCard}>
@@ -36,17 +38,17 @@ export default function ProfileScreen() {
 
       {/* Options */}
       <View style={styles.optionsCard}>
-        <OptionRow icon="person-outline" label="My Account" subtext="Make changes to your account" warning />
-        <OptionRow icon="settings-outline" label="Settings" subtext="Manage your app settings" />
+        <OptionRow icon="person-outline" label={t.myAccount} subtext={t.myAccountSubtext} warning />
+        <OptionRow icon="settings-outline" label={t.settings} subtext={t.logoutSubtext} onPress={handleLogout} />
         <SwitchRow
           icon="lock-closed-outline"
-          label="Face ID / Touch ID"
-          subtext="Manage your device security"
+          label={t.faceId}
+          subtext={t.faceIdSubtext}
           value={faceIdEnabled}
           onValueChange={setFaceIdEnabled}
         />
-        <OptionRow icon="shield-checkmark-outline" label="Two-Factor Authentication" subtext="Further secure your account for safety" />
-        <OptionRow icon="log-out-outline" label="Log out" subtext="Further secure your account for safety" onPress={handleLogout} />
+        <OptionRow icon="shield-checkmark-outline" label={t.twoFA} subtext={t.twoFASubtext} />
+        <OptionRow icon="log-out-outline" label={t.logout} subtext={t.logoutSubtext} onPress={handleLogout} />
       </View>
     </View>
   );

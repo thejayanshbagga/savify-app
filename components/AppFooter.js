@@ -2,6 +2,11 @@ import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import tw from 'twrnc';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../constants/translations';
+
+const { language } = useLanguage();
+const t = translations[language];
 
 export default function AppFooter({ navigation }) {
     return (

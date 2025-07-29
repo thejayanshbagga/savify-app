@@ -1,13 +1,27 @@
-// constants/translations.js
 export const translations = {
   EN: {
+    // Landing
     headline: "Simplify Your Finances,",
     subheadline: "Savify Your Future.",
     description: "Track your spending. Save automatically. Grow smarter with Savify.",
     getStarted: "Get Started",
     signIn: "Sign In",
     skip: "Skip for now →",
+
+    // Profile
+    profileTitle: "Profile",
+    myAccount: "My Account",
+    myAccountSubtext: "Make changes to your account",
+    settings: "Settings",
+    settingsSubtext: "Manage your app settings",
+    faceId: "Face ID / Touch ID",
+    faceIdSubtext: "Manage your device security",
+    twoFA: "Two-Factor Authentication",
+    twoFASubtext: "Further secure your account for safety",
+    logout: "Log out",
+    logoutSubtext: "You have been signed out successfully.",
   },
+
   FR: {
     headline: "Simplifiez vos finances,",
     subheadline: "Préparez votre avenir avec Savify.",
@@ -15,6 +29,59 @@ export const translations = {
     getStarted: "Commencer",
     signIn: "Se connecter",
     skip: "Passer pour l’instant →",
+
+    profileTitle: "Profil",
+    myAccount: "Mon compte",
+    myAccountSubtext: "Apportez des modifications à votre compte",
+    settings: "Paramètres",
+    settingsSubtext: "Gérez les paramètres de l'application",
+    faceId: "Face ID / Touch ID",
+    faceIdSubtext: "Gérez la sécurité de votre appareil",
+    twoFA: "Authentification à deux facteurs",
+    twoFASubtext: "Sécurisez davantage votre compte",
+    logout: "Se déconnecter",
+    logoutSubtext: "Vous avez été déconnecté avec succès.",
   },
-  // Add more languages here...
+
+  HI: {
+    headline: "अपने वित्त को सरल बनाएं,",
+    subheadline: "Savify से भविष्य सुरक्षित करें।",
+    description: "अपने खर्चों को ट्रैक करें। स्वचालित रूप से बचत करें। Savify के साथ समझदारी से बढ़ें।",
+    getStarted: "शुरू करें",
+    signIn: "साइन इन करें",
+    skip: "अभी छोड़ें →",
+
+    profileTitle: "प्रोफ़ाइल",
+    myAccount: "मेरा खाता",
+    myAccountSubtext: "अपने खाते में बदलाव करें",
+    settings: "सेटिंग्स",
+    settingsSubtext: "ऐप सेटिंग्स प्रबंधित करें",
+    faceId: "फेस आईडी / टच आईडी",
+    faceIdSubtext: "डिवाइस सुरक्षा प्रबंधित करें",
+    twoFA: "दो-चरणीय प्रमाणीकरण",
+    twoFASubtext: "अपने खाते को और अधिक सुरक्षित करें",
+    logout: "लॉग आउट",
+    logoutSubtext: "आप सफलतापूर्वक लॉग आउट हो गए हैं।",
+  },
+
+  TE: {
+    headline: "మీ ఆర్థిక వ్యవహారాలను సులభతరం చేయండి,",
+    subheadline: "Savify తో మీ భవిష్యత్తును తయారుచేసుకోండి.",
+    description: "మీ ఖర్చులను ట్రాక్ చేయండి. ఆటోమేటిక్‌గా సేవ్ చేయండి. Savifyతో తెలివిగా ఎదగండి.",
+    getStarted: "ప్రారంభించండి",
+    signIn: "సైన్ ఇన్ చేయండి",
+    skip: "ఇప్పుడు దాటవేయండి →",
+
+    profileTitle: "ప్రొఫైల్",
+    myAccount: "నా ఖాతా",
+    myAccountSubtext: "మీ ఖాతాలో మార్పులు చేయండి",
+    settings: "సెట్టింగ్‌లు",
+    settingsSubtext: "యాప్ సెట్టింగ్‌లను నిర్వహించండి",
+    faceId: "ఫేస్ ఐడీ / టచ్ ఐడీ",
+    faceIdSubtext: "మీ డివైస్ భద్రతను నిర్వహించండి",
+    twoFA: "రెండు-దశల ధృవీకరణ",
+    twoFASubtext: "మీ ఖాతాను మరింత భద్రంగా ఉంచండి",
+    logout: "లాగ్ అవుట్",
+    logoutSubtext: "మీరు విజయవంతంగా లాగ్ అవుట్ అయ్యారు.",
+  },
 };
