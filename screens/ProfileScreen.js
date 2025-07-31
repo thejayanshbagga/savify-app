@@ -4,18 +4,25 @@ import { View, Text, Switch, TouchableOpacity, StyleSheet, Image, Alert } from '
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 // import { supabase } from '../lib/supabase'; // Uncomment if using Supabase
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
   const [faceIdEnabled, setFaceIdEnabled] = useState(false);
 
   const handleLogout = async () => {
-    // If using Supabase:
+  try {
+    // If you're using Supabase, use this instead:
     // const { error } = await supabase.auth.signOut();
-    // if (error) Alert.alert('Logout Failed', error.message);
-    // else Alert.alert('Signed out');
+    // if (error) throw error;
 
-    // Placeholder logout:
+    // Show success message
     Alert.alert('Logged out', 'You have been signed out successfully.');
-  };
+
+    // Redirect user to Login screen or Auth screen
+    navigation.getParent()?.navigate('Login'); // <-- this assumes 'LoginScreen' is defined in your stack
+  } catch (error) {
+    Alert.alert('Logout Failed', error.message || 'Something went wrong.');
+  }
+};
+
 
   return (
     <View style={styles.container}>
