@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../styles/SplitFriends.styles';
-import AppFooter from '../components/AppFooter';
 
 const friendsData = [
   { id: '1', name: 'Saeedah Baksh', amount: 50, owesYou: false },
