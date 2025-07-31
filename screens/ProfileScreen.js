@@ -17,7 +17,7 @@ export default function ProfileScreen({ navigation }) {
     Alert.alert('Logged out', 'You have been signed out successfully.');
 
     // Redirect user to Login screen or Auth screen
-    navigation.getParent()?.navigate('Login'); // <-- this assumes 'LoginScreen' is defined in your stack
+    navigation.getParent()?.navigate('Landing'); // Adjust based on our navigation structure
   } catch (error) {
     Alert.alert('Logout Failed', error.message || 'Something went wrong.');
   }
