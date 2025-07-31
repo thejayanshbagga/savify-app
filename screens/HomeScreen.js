@@ -66,8 +66,6 @@ export default function HomeScreen() {
             </Text>
           </TouchableOpacity>
         </ScrollView>
-
-        <AppFooter navigation={navigation} />
       </View>
   );
 }
