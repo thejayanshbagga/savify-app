@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
-import AppFooter from '../components/AppFooter';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -67,8 +66,6 @@ export default function HomeScreen() {
             </Text>
           </TouchableOpacity>
         </ScrollView>
-
-        <AppFooter navigation={navigation} />
       </View>
   );
 }

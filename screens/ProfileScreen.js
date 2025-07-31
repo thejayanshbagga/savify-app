@@ -10,14 +10,21 @@ export default function ProfileScreen() {
   const [faceIdEnabled, setFaceIdEnabled] = useState(false);
 
   const handleLogout = async () => {
-    // If using Supabase:
+  try {
+    // If you're using Supabase, use this instead:
     // const { error } = await supabase.auth.signOut();
-    // if (error) Alert.alert('Logout Failed', error.message);
-    // else Alert.alert('Signed out');
+    // if (error) throw error;
 
-    // Placeholder logout:
+    // Show success message
     Alert.alert('Logged out', 'You have been signed out successfully.');
-  };
+
+    // Redirect user to Login screen or Auth screen
+    navigation.getParent()?.navigate('Landing'); // Adjust based on our navigation structure
+  } catch (error) {
+    Alert.alert('Logout Failed', error.message || 'Something went wrong.');
+  }
+};
+
 
   return (
     <View style={styles.container}>
