@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import { View, Text, Switch, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useTranslation from '../hooks/useTranslations';
+import { useNavigation } from '@react-navigation/native';
 // import { supabase } from '../lib/supabase'; // Uncomment if using Supabase
 
 export default function ProfileScreen() {
   const t = useTranslation();
+  const navigation = useNavigation();
   const [faceIdEnabled, setFaceIdEnabled] = useState(false);
 
   const handleLogout = async () => {
@@ -16,12 +18,12 @@ export default function ProfileScreen() {
     // if (error) throw error;
 
     // Show success message
-    Alert.alert('Logged out', 'You have been signed out successfully.');
+    Alert.alert(t.logoutSuccessTitle, t.logoutSuccessMessage);
 
     // Redirect user to Login screen or Auth screen
     navigation.getParent()?.navigate('Landing'); // Adjust based on our navigation structure
   } catch (error) {
-    Alert.alert('Logout Failed', error.message || 'Something went wrong.');
+    Alert.alert(t.logoutFailedTitle, error.message || t.logoutFailedMessage);
   }
 };
 

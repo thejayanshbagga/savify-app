@@ -3,7 +3,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
 import { useLanguage } from '../context/LanguageContext';
 
-const languageOrder = ['EN', 'FR', 'HI', 'TE'];
+const languageOrder = ['EN', 'FR', 'HI', 'TE', 'GU'];
 
 export default function LanguageSelector() {
   const { language, toggleLanguage } = useLanguage();
