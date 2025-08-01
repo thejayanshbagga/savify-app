@@ -8,6 +8,13 @@ export const translations = {
     signIn: "Sign In",
     skip: "Skip for now →",
 
+    // Footer
+    saveTab: "Save",
+    splitTab: "Split",
+    scoreTab: "Score",
+    profileTab: "Profile",
+
+
     // Profile
     profileTitle: "Profile",
     myAccount: "My Account",
@@ -59,6 +66,13 @@ export const translations = {
     getStarted: "Commencer",
     signIn: "Se connecter",
     skip: "Passer pour l’instant →",
+
+    // Footer
+    saveTab: "Épargner",
+    splitTab: "Partager",
+    scoreTab: "Score",
+    profileTab: "Profil",
+
 
     // Profile
     profileTitle: "Profil",
@@ -113,6 +127,13 @@ export const translations = {
     signIn: "साइन इन करें",
     skip: "अभी छोड़ें →",
 
+    // Footer
+    saveTab: "बचत",
+    splitTab: "विभाजित करें",
+    scoreTab: "स्कोर",
+    profileTab: "प्रोफ़ाइल",
+
+
     // Profile
     profileTitle: "प्रोफ़ाइल",
     myAccount: "मेरा खाता",
@@ -166,6 +187,13 @@ export const translations = {
     signIn: "సైన్ ఇన్ చేయండి",
     skip: "ఇప్పుడు దాటవేయండి →",
 
+    // Footer
+    saveTab: "సేవ్",
+    splitTab: "విభజించండి",
+    scoreTab: "స్కోరు",
+    profileTab: "ప్రొఫైల్",
+
+
     // Profile
     profileTitle: "ప్రొఫైల్",
     myAccount: "నా ఖాతా",
@@ -217,6 +245,13 @@ export const translations = {
   getStarted: "શરૂ કરો",
   signIn: "સાઇન ઇન કરો",
   skip: "હમણાં માટે છોડી દો →",
+
+  // Footer
+  saveTab: "બચત",
+  splitTab: "વહેચો",
+  scoreTab: "સ્કોર",
+  profileTab: "પ્રોફાઇલ",
+
 
   // Profile
   profileTitle: "પ્રોફાઇલ",
