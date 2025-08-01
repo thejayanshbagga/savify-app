@@ -8,11 +8,13 @@ import LoginScreen from './screens/LoginScreen';
 import CalculatorScreen from './screens/CalculatorScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import MainTabs from './navigation/MainTabs';
+import { LanguageProvider } from './context/LanguageContext';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <LanguageProvider>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Landing" component={LandingScreen} />
@@ -23,5 +25,6 @@ export default function App() {
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+    </LanguageProvider>
   );
 }
