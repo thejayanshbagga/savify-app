@@ -58,7 +58,7 @@ export default function ScoreScreen() {
                 {/* Challenges Section */}
                 <View style={styles.section}>
                     <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Saving’s challenges</Text>
+                        <Text style={styles.sectionTitle}>Savings challenges</Text>
                         <Text style={styles.seeAll}>See all</Text>
                     </View>
 
