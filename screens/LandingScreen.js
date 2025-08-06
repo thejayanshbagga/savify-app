@@ -41,7 +41,7 @@ export default function LandingScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('MainTabs')}
         style={tw`mt-4`}>
         <Text style={tw`text-white underline text-base`}>{t.skip}</Text>
       </TouchableOpacity>

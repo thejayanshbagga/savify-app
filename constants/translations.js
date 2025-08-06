@@ -14,6 +14,33 @@ export const translations = {
     scoreTab: "Score",
     profileTab: "Profile",
 
+    // Save Screen
+    saveMonthLabel: "June 2025",
+    totalSaved: "$47.97",
+    juneSavings: "June’s Savings",
+    roundUp: "Round-Up",
+    totalSpending: "Total Spending",
+    breakdown: "Breakdown",
+    roundUpLabel: "Round Up",
+
+    // Score Screen
+    savifyScore: "Savify Score",
+    getRewarded: "Get rewarded",
+    claimVoucher: "Claim Voucher",
+    rewardEndsOn: "Ends on",
+    savingsChallenges: "Savings Challenges",
+    largeCaramelFrappucino: "Large Caramel Frappucino",
+    striveChocolate: "Strive Chocolate",
+    freeEnergyDrink: "Free Energy Drink",
+
+
+    // Redeem Screen
+    back: "Back",
+    validUntil: "Valid until", // used like: `${t.validUntil} ${expiry}`
+    redeemInstructions: "Show this voucher at checkout to redeem your reward.",
+
+
+
 
     // Profile
     profileTitle: "Profile",
@@ -94,6 +121,33 @@ export const translations = {
     logoutErrorMessage: "Quelque chose s'est mal passé.",
 
 
+    // Save Screen
+    juneSavings: "Économies de juin",
+    roundUp: "Arrondi",
+    totalSpending: "Dépenses totales",
+    breakdown: "Répartition",
+
+    saveMonthLabel: "Juin 2025",
+    food: "Nourriture",
+    travel: "Voyage",
+
+
+    // Score Screen
+    savifyScore: "Score Savify",
+    getRewarded: "Soyez récompensé",
+    claimVoucher: "Réclamer le bon",
+    rewardEndsOn: "Se termine le",
+    savingsChallenges: "Défis d’épargne",
+    largeCaramelFrappucino: "Grand Frappuccino caramel",
+    striveChocolate: "Chocolat Strive",
+    freeEnergyDrink: "Boisson énergétique gratuite",
+
+    // Redeem Screen
+    back: "Retour",
+    validUntil: "Valable jusqu’au",
+    redeemInstructions: "Montrez ce bon à la caisse pour recevoir votre récompense.",
+
+
 
     // Split Tab
     friendsTab: "Amis",
@@ -152,6 +206,33 @@ export const translations = {
 
     logoutErrorTitle: "लॉग आउट विफल",
     logoutErrorMessage: "कुछ गलत हो गया।",
+
+    // Save Screen
+    juneSavings: "जून की बचत",
+    roundUp: "राउंड-अप",
+    totalSpending: "कुल खर्च",
+    breakdown: "विवरण",
+
+    saveMonthLabel: "जून 2025",
+    food: "भोजन",
+    travel: "यात्रा",
+
+
+    // Score Screen
+    savifyScore: "सविफाई स्कोर",
+    getRewarded: "इनाम पाएं",
+    claimVoucher: "वाउचर क्लेम करें",
+    rewardEndsOn: "समाप्त होता है",
+    savingsChallenges: "बचत चुनौतियाँ",
+    largeCaramelFrappucino: "बड़ा कैरामेल फ्रैपुचीनो",
+    striveChocolate: "स्ट्राइव चॉकलेट",
+    freeEnergyDrink: "मुफ्त ऊर्जा पेय",
+
+    // Redeem Screen
+    back: "वापस",
+    validUntil: "तक मान्य",
+    redeemInstructions: "इनाम प्राप्त करने के लिए इस वाउचर को चेकआउट पर दिखाएं।",
+
 
 
 
@@ -213,6 +294,33 @@ export const translations = {
     logoutErrorTitle: "లాగ్ అవుట్ విఫలమైంది",
     logoutErrorMessage: "ఏదో తప్పు జరిగింది.",
 
+    // Save Screen
+    juneSavings: "జూన్ పొదుపు",
+    roundUp: "రౌండ్-అప్",
+    totalSpending: "మొత్తం ఖర్చు",
+    breakdown: "విభజన",
+
+    saveMonthLabel: "జూన్ 2025",
+    food: "ఆహారం",
+    travel: "ప్రయాణం",
+
+    
+    // Score Screen
+    savifyScore: "సావిఫై స్కోరు",
+    getRewarded: "బహుమతి పొందండి",
+    claimVoucher: "వౌచర్ క్లెయిమ్ చేయండి",
+    rewardEndsOn: "తేదీకి ముగుస్తుంది",
+    savingsChallenges: "పొదుపు ఛాలెంజ్లు",
+    largeCaramelFrappucino: "లార్జ్ కేరమెల్ ఫ్రాపుచినో",
+    striveChocolate: "స్ట్రైవ్ చాక్లెట్",
+    freeEnergyDrink: "ఉచిత ఎనర్జీ డ్రింక్",
+    
+    // Redeem Screen
+    back: "వెనక్కి",
+    validUntil: "వరకు చెల్లుబాటు అవుతుంది",
+    redeemInstructions: "మీ బహుమతిని పొందడానికి ఈ వౌచర్‌ను చెకౌట్ వద్ద చూపించండి.",
+
+
 
     // Split Tab
     friendsTab: "స్నేహితులు",
@@ -272,6 +380,33 @@ export const translations = {
   logoutErrorTitle: "લૉગઆઉટ નિષ્ફળ",
   logoutErrorMessage: "કંઈક ખોટું થયું.",
 
+  // Save Screen
+  juneSavings: "જૂનની બચત",
+  roundUp: "રાઉન્ડ-અપ",
+  totalSpending: "કુલ ખર્ચ",
+  breakdown: "વિગતવાર વિભાજન",
+
+  saveMonthLabel: "જૂન 2025",
+  food: "ખોરાક",
+  travel: "મોસાફરી",
+
+
+  // Score Screen
+  savifyScore: "સેવિફાય સ્કોર",
+  getRewarded: "ઈનામ મેળવો",
+  claimVoucher: "વાઉચર કલીમ કરો",
+  rewardEndsOn: "અંત થાય છે",
+  savingsChallenges: "બચતની પડકારો",
+  largeCaramelFrappucino: "મોટો કરામેલ ફ્રેપ્પુચિનો",
+  striveChocolate: "સ્ટ્રાઇવ ચોકલેટ",
+  freeEnergyDrink: "માફત ઊર્જા પેય",
+  
+  // Redeem Screen
+  back: "પાછા",
+  validUntil: "સુધી માન્ય",
+  redeemInstructions: "તમારું ઈનામ મેળવવા માટે આ વાઉચર ચેકઆઉટ પર બતાવો.",
+
+
   // Split Tab
   friendsTab: "મિત્રો",
   activityTab: "પ્રવૃત્તિ",
@@ -280,6 +415,8 @@ export const translations = {
   youAreOwed: "તમને પૈસા મળવાના છે",
   totalBalance: "કુલ બેલેન્સ",
 
+
+  // Split Tab (Activity)
   activity1Title: 'તમે "ફ્રાઇઝ" ઉમેર્યા',
   activity1Subtitle: "નબીલ તમારું બાકી છે",
 
