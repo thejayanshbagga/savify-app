@@ -8,6 +8,7 @@ import LoginScreen from './screens/LoginScreen';
 import CalculatorScreen from './screens/CalculatorScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import MainTabs from './navigation/MainTabs';
+import { LanguageProvider } from './context/LanguageContext';
 
 // navigation from score screen to redeem page
 import ScoreScreen from './screens/ScoreScreen';
@@ -17,6 +18,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <LanguageProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Landing" component={LandingScreen} />
@@ -29,5 +31,6 @@ export default function App() {
         <Stack.Screen name="MainTabs" component={MainTabs} />
       </Stack.Navigator>
     </NavigationContainer>
+    </LanguageProvider>
   );
 }

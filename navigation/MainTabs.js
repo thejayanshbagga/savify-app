@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -6,11 +6,13 @@ import SaveScreen from '../screens/SaveScreen';
 import SplitScreen from '../screens/SplitFriendsScreen';
 import ScoreScreen from '../screens/ScoreScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import useTranslation from '../hooks/useTranslations';
 
 
 const Tab = createBottomTabNavigator();
 
 export default function MainTabs() {
+  const t = useTranslation();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -25,10 +27,10 @@ export default function MainTabs() {
         },
       })}
     >
-      <Tab.Screen name="Save" component={SaveScreen} />
-      <Tab.Screen name="Split" component={SplitScreen} />
-      <Tab.Screen name="Score" component={ScoreScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Save" component={SaveScreen} options={{ tabBarLabel: t.saveTab }} />
+      <Tab.Screen name="Split" component={SplitScreen} options={{ tabBarLabel: t.splitTab }} />
+      <Tab.Screen name="Score" component={ScoreScreen} options={{ tabBarLabel: t.scoreTab }} />
+      <Tab.Screen name="Profile" component={ProfileScreen} options={{ tabBarLabel: t.profileTab }} />
     </Tab.Navigator>
   );
 }

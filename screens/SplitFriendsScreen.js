@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../styles/SplitFriends.styles';
+import useTranslation from '../hooks/useTranslations';
 
 const friendsData = [
   { id: '1', name: 'Saeedah Baksh', amount: 50, owesYou: false },
@@ -40,12 +41,19 @@ const activityData = [
 ];
 
 export default function FriendsTab({ navigation }) {
-  const [selectedTab, setSelectedTab] = useState('Friends');
+  const [selectedTab, setSelectedTab] = useState('friends');
 
+  const t = useTranslation();
+
+  const tabs = [
+  { id: 'friends', label: t.friendsTab },
+  { id: 'activity', label: t.activityTab },
+  ];
+  
   const renderFriend = ({ item }) => {
     const initials = item.name.charAt(0);
     const amountColor = item.owesYou ? 'green' : 'red';
-    const labelText = item.owesYou ? 'owes you' : 'You owe';
+    const labelText = item.owesYou ? t.owesYou : t.youOwe;
 
     return (
       <View style={styles.friendCard}>
@@ -61,15 +69,20 @@ export default function FriendsTab({ navigation }) {
     );
   };
 
-  const renderActivity = ({ item }) => (
-  <View style={styles.activityCard}>
-    <Ionicons name={item.icon} size={24} style={styles.activityIcon} />
-    <View style={styles.activityText}>
-      <Text style={styles.activityTitle}>{item.title}</Text>
-      <Text style={styles.activitySubtitle}>{item.subtitle}</Text>
-    </View>
-  </View>
+  const renderActivity = ({ item }) => {
+    const titleKey = `activity${item.id.charAt(1)}Title`;
+    const subtitleKey = `activity${item.id.charAt(1)}Subtitle`;
+    
+    return (
+      <View style={styles.activityCard}>
+        <Ionicons name={item.icon} size={24} style={styles.activityIcon} />
+        <View style={styles.activityText}>
+          <Text style={styles.activityTitle}>{t[titleKey]}</Text>
+          <Text style={styles.activitySubtitle}>{t[subtitleKey]}</Text>
+        </View>
+      </View>
   );
+  };
 
 
   return (
@@ -83,15 +96,15 @@ export default function FriendsTab({ navigation }) {
           <Text style={styles.profileName}>Test Dummy</Text>
           <View style={styles.balanceCard}>
             <View style={styles.balanceItem}>
-              <Text style={styles.balanceLabel}>You are owed</Text>
+              <Text style={styles.balanceLabel}>{t.youAreOwed}</Text>
               <Text style={styles.balanceValue}>150</Text>
             </View>
             <View style={styles.balanceItem}>
-              <Text style={styles.balanceLabel}>You owe</Text>
+              <Text style={styles.balanceLabel}>{t.youOwe}</Text>
               <Text style={styles.balanceValue}>75</Text>
             </View>
             <View style={styles.balanceItem}>
-              <Text style={styles.balanceLabel}>Total Balance</Text>
+              <Text style={styles.balanceLabel}>{t.totalBalance}</Text>
               <Text style={styles.balanceValue}>+75</Text>
             </View>
           </View>
@@ -99,17 +112,18 @@ export default function FriendsTab({ navigation }) {
 
         {/* Tab Switch */}
         <View style={styles.tabSwitch}>
-          {['Friends', 'Activity'].map(tab => (
-            <TouchableOpacity key={tab} onPress={() => setSelectedTab(tab)}>
-              <Text style={[styles.tabText, selectedTab === tab && styles.activeTab]}>
-                {tab}
+          {tabs.map(({ id, label }) => (
+            <TouchableOpacity key={id} onPress={() => setSelectedTab(id)}>
+              <Text style={[styles.tabText, selectedTab === id && styles.activeTab]}>
+                {label}
               </Text>
             </TouchableOpacity>
           ))}
         </View>
 
+
         {/* Friends List */}
-        {selectedTab === 'Friends' && (
+        {selectedTab === 'friends' && (
           <FlatList
             data={friendsData}
             renderItem={renderFriend}
@@ -117,7 +131,7 @@ export default function FriendsTab({ navigation }) {
             contentContainerStyle={styles.friendList}
           />
         )}
-        {selectedTab === 'Activity' && (
+        {selectedTab === 'activity' && (
           <FlatList
             data={activityData}
             renderItem={renderActivity}

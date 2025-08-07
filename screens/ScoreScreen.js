@@ -4,9 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../styles/ScoreScreen.styles';
 import BackgroundBlob from '../components/BackgroundBlob';
+import useTranslation from '../hooks/useTranslations';
 
 export default function ScoreScreen() {
     const navigation = useNavigation();
+    const t = useTranslation();
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#5C8EDC' }}>
@@ -14,7 +16,7 @@ export default function ScoreScreen() {
                 {/* Score Badge */}
                 <View style={styles.scoreContainer}>
                     <BackgroundBlob>
-                        <Text style={styles.scoreLabel}>Savify Score</Text>
+                        <Text style={styles.scoreLabel}>{t.savifyScore}</Text>
                         <Text style={styles.scoreValue}>3280</Text>
                     </BackgroundBlob>
                 </View>
@@ -22,7 +24,7 @@ export default function ScoreScreen() {
                 {/* Rewards Section */}
                 <View style={styles.section}>
                     <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Get rewarded</Text>
+                        <Text style={styles.sectionTitle}>{t.getRewarded}</Text>
                     </View>
 
                     <ScrollView
@@ -35,37 +37,37 @@ export default function ScoreScreen() {
                         <TouchableOpacity
                             style={styles.rewardCard}
                             onPress={() => navigation.navigate('Redeem', {
-                                title: 'Large Caramel Frappucino',
-                                expiry: 'November 31st, 2025',
+                                title: t.largeCaramelFrappucino,
+                                expiry: 'November 30th, 2025',
                             })}
                         >
-                            <Text style={styles.rewardTitle}>Large Caramel Frappucino</Text>
-                            <Text style={styles.rewardSubtitle}>Ends on November 31st, 2025</Text>
-                            <Text style={styles.rewardAction}>Claim Voucher</Text>
+                            <Text style={styles.rewardTitle}>{t.largeCaramelFrappucino}</Text>
+                            <Text style={styles.rewardSubtitle}>{t.rewardEndsOn} November 30th, 2025</Text>
+                            <Text style={styles.rewardAction}>{t.claimVoucher}</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={styles.rewardCard}
                             onPress={() => navigation.navigate('Redeem', {
-                                title: 'Strive Chocolate',
+                                title: t.striveChocolate,
                                 expiry: 'January 21st, 2025',
                             })}
                         >
-                            <Text style={styles.rewardTitle}>Strive Chocolate</Text>
-                            <Text style={styles.rewardSubtitle}>Ends on January 21st, 2025</Text>
-                            <Text style={styles.rewardAction}>Claim Voucher</Text>
+                            <Text style={styles.rewardTitle}>{t.striveChocolate}</Text>
+                            <Text style={styles.rewardSubtitle}>{t.rewardEndsOn} January 21st, 2025</Text>
+                            <Text style={styles.rewardAction}>{t.claimVoucher}</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={styles.rewardCard}
                             onPress={() => navigation.navigate('Redeem', {
-                                title: 'Free Energy Drink',
+                                title: t.freeEnergyDrink,
                                 expiry: 'December 10th, 2025',
                             })}
                         >
-                            <Text style={styles.rewardTitle}>Free Energy Drink</Text>
-                            <Text style={styles.rewardSubtitle}>Ends on December 10th, 2025</Text>
-                            <Text style={styles.rewardAction}>Claim Voucher</Text>
+                            <Text style={styles.rewardTitle}>{t.freeEnergyDrink}</Text>
+                            <Text style={styles.rewardSubtitle}>{t.rewardEndsOn} December 10th, 2025</Text>
+                            <Text style={styles.rewardAction}>{t.claimVoucher}</Text>
                         </TouchableOpacity>
                     </ScrollView>
                 </View>
@@ -73,7 +75,7 @@ export default function ScoreScreen() {
                 {/* Challenges Section */}
                 <View style={styles.section}>
                     <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Savings challenges</Text>
+                        <Text style={styles.sectionTitle}>{t.savingsChallenges}</Text>
                     </View>
 
                     <ScrollView
