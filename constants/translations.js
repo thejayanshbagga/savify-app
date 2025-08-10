@@ -40,8 +40,6 @@ export const translations = {
     redeemInstructions: "Show this voucher at checkout to redeem your reward.",
 
 
-
-
     // Profile
     profileTitle: "Profile",
     myAccount: "My Account",
@@ -60,6 +58,31 @@ export const translations = {
 
     logoutErrorTitle: "Logout Failed",
     logoutErrorMessage: "Something went wrong.",
+
+    // Settings
+
+    editProfile: "Edit Profile",
+    editProfileSubtext: "Update your personal information",
+    changePassword: "Change Password",
+    changePasswordSubtext: "Update your password",
+    changeEmail: "Change Email",
+    changeEmailSubtext: "Update the email on your account",
+    manageDevices: "Manage Devices",
+    manageDevicesSubtext: "View and sign out from connected devices",
+    privacyAndSecurity: "Privacy & Security",
+    accountAndProfile: "Account & Profile",
+    generalSettings: "General",
+    notifications: "Push Notifications",
+    notificationsSubtext: "Control what you are notified about",
+    darkMode: "Dark Mode",
+    darkModeSubtext: "Switch to a dark theme",
+    supportAndInfo: "Support & Information",
+    helpSupport: "Help & Support",
+    helpSupportSubtext: "Get assistance or report an issue",
+    termsAndPrivacy: "Terms & Privacy Policy",
+    termsAndPrivacySubtext: "Read legal documents",
+    language: "Language",
+    languageSubtext: "Change app display language",
 
 
     // Split Tab (Friends)
@@ -119,6 +142,29 @@ export const translations = {
 
     logoutErrorTitle: "Échec de la déconnexion",
     logoutErrorMessage: "Quelque chose s'est mal passé.",
+
+    editProfile: "Modifier le profil",
+    editProfileSubtext: "Mettre à jour vos informations personnelles",
+    changePassword: "Changer le mot de passe",
+    changePasswordSubtext: "Mettre à jour votre mot de passe",
+    changeEmail: "Changer l'adresse e-mail",
+    changeEmailSubtext: "Mettre à jour l'adresse e-mail de votre compte",
+    manageDevices: "Gérer les appareils",
+    manageDevicesSubtext: "Voir et déconnecter les appareils connectés",
+    privacyAndSecurity: "Confidentialité et sécurité",
+    accountAndProfile: "Compte et profil",
+    generalSettings: "Général",
+    notifications: "Notifications push",
+    notificationsSubtext: "Contrôlez vos notifications",
+    darkMode: "Mode sombre",
+    darkModeSubtext: "Passer à un thème sombre",
+    supportAndInfo: "Support et informations",
+    helpSupport: "Aide et support",
+    helpSupportSubtext: "Obtenez de l'aide ou signalez un problème",
+    termsAndPrivacy: "Conditions et confidentialité",
+    termsAndPrivacySubtext: "Lire les documents légaux",
+    language: "Langue",
+    languageSubtext: "Changer la langue d'affichage de l'application",
 
 
     // Save Screen
@@ -234,7 +280,28 @@ export const translations = {
     redeemInstructions: "इनाम प्राप्त करने के लिए इस वाउचर को चेकआउट पर दिखाएं।",
 
 
-
+    editProfile: "प्रोफ़ाइल संपादित करें",
+    editProfileSubtext: "अपनी व्यक्तिगत जानकारी अपडेट करें",
+    changePassword: "पासवर्ड बदलें",
+    changePasswordSubtext: "अपना पासवर्ड अपडेट करें",
+    changeEmail: "ईमेल बदलें",
+    changeEmailSubtext: "अपने खाते का ईमेल अपडेट करें",
+    manageDevices: "डिवाइस प्रबंधित करें",
+    manageDevicesSubtext: "कनेक्टेड डिवाइस देखें और साइन आउट करें",
+    privacyAndSecurity: "गोपनीयता और सुरक्षा",
+    accountAndProfile: "खाता और प्रोफ़ाइल",
+    generalSettings: "सामान्य",
+    notifications: "पुश नोटिफिकेशन",
+    notificationsSubtext: "आपको किस बारे में सूचित किया जाए, नियंत्रित करें",
+    darkMode: "डार्क मोड",
+    darkModeSubtext: "डार्क थीम पर स्विच करें",
+    supportAndInfo: "सहायता और जानकारी",
+    helpSupport: "सहायता और समर्थन",
+    helpSupportSubtext: "सहायता प्राप्त करें या समस्या रिपोर्ट करें",
+    termsAndPrivacy: "नियम और गोपनीयता नीति",
+    termsAndPrivacySubtext: "कानूनी दस्तावेज़ पढ़ें",
+    language: "भाषा",
+    languageSubtext: "ऐप की भाषा बदलें",
 
     // Split Tab
     friendsTab: "दोस्त",
@@ -293,6 +360,29 @@ export const translations = {
 
     logoutErrorTitle: "లాగ్ అవుట్ విఫలమైంది",
     logoutErrorMessage: "ఏదో తప్పు జరిగింది.",
+
+    editProfile: "ప్రొఫైల్ సవరించండి",
+    editProfileSubtext: "మీ వ్యక్తిగత సమాచారాన్ని నవీకరించండి",
+    changePassword: "పాస్‌వర్డ్ మార్చండి",
+    changePasswordSubtext: "మీ పాస్‌వర్డ్‌ను నవీకరించండి",
+    changeEmail: "ఇమెయిల్ మార్చండి",
+    changeEmailSubtext: "మీ ఖాతా ఇమెయిల్‌ను నవీకరించండి",
+    manageDevices: "పరికరాలను నిర్వహించండి",
+    manageDevicesSubtext: "కనెక్ట్ చేసిన పరికరాలను వీక్షించండి మరియు సైన్ అవుట్ చేయండి",
+    privacyAndSecurity: "గోప్యత & భద్రత",
+    accountAndProfile: "ఖాతా & ప్రొఫైల్",
+    generalSettings: "సాధారణం",
+    notifications: "పుష్ నోటిఫికేషన్లు",
+    notificationsSubtext: "మీరు ఎటువంటి విషయాలపై నోటిఫికేషన్ పొందాలనుకుంటున్నారో నియంత్రించండి",
+    darkMode: "డార్క్ మోడ్",
+    darkModeSubtext: "డార్క్ థీమ్‌కి మారండి",
+    supportAndInfo: "సహాయం & సమాచారం",
+    helpSupport: "సహాయం & మద్దతు",
+    helpSupportSubtext: "సహాయం పొందండి లేదా సమస్యను నివేదించండి",
+    termsAndPrivacy: "నిబంధనలు & గోప్యతా విధానం",
+    termsAndPrivacySubtext: "చట్టపరమైన పత్రాలను చదవండి",
+    language: "భాష",
+    languageSubtext: "యాప్ ప్రదర్శన భాషను మార్చండి",
 
     // Save Screen
     juneSavings: "జూన్ పొదుపు",
@@ -373,6 +463,29 @@ export const translations = {
   twoFASubtext: "તમારું ખાતું વધુ સુરક્ષિત બનાવો",
   logout: "લૉગ આઉટ",
   logoutSubtext: "તમે સફળતાપૂર્વક લૉગ આઉટ થઇ ગયા છો.",
+
+  editProfile: "પ્રોફાઇલ સંપાદિત કરો",
+  editProfileSubtext: "તમારી વ્યક્તિગત માહિતી અપડેટ કરો",
+  changePassword: "પાસવર્ડ બદલો",
+  changePasswordSubtext: "તમારો પાસવર્ડ અપડેટ કરો",
+  changeEmail: "ઇમેઇલ બદલો",
+  changeEmailSubtext: "તમારા ખાતાનો ઇમેઇલ અપડેટ કરો",
+  manageDevices: "ડિવાઇસ મેનેજ કરો",
+  manageDevicesSubtext: "કનેક્ટ થયેલ ડિવાઇસ જુઓ અને સાઇન આઉટ કરો",
+  privacyAndSecurity: "ગોપનીયતા અને સુરક્ષા",
+  accountAndProfile: "ખાતું અને પ્રોફાઇલ",
+  generalSettings: "સામાન્ય",
+  notifications: "પુષ સૂચનાઓ",
+  notificationsSubtext: "તમને કઈ બાબતો અંગે સૂચિત કરવું તે નિયંત્રિત કરો",
+  darkMode: "ડાર્ક મોડ",
+  darkModeSubtext: "ડાર્ક થીમમાં સ્વિચ કરો",
+  supportAndInfo: "મદદ અને માહિતી",
+  helpSupport: "મદદ અને સપોર્ટ",
+  helpSupportSubtext: "મદદ મેળવો અથવા સમસ્યા જણાવો",
+  termsAndPrivacy: "શરતો અને ગોપનીયતા નીતિ",
+  termsAndPrivacySubtext: "કાનૂની દસ્તાવેજો વાંચો",
+  language: "ભાષા",
+  languageSubtext: "એપ્લિકેશનની ભાષા બદલો",
 
   // Alerts
   logoutSuccessTitle: "લૉગઆઉટ સફળ",
