@@ -11,11 +11,14 @@
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
     "@react-native-async-storage/async-storage": "2.1.2",
+    "@react-native-picker/picker": "2.11.1",
     "@react-navigation/bottom-tabs": "^7.4.4",
     "@react-navigation/native": "^7.1.16",
+    "@react-navigation/native-stack": "^7.3.24",
     "@react-navigation/stack": "^7.3.4",
     "expo": "53.0.20",
     "expo-auth-session": "~6.2.1",
+    "expo-localization": "~16.1.6",
     "expo-secure-store": "^14.2.3",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
@@ -25,12 +28,10 @@
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
-    "react-native-svg": "^15.12.1",
+    "react-native-svg": "15.11.2",
     "react-native-vector-icons": "^10.3.0",
     "tailwind-rn": "^4.2.0",
-    "twrnc": "^4.9.0",
-    "expo-localization": "~16.1.6",
-    "@react-native-picker/picker": "2.11.1"
+    "twrnc": "^4.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
