@@ -4,6 +4,7 @@ import { View, Text, Switch, TouchableOpacity, StyleSheet, Image, Alert } from '
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useTranslation from '../hooks/useTranslations';
 import { useNavigation } from '@react-navigation/native';
+// import SettingsScreen from '../screens/SettingsScreen';
 // import { supabase } from '../lib/supabase'; // Uncomment if using Supabase
 
 export default function ProfileScreen() {
@@ -48,7 +49,15 @@ export default function ProfileScreen() {
       {/* Options */}
       <View style={styles.optionsCard}>
         <OptionRow icon="person-outline" label={t.myAccount} subtext={t.myAccountSubtext} warning />
-        <OptionRow icon="settings-outline" label={t.settings} subtext={t.logoutSubtext} onPress={handleLogout} />
+
+        {/*Navigating to the settings screen*/}
+        <OptionRow
+            icon="settings-outline"
+            label={t.settings || 'Settings'}
+            subtext={t.settingsSubtext || 'Manage your app preferences'}
+            onPress={() => navigation.navigate('Settings')}
+        />
+
         <SwitchRow
           icon="lock-closed-outline"
           label={t.faceId}
