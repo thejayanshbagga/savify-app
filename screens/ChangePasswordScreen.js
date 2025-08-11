@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from '../styles/ChangePassword.styles';
+import useTranslation from '../hooks/useTranslations';
+
+const useSafeTranslator = () => {
+  const tRaw = useTranslation();
+  return (k, f) =>
+    typeof tRaw === 'function'
+      ? tRaw(k, f)
+      : tRaw && tRaw[k] != null
+      ? tRaw[k]
+      : f;
+};
 
 export default function ChangePasswordScreen() {
+  const tr = useSafeTranslator();
   const [oldPw, setOldPw] = useState('');
   const [newPw, setNewPw] = useState('');
   const [confirmPw, setConfirmPw] = useState('');
@@ -12,19 +24,19 @@ export default function ChangePasswordScreen() {
 
   const validate = () => {
     if (!oldPw || !newPw || !confirmPw) {
-      Alert.alert('Missing info', 'Please fill out all fields.');
+      Alert.alert(tr('missingInfoPw', 'Missing info'), tr('missingInfoPwMsg', 'Please fill out all fields.'));
       return false;
     }
     if (newPw.length < 8) {
-      Alert.alert('Weak password', 'New password must be at least 8 characters.');
+      Alert.alert(tr('weakPassword', 'Weak password'), tr('weakPasswordMsg', 'New password must be at least 8 characters.'));
       return false;
     }
     if (newPw !== confirmPw) {
-      Alert.alert('Mismatch', 'Passwords do not match.');
+      Alert.alert(tr('passwordMismatch', 'Mismatch'), tr('passwordMismatchMsg', 'Passwords do not match.'));
       return false;
     }
     if (newPw === oldPw) {
-      Alert.alert('No change', 'New password must be different from the old password.');
+      Alert.alert(tr('noPasswordChange', 'No change'), tr('noPasswordChangeMsg', 'New password must be different from the old password.'));
       return false;
     }
     return true;
@@ -34,18 +46,13 @@ export default function ChangePasswordScreen() {
     if (!validate()) return;
     try {
       setLoading(true);
-
-      // TODO: replace with your real API / auth provider call
-      // Example placeholder:
-      // await api.auth.changePassword({ oldPassword: oldPw, newPassword: newPw });
-
       await new Promise(r => setTimeout(r, 600)); // fake latency
-      Alert.alert('Success', 'Your password has been updated.');
+      Alert.alert(tr('passwordSuccess', 'Success'), tr('passwordSuccessMsg', 'Your password has been updated.'));
       setOldPw('');
       setNewPw('');
       setConfirmPw('');
     } catch (err) {
-      Alert.alert('Error', err?.message || 'Failed to change password. Try again.');
+      Alert.alert(tr('changePasswordErrorTitle', 'Error'), err?.message || tr('changePasswordErrorMsg', 'Failed to change password. Try again.'));
     } finally {
       setLoading(false);
     }
@@ -56,7 +63,7 @@ export default function ChangePasswordScreen() {
       onPress={() => setShow(s => ({ ...s, [which]: !s[which] }))}
       style={styles.eye}
       accessibilityRole="button"
-      accessibilityLabel="Toggle password visibility"
+      accessibilityLabel={tr('togglePasswordVisibility', 'Toggle password visibility')}
     >
       <Ionicons name={show[which] ? 'eye-off-outline' : 'eye-outline'} size={20} color="#666" />
     </TouchableOpacity>
@@ -64,16 +71,16 @@ export default function ChangePasswordScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Change Password</Text>
+      <Text style={styles.title}>{tr('changePasswordTitle', 'Change Password')}</Text>
 
       <View style={styles.field}>
-        <Text style={styles.label}>Current password</Text>
+        <Text style={styles.label}>{tr('currentPasswordShort', 'Current password')}</Text>
         <View style={styles.inputWrap}>
           <TextInput
             value={oldPw}
             onChangeText={setOldPw}
             secureTextEntry={!show.old}
-            placeholder="Enter current password"
+            placeholder={tr('currentPasswordPlaceholder2', 'Enter current password')}
             style={styles.input}
             autoCapitalize="none"
             textContentType="password"
@@ -83,29 +90,29 @@ export default function ChangePasswordScreen() {
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.label}>New password</Text>
+        <Text style={styles.label}>{tr('newPasswordLabel', 'New password')}</Text>
         <View style={styles.inputWrap}>
           <TextInput
             value={newPw}
             onChangeText={setNewPw}
             secureTextEntry={!show.next}
-            placeholder="Enter new password"
+            placeholder={tr('newPasswordPlaceholder', 'Enter new password')}
             style={styles.input}
             autoCapitalize="none"
           />
           <Eye which="next" />
         </View>
-        <Text style={styles.hint}>Use 8+ characters. Mix letters, numbers, symbols.</Text>
+        <Text style={styles.hint}>{tr('passwordHint', 'Use 8+ characters. Mix letters, numbers, symbols.')}</Text>
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.label}>Confirm new password</Text>
+        <Text style={styles.label}>{tr('confirmNewPasswordLabel', 'Confirm new password')}</Text>
         <View style={styles.inputWrap}>
           <TextInput
             value={confirmPw}
             onChangeText={setConfirmPw}
             secureTextEntry={!show.confirm}
-            placeholder="Re-enter new password"
+            placeholder={tr('confirmPasswordPlaceholder', 'Re-enter new password')}
             style={styles.input}
             autoCapitalize="none"
           />
@@ -119,7 +126,7 @@ export default function ChangePasswordScreen() {
         disabled={loading}
         activeOpacity={0.8}
       >
-        <Text style={styles.buttonText}>{loading ? 'Saving…' : 'Update Password'}</Text>
+        <Text style={styles.buttonText}>{loading ? tr('updatePasswordLoading', 'Saving…') : tr('updatePasswordButton', 'Update Password')}</Text>
       </TouchableOpacity>
     </View>
   );
