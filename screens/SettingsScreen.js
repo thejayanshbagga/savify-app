@@ -3,6 +3,7 @@ import {View, Text, Switch, TouchableOpacity, ScrollView, Alert,} from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 import useTranslation from '../hooks/useTranslations';
 import styles from '../styles/SettingsScreen.styles';
+import { useNavigation } from '@react-navigation/native';
 
 // safe translator to call tr('key', 'Fallback') whether the hook returns a fn or an object
 const useSafeTranslator = () => {
@@ -52,6 +53,7 @@ const SwitchRow = ({ icon, label, subtext, value, onValueChange, isLast }) => (
 
 export default function SettingsScreen() {
     const tr = useSafeTranslator();
+    const navigation = useNavigation();
 
     // switch state
     const [pushNotificationsEnabled, setPushNotificationsEnabled] = useState(true);
@@ -60,10 +62,10 @@ export default function SettingsScreen() {
     // handlers
     const handleEditProfile = () =>
         Alert.alert(tr('editProfile', 'Edit Profile'), tr('editProfileSubtext', 'Navigation to edit profile screen.'));
-    const handleChangePassword = () =>
-        Alert.alert(tr('changePassword', 'Change Password'), tr('changePasswordSubtext', 'Navigation to change password screen.'));
-    const handleChangeEmail = () =>
-        Alert.alert(tr('changeEmail', 'Change Email'), tr('changeEmailSubtext', 'Navigation to change email screen.'));
+    const handleChangePassword = () => 
+        navigation.navigate('ChangePassword');
+    const handleChangeEmail = () => 
+        navigation.navigate('ChangeEmail');
     const handleManageDevices = () =>
         Alert.alert(tr('manageDevices', 'Manage Devices'), tr('manageDevicesSubtext', 'Navigation to manage devices screen.'));
     const handleTwoFA = () =>
