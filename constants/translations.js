@@ -60,7 +60,6 @@ export const translations = {
     logoutErrorMessage: "Something went wrong.",
 
     // Settings
-
     editProfile: "Edit Profile",
     editProfileSubtext: "Update your personal information",
     changePassword: "Change Password",
@@ -143,6 +142,7 @@ export const translations = {
     logoutErrorTitle: "Échec de la déconnexion",
     logoutErrorMessage: "Quelque chose s'est mal passé.",
 
+    // Settings
     editProfile: "Modifier le profil",
     editProfileSubtext: "Mettre à jour vos informations personnelles",
     changePassword: "Changer le mot de passe",
@@ -279,7 +279,7 @@ export const translations = {
     validUntil: "तक मान्य",
     redeemInstructions: "इनाम प्राप्त करने के लिए इस वाउचर को चेकआउट पर दिखाएं।",
 
-
+    // Settings
     editProfile: "प्रोफ़ाइल संपादित करें",
     editProfileSubtext: "अपनी व्यक्तिगत जानकारी अपडेट करें",
     changePassword: "पासवर्ड बदलें",
@@ -361,6 +361,8 @@ export const translations = {
     logoutErrorTitle: "లాగ్ అవుట్ విఫలమైంది",
     logoutErrorMessage: "ఏదో తప్పు జరిగింది.",
 
+
+    // Settings
     editProfile: "ప్రొఫైల్ సవరించండి",
     editProfileSubtext: "మీ వ్యక్తిగత సమాచారాన్ని నవీకరించండి",
     changePassword: "పాస్‌వర్డ్ మార్చండి",
@@ -464,6 +466,7 @@ export const translations = {
   logout: "લૉગ આઉટ",
   logoutSubtext: "તમે સફળતાપૂર્વક લૉગ આઉટ થઇ ગયા છો.",
 
+  // Settings
   editProfile: "પ્રોફાઇલ સંપાદિત કરો",
   editProfileSubtext: "તમારી વ્યક્તિગત માહિતી અપડેટ કરો",
   changePassword: "પાસવર્ડ બદલો",
