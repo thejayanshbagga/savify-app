@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import tw from 'twrnc';
-import LanguageSelector from '../components/LanguageSelector';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../constants/translations';
 
@@ -47,7 +46,6 @@ export default function LandingScreen() {
       </TouchableOpacity>
 
       <View style={tw`mt-6`}>
-        <LanguageSelector />
       </View>
     </View>
   );
