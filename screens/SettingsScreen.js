@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import useTranslation from '../hooks/useTranslations';
 import { useLanguage } from '../context/LanguageContext';
 import styles, { modalStyles } from '../styles/SettingsScreen.styles';
+import { useNavigation } from '@react-navigation/native';
 
 // safe translator to call tr('key', 'Fallback') whether the hook returns a fn or an object
 const useSafeTranslator = () => {
@@ -68,25 +69,32 @@ const LANGUAGES = [
 
 export default function SettingsScreen() {
   const tr = useSafeTranslator();
+    const navigation = useNavigation();
   const { language, toggleLanguage } = useLanguage();
 
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [pushNotificationsEnabled, setPushNotificationsEnabled] = useState(true);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
 
-  const currentLanguageLabel =
-    LANGUAGES.find((l) => l.value === language)?.label || tr('selectLanguage', 'Select Language');
+  const currentLanguageLabel = LANGUAGES.find(lang => lang.value === language)?.label || tr('selectLanguage', 'Select Language');
 
-  const handleEditProfile = () =>
-    Alert.alert(tr('editProfile', 'Edit Profile'), tr('editProfileSubtext', 'Navigation to edit profile screen.'));
-  const handleChangePassword = () =>
-    Alert.alert(tr('changePassword', 'Change Password'), tr('changePasswordSubtext', 'Navigation to change password screen.'));
-  const handleChangeEmail = () =>
-    Alert.alert(tr('changeEmail', 'Change Email'), tr('changeEmailSubtext', 'Navigation to change email screen.'));
-  const handleManageDevices = () =>
-    Alert.alert(tr('manageDevices', 'Manage Devices'), tr('manageDevicesSubtext', 'Navigation to manage devices screen.'));
-  const handleTwoFA = () =>
-    Alert.alert(tr('twoFA', 'Two-Factor Authentication'), tr('twoFASubtext', 'Navigation to 2FA settings screen.'));
+    // handlers
+    const handleEditProfile = () =>
+        Alert.alert(tr('editProfile', 'Edit Profile'), tr('editProfileSubtext', 'Navigation to edit profile screen.'));
+    const handleChangePassword = () => 
+        navigation.navigate('ChangePassword');
+    const handleChangeEmail = () => 
+        navigation.navigate('ChangeEmail');
+    const handleManageDevices = () =>
+        Alert.alert(tr('manageDevices', 'Manage Devices'), tr('manageDevicesSubtext', 'Navigation to manage devices screen.'));
+    const handleTwoFA = () =>
+        Alert.alert(tr('twoFA', 'Two-Factor Authentication'), tr('twoFASubtext', 'Navigation to 2FA settings screen.'));
+    const handleLanguage = () =>
+        Alert.alert(tr('language', 'Language'), tr('languageSubtext', 'Show language selection modal or page.'));
+    const handleHelpSupport = () =>
+        Alert.alert(tr('helpSupport', 'Help & Support'), tr('helpSupportSubtext', 'Navigation to help & support page.'));
+    const handleTermsAndPrivacy = () =>
+        Alert.alert(tr('termsAndPrivacy', 'Terms & Privacy Policy'), tr('termsAndPrivacySubtext', 'Open web browser to terms.'));
 
   return (
     <View style={styles.container}>
