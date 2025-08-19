@@ -18,6 +18,9 @@ export default function ForgotPasswordScreen() {
 
   return (
     <SafeAreaView style={tw`flex-1 bg-[#5C8EDC]`}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={tw`mb-5`}>
+        <Text style={tw`text-blue-500`}>&larr; {tr('back', 'Back')}</Text>
+      </TouchableOpacity>
       <KeyboardAvoidingView
         style={tw`flex-1 justify-center px-6`}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}

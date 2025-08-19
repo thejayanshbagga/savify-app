@@ -15,6 +15,7 @@ import useTranslation from '../hooks/useTranslations';
 import { useLanguage } from '../context/LanguageContext';
 import styles, { modalStyles } from '../styles/SettingsScreen.styles';
 import { useNavigation } from '@react-navigation/native';
+import tw from 'twrnc';
 
 // safe translator to call tr('key', 'Fallback') whether the hook returns a fn or an object
 const useSafeTranslator = () => {
@@ -98,6 +99,9 @@ export default function SettingsScreen() {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={tw`mb-5`}>
+        <Text style={tw`text-blue-500`}>&larr; {tr('back', 'Back')}</Text>
+      </TouchableOpacity>
       <Text style={styles.pageLabel}>{tr('settingsTitle', 'Settings')}</Text>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
