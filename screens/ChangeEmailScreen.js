@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styles from '../styles/ChangeEmailScreen.styles';
 import useTranslation from '../hooks/useTranslations';
+import tw from 'twrnc';
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -16,7 +18,22 @@ const useSafeTranslator = () => {
 };
 
 export default function ChangeEmailScreen() {
+  const navigation = useNavigation();
   const tr = useSafeTranslator();
+
+  // Put the Redeem-style back button in the header so there's only one
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTitle: '', // keep title inside the screen body
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()} style={tw`ml-3`}>
+          <Text style={tw`text-blue-500`}>&larr; {tr('back', 'Back')}</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, tr]);
+
   const [newEmail, setNewEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
@@ -39,7 +56,10 @@ export default function ChangeEmailScreen() {
     try {
       setLoading(true);
       await new Promise(r => setTimeout(r, 600)); // fake latency
-      Alert.alert(tr('verificationSent', 'Verification sent'), tr('verificationSentMsg', 'We emailed a verification link to your new address. Please confirm to complete the change.'));
+      Alert.alert(
+        tr('verificationSent', 'Verification sent'),
+        tr('verificationSentMsg', 'We emailed a verification link to your new address. Please confirm to complete the change.')
+      );
       setNewEmail('');
       setPassword('');
     } catch (err) {
@@ -51,6 +71,7 @@ export default function ChangeEmailScreen() {
 
   return (
     <View style={styles.container}>
+      {/* no inline back button here anymore */}
       <Text style={styles.title}>{tr('changeEmailTitle', 'Change Email')}</Text>
 
       <View style={styles.field}>
@@ -97,7 +118,9 @@ export default function ChangeEmailScreen() {
         disabled={loading}
         activeOpacity={0.8}
       >
-        <Text style={styles.buttonText}>{loading ? tr('updateEmailLoading', 'Sending…') : tr('updateEmailButton', 'Update Email')}</Text>
+        <Text style={styles.buttonText}>
+          {loading ? tr('updateEmailLoading', 'Sending…') : tr('updateEmailButton', 'Update Email')}
+        </Text>
       </TouchableOpacity>
 
       <Text style={styles.note}>
