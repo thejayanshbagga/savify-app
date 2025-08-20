@@ -1,38 +1,59 @@
-// ProfileScreen.js
-import React, { useState } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import { View, Text, Switch, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useTranslation from '../hooks/useTranslations';
 import { useNavigation } from '@react-navigation/native';
-// import SettingsScreen from '../screens/SettingsScreen';
-// import { supabase } from '../lib/supabase'; // Uncomment if using Supabase
+import { AuthContext } from '../context/AuthContext';
 
 export default function ProfileScreen() {
-  const t = useTranslation();
+  const tRaw = useTranslation();
   const navigation = useNavigation();
   const [faceIdEnabled, setFaceIdEnabled] = useState(false);
+  const { signOut } = useContext(AuthContext);
+
+  // Safe translator: works whether hook returns fn or object
+  const tr = useMemo(() => {
+    if (typeof tRaw === 'function') {
+      return (k, fallback) => {
+        try {
+          const v = tRaw(k);
+          return v == null ? fallback : v;
+        } catch {
+          return fallback;
+        }
+      };
+    }
+    return (k, fallback) => (tRaw && tRaw[k] != null ? tRaw[k] : fallback);
+  }, [tRaw]);
 
   const handleLogout = async () => {
-  try {
-    // If you're using Supabase, use this instead:
-    // const { error } = await supabase.auth.signOut();
-    // if (error) throw error;
+    try {
+      if (!signOut) {
+        throw new Error('Sign out is unavailable. Are you inside <AuthProvider>?');
+      }
 
-    // Show success message
-    Alert.alert(t.logoutSuccessTitle, t.logoutSuccessMessage);
+      await signOut();
 
-    // Redirect user to Login screen or Auth screen
-    navigation.getParent()?.navigate('Landing'); // Adjust based on our navigation structure
-  } catch (error) {
-    Alert.alert(t.logoutFailedTitle, error.message || t.logoutFailedMessage);
-  }
-};
+      Alert.alert(
+        tr('logoutSuccessTitle', 'Signed out'),
+        tr('logoutSuccessMessage', 'You have been signed out successfully.')
+      );
 
+      // No manual navigation needed: App.js switches stacks on isAuthenticated=false
+      // If you WANT to force it:
+      // navigation.getParent()?.navigate('Landing');
+    } catch (error) {
+      Alert.alert(
+        tr('logoutFailedTitle', 'Sign out failed'),
+        error?.message || tr('logoutFailedMessage', 'Please try again.')
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
       {/* Page Label */}
-      <Text style={styles.pageLabel}>{t.profileTitle}</Text>
+      <Text style={styles.pageLabel}>{tr('profileTitle', 'Profile')}</Text>
 
       {/* User Card */}
       <View style={styles.headerCard}>
@@ -48,25 +69,41 @@ export default function ProfileScreen() {
 
       {/* Options */}
       <View style={styles.optionsCard}>
-        <OptionRow icon="person-outline" label={t.myAccount} subtext={t.myAccountSubtext} warning />
-
-        {/*Navigating to the settings screen*/}
         <OptionRow
-            icon="settings-outline"
-            label={t.settings || 'Settings'}
-            subtext={t.settingsSubtext || 'Manage your app preferences'}
-            onPress={() => navigation.navigate('Settings')}
+          icon="person-outline"
+          label={tr('myAccount', 'My Account')}
+          subtext={tr('myAccountSubtext', 'Manage your account details')}
+          warning
+        />
+
+        {/* Navigate to Settings stack */}
+        <OptionRow
+          icon="settings-outline"
+          label={tr('settings', 'Settings')}
+          subtext={tr('settingsSubtext', 'Manage your app preferences')}
+          onPress={() => navigation.navigate('Settings')}
         />
 
         <SwitchRow
           icon="lock-closed-outline"
-          label={t.faceId}
-          subtext={t.faceIdSubtext}
+          label={tr('faceId', 'Face ID')}
+          subtext={tr('faceIdSubtext', 'Use Face ID to unlock')}
           value={faceIdEnabled}
           onValueChange={setFaceIdEnabled}
         />
-        <OptionRow icon="shield-checkmark-outline" label={t.twoFA} subtext={t.twoFASubtext} />
-        <OptionRow icon="log-out-outline" label={t.logout} subtext={t.logoutSubtext} onPress={handleLogout} />
+
+        <OptionRow
+          icon="shield-checkmark-outline"
+          label={tr('twoFA', 'Two‑Factor Auth')}
+          subtext={tr('twoFASubtext', 'Add extra security')}
+        />
+
+        <OptionRow
+          icon="log-out-outline"
+          label={tr('logout', 'Log out')}
+          subtext={tr('logoutSubtext', 'Sign out of your account')}
+          onPress={handleLogout}
+        />
       </View>
     </View>
   );
@@ -78,7 +115,7 @@ const OptionRow = ({ icon, label, subtext, warning = false, onPress }) => (
       <Ionicons name={icon} size={24} color="#555" />
       <View>
         <Text style={styles.optionText}>{label}</Text>
-        {subtext && <Text style={styles.subtext}>{subtext}</Text>}
+        {subtext ? <Text style={styles.subtext}>{subtext}</Text> : null}
       </View>
     </View>
     {warning ? (
@@ -95,79 +132,9 @@ const SwitchRow = ({ icon, label, subtext, value, onValueChange }) => (
       <Ionicons name={icon} size={24} color="#555" />
       <View>
         <Text style={styles.optionText}>{label}</Text>
-        {subtext && <Text style={styles.subtext}>{subtext}</Text>}
+        {subtext ? <Text style={styles.subtext}>{subtext}</Text> : null}
       </View>
     </View>
     <Switch value={value} onValueChange={onValueChange} />
   </View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#D6E3FF',
-    paddingHorizontal: 20,
-    paddingTop: 40,
-  },
-  pageLabel: {
-    fontSize: 22,
-    fontWeight: '600',
-    marginBottom: 20,
-    color: '#243B55',
-  },
-  headerCard: {
-    backgroundColor: '#001AFF',
-    padding: 20,
-    borderRadius: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 30,
-    elevation: 3,
-  },
-  avatar: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    marginRight: 12,
-    backgroundColor: '#ccc',
-  },
-  name: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  handle: {
-    color: '#d0d0ff',
-    fontSize: 14,
-  },
-  optionsCard: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-  },
-  optionRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  iconLabel: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    flex: 1,
-  },
-  optionText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333',
-  },
-  subtext: {
-    fontSize: 13,
-    color: '#999',
-    marginTop: 2,
-  },
-});
