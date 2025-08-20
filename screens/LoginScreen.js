@@ -6,24 +6,28 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+
 
 export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const { signIn, signUp } = useContext(AuthContext);
 
   const handleLogin = async () => {
     if(rememberMe) {
       try {
-        await AsyncStorage.setItem('userEmail', email);
-        await AsyncStorage.setItem('userPassword', password);
+        // await AsyncStorage.setItem('userEmail', email);
+        // await AsyncStorage.setItem('userPassword', password);
+        await signIn(email.trim(), password);
       } catch (error) {
-        console.error('Error saving data', error);
+        console.error(err);
+        alert('Login failed. Check your email or password.')
       }
     }
-
-    navigation.navigate('Home');
   };
 
   return (
