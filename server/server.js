@@ -11,6 +11,15 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const session = require("express-session"); 
 const jwt = require("jsonwebtoken");
 const LAN_IP = '192.168.2.159';
+const { OAuth2Client } = require('google-auth-library');
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+const allowedAudiences = [
+  process.env.GOOGLE_CLIENT_ID,           // Web / Expo (you already have)
+  process.env.GOOGLE_EXPO_CLIENT_ID,      // add this to .env
+  process.env.GOOGLE_IOS_CLIENT_ID,       // add this to .env
+  process.env.GOOGLE_ANDROID_CLIENT_ID,   // add this to .env
+].filter(Boolean);
 
 
 // const googleAuthRoutes = require("./routes/googleAuth");
@@ -40,27 +49,67 @@ const callbackURL =
         })
       );
 
+
+// ✅ Verify Google ID token from mobile and issue your own JWT
+app.post('/api/auth/google/token', async (req, res) => {
+  try {
+    const { idToken } = req.body;
+    if (!idToken) return res.status(400).json({ message: 'Missing idToken' });
+
+    const ticket = await googleClient.verifyIdToken({
+      idToken,
+      audience: allowedAudiences,
+    });
+    const payload = ticket.getPayload(); // {sub, email, name, picture, ...}
+
+    // Build a profile-like object compatible with generateToken
+    const profile = {
+      id: payload.sub,
+      displayName: payload.name,
+      emails: [{ value: payload.email }],
+    };
+
+    const jwtToken = generateToken(profile);
+
+    // TODO: upsert user in Mongo if you want persistence
+    // await User.findOneAndUpdate(...)
+
+    res.json({
+      token: jwtToken,
+      user: {
+        id: payload.sub,
+        name: payload.name,
+        email: payload.email,
+        picture: payload.picture,
+      },
+    });
+  } catch (err) {
+    console.error('Google token verification failed:', err);
+    res.status(401).json({ message: 'Invalid Google token' });
+  }
+});
+
 // ✅ Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // ✅ Google OAuth strategy (bring back eventually)
-// passport.serializeUser((user, done) => done(null, user));
-// passport.deserializeUser((user, done) => done(null, user));
 
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//       callbackURL: callbackURL,
-//     },
-//     (accessToken, refreshToken, profile, done) => {
-//       console.log("🔑 Google profile:", profile);
-//       return done(null, profile);
-//     }
-//   )
-// );
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: callbackURL,
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log("🔑 Google profile:", profile);
+      return done(null, profile);
+    }
+  )
+);
 
 // ✅ Generate JWT after successful Google login
 function generateToken(profile) {

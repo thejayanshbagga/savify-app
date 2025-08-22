@@ -1,42 +1,99 @@
 // screens/LoginScreen.js
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { makeRedirectUri } from 'expo-auth-session';
+import * as AuthSession from 'expo-auth-session';
 
-export default function LoginScreen({navigation}) {
+
+WebBrowser.maybeCompleteAuthSession();
+
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const { signIn, signUp } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
+
+  // Use Google Auth Request with Expo proxy redirect
+
+  const EXPO_PROXY_REDIRECT = 'https://auth.expo.io/@adit1212/SavifyApp';
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: '176656121905-h6q8cu9efk5ar4jpuvkodrnbs1bln0oh.apps.googleusercontent.com',
+    iosClientId: '176656121905-bds6583j4j3tofbul6v6d53aq8dkhldv.apps.googleusercontent.com',
+    androidClientId: '176656121905-adtnm84to6tt532endtudoablfmpe67v.apps.googleusercontent.com',
+    useProxy: true,
+    responseType: 'id_token',
+    scopes: ['openid', 'profile', 'email'],
+    redirectUri: EXPO_PROXY_REDIRECT,
+});
+
+console.log('Forced redirect:', EXPO_PROXY_REDIRECT);
+console.log('Auth request redirectUri:', request?.redirectUri);
+
+
+  // API base for your server
+  const API_BASE = 'http://192.168.2.159:5000';
 
   const handleLogin = async () => {
-    if(rememberMe) {
-      try {
-        // await AsyncStorage.setItem('userEmail', email);
-        // await AsyncStorage.setItem('userPassword', password);
-        await signIn(email.trim(), password);
-      } catch (error) {
-        console.error(err);
-        alert('Login failed. Check your email or password.')
+    try {
+      await signIn(email.trim(), password);
+    } catch (err) {
+      console.error(err);
+      alert('Login failed. Check your email or password.');
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const res = await promptAsync({ useProxy: true });
+      if (res.type !== 'success') return;
+
+      const idToken = res.params?.id_token || res.authentication?.idToken;
+      if (!idToken) {
+        alert('No Google ID token returned');
+        return;
       }
+
+      // Verify on your server & mint your app JWT
+      const apiRes = await fetch(`${API_BASE}/api/auth/google/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!apiRes.ok) {
+        alert('Google sign-in failed.');
+        return;
+      }
+
+      const data = await apiRes.json();
+      await AsyncStorage.setItem('authToken', data.token);
+      await AsyncStorage.setItem('userProfile', JSON.stringify(data.user));
+
+      navigation.replace('MainTabs');
+    } catch (e) {
+      console.error('Google sign-in error:', e);
+      alert('Google sign-in error. Please try again.');
     }
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#5C8EDC]`}
->
+    <SafeAreaView style={tw`flex-1 bg-[#5C8EDC]`}>
       <View style={tw`flex-1 justify-center px-6`}>
-        <Text style={tw`text-5xl font-bold text-left text-primary mb-6`}>Welcome back! Glad to see you again!</Text>
+        <Text style={tw`text-5xl font-bold text-left text-black mb-6`}>
+          Welcome back! Glad to see you again!
+        </Text>
 
-        {/*Email address input*/}
         <TextInput
           style={tw`border border-gray-300 p-3 mb-4 rounded-2 bg-white`}
           placeholder="Email Address"
@@ -45,14 +102,13 @@ export default function LoginScreen({navigation}) {
           onChangeText={setEmail}
         />
 
-        {/*Password input with show password eye icon*/}
         <View style={tw`flex-row items-center border border-gray-300 rounded-2 bg-white mb-4 px-3`}>
           <TextInput
-              style={tw`flex-1 py-3`}
-              placeholder="Password"
-              secureTextEntry={!showPassword}
-              value={password}
-              onChangeText={setPassword}
+            style={tw`flex-1 py-3`}
+            placeholder="Password"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
           />
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Feather name={showPassword ? 'eye-off' : 'eye'} size={22} color="#333" />
@@ -60,11 +116,16 @@ export default function LoginScreen({navigation}) {
         </View>
 
         <View style={tw`flex-row justify-between items-center mb-4`}>
-          <TouchableOpacity 
-          style={tw`flex-row items-center`}
-          onPress={() => setRememberMe(!rememberMe)} 
+          <TouchableOpacity
+            style={tw`flex-row items-center`}
+            onPress={() => setRememberMe(!rememberMe)}
           >
-            <View style={tw`w-5 h-5 rounded-full border border-black mr-2 items-center justify-center bg-${rememberMe ? 'black' : 'white'}`}>
+            <View
+              style={[
+                tw`w-5 h-5 rounded-full border border-black mr-2 items-center justify-center`,
+                { backgroundColor: rememberMe ? '#000' : '#fff' },
+              ]}
+            >
               {rememberMe && <View style={tw`w-2.5 h-2.5 rounded-full bg-white`} />}
             </View>
             <Text style={tw`text-black`}>Remember Me</Text>
@@ -75,35 +136,32 @@ export default function LoginScreen({navigation}) {
           </TouchableOpacity>
         </View>
 
-        {/*Login button*/}
-        <TouchableOpacity style={tw`bg-primary py-3 rounded`} onPress={handleLogin}>
-          <Text style={tw`border border-white-300 p-3 rounded-2 bg-black text-center text-white font-bold`}>
-            Log In
-          </Text>
+        <TouchableOpacity style={tw`bg-black py-3 rounded mb-6`} onPress={handleLogin}>
+          <Text style={tw`text-center text-white font-bold`}>Log In</Text>
         </TouchableOpacity>
 
-        {/*Or wish dash between regular sign in and sign in with Google*/}
         <View style={tw`flex-row items-center my-6`}>
           <View style={tw`flex-1 h-px bg-gray-300`} />
-          <Text style={tw`mx-4 text-gray-6000 text-base`}>Or with</Text>
+          <Text style={tw`mx-4 text-gray-600 text-base`}>Or with</Text>
           <View style={tw`flex-1 h-px bg-gray-300`} />
         </View>
 
         <TouchableOpacity
-            style={[tw`mt-2 flex-row items-center justify-center bg-white py-4 rounded-lg border border-gray-300 self-center`, { width: 200 }]}
-            onPress={() => console.log('Google Sign In')}
+          style={[
+            tw`mt-2 flex-row items-center justify-center bg-white py-4 rounded-lg border border-gray-300 self-center`,
+            { width: 200 },
+          ]}
+          onPress={handleGoogleSignIn}
         >
-
           <View style={tw`flex-row items-center`}>
             <Image
-                source={require('../assets/google-logo.png')}
-                style={{ width: 20, height: 20, marginRight: 8 }}
-                resizeMode="contain"
+              source={require('../assets/google-logo.png')}
+              style={{ width: 20, height: 20, marginRight: 8 }}
+              resizeMode="contain"
             />
             <Text style={tw`text-black font-medium text-lg`}>Google</Text>
           </View>
         </TouchableOpacity>
-
       </View>
     </SafeAreaView>
   );
