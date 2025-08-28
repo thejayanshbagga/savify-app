@@ -52,6 +52,8 @@ import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import MainTabs from './navigation/MainTabs';
 import ScoreScreen from './screens/ScoreScreen';
 import RedeemScreen from './screens/RedeemScreen';
+import TwoFAScreen from './screens/TwoFAScreen';
+import VerifyCodeScreen from './screens/VerifyCodeScreen';
 import api, { attachToken } from './lib/api';
 
 const Stack = createStackNavigator();
@@ -76,6 +78,9 @@ function RootNavigator() {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+
+          <Stack.Screen name="TwoFA" component={TwoFAScreen} />
+          <Stack.Screen name="VerifyCode" component={VerifyCodeScreen} />
         </>
       )}
     </Stack.Navigator>

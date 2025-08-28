@@ -96,6 +96,7 @@ export default function ProfileScreen() {
           icon="shield-checkmark-outline"
           label={tr('twoFA', 'Two‑Factor Auth')}
           subtext={tr('twoFASubtext', 'Add extra security')}
+          onPress={() => navigation.navigate('TwoFA')}
         />
 
         <OptionRow

@@ -18,21 +18,35 @@ export default function LoginScreen({navigation}) {
   const { signIn, signUp } = useContext(AuthContext);
 
   const handleLogin = async () => {
-    if(rememberMe) {
-      try {
-        // await AsyncStorage.setItem('userEmail', email);
-        // await AsyncStorage.setItem('userPassword', password);
-        await signIn(email.trim(), password);
-      } catch (error) {
-        console.error(err);
-        alert('Login failed. Check your email or password.')
-      }
+  try {
+    const user = await signIn(email.trim(), password); 
+    // Assume user = { id, twoFactorEnabled, phone }
+
+    // If "Remember Me" is checked, save credentials locally
+    if (rememberMe) {
+      await AsyncStorage.setItem('userEmail', email.trim());
+      await AsyncStorage.setItem('userPassword', password);
     }
-  };
+
+    // Now check 2FA setting
+    if (user?.twoFactorEnabled) {
+      // Ask backend to send code here (e.g., Twilio/Firebase)
+      // await sendVerificationCode(user.phone);
+
+      navigation.navigate('VerifyCode', { userId: user.id });
+    } else {
+      navigation.replace('MainTabs');
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert('Login failed. Check your email or password.');
+  }
+};
+
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#5C8EDC]`}
->
+    <SafeAreaView style={tw`flex-1 bg-[#5C8EDC]`}>
       <View style={tw`flex-1 justify-center px-6`}>
         <Text style={tw`text-5xl font-bold text-left text-primary mb-6`}>Welcome back! Glad to see you again!</Text>
 
