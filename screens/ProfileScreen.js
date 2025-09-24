@@ -4,6 +4,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useTranslation from '../hooks/useTranslations';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
+import styles from '../styles/ProfileScreen.styles.js';
 
 export default function ProfileScreen() {
   const tRaw = useTranslation();
