@@ -29,12 +29,13 @@ export default function AuthProvider({ children }) {
   }, []);
 
   const signUp = useCallback(async (email, password) => {
-    await apiSignup(email, password);
-    const { token } = await apiLogin(email, password); // auto-login
-    await saveToken(token);
-    setToken(token);
-    attachToken(token);          // ✅ attach after signup
+  const { token } = await apiSignup(email, password); // backend returns token now
+  await saveToken(token);
+  setToken(token);
+  attachToken(token); // ✅ auto-authenticated
   }, []);
+
+
 
   const signOut = useCallback(async () => {
     await clearToken();
