@@ -45,47 +45,19 @@ console.log('Auth request redirectUri:', request?.redirectUri);
   const API_BASE = 'http://192.168.2.159:5000';
 
   const handleLogin = async () => {
-    try {
-      await signIn(email.trim(), password);
-    } catch (err) {
-      console.error(err);
-      alert('Login failed. Check your email or password.');
+  try {
+    await signIn(email.trim(), password);
+    if (rememberMe) {
+      // if you want to store credentials later
+      // await AsyncStorage.setItem('userEmail', email);
+      // await AsyncStorage.setItem('userPassword', password);
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert('Login failed. Check your email or password.');
+  }
+};
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const res = await promptAsync({ useProxy: true });
-      if (res.type !== 'success') return;
-
-      const idToken = res.params?.id_token || res.authentication?.idToken;
-      if (!idToken) {
-        alert('No Google ID token returned');
-        return;
-      }
-
-      // Verify on your server & mint your app JWT
-      const apiRes = await fetch(`${API_BASE}/api/auth/google/token`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idToken }),
-      });
-
-      if (!apiRes.ok) {
-        alert('Google sign-in failed.');
-        return;
-      }
-
-      const data = await apiRes.json();
-      await AsyncStorage.setItem('authToken', data.token);
-      await AsyncStorage.setItem('userProfile', JSON.stringify(data.user));
-
-      navigation.replace('MainTabs');
-    } catch (e) {
-      console.error('Google sign-in error:', e);
-      alert('Google sign-in error. Please try again.');
-    }
-  };
 
   return (
     <SafeAreaView style={tw`flex-1 bg-[#5C8EDC]`}>
