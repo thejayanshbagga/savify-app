@@ -59,12 +59,12 @@ router.post("/signup", async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ message: "❌ Email and password required" });
+      return res.status(400).json({ message: "Email and password required" });
     }
 
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ message: "⚠️ Email already registered" });
+      return res.status(400).json({ message: "Email already registered" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -74,10 +74,10 @@ router.post("/signup", async (req, res) => {
     // Generate JWT Token right after signup
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-    console.log("✅ User registered and token generated:", { email: user.email });
+    console.log("User registered and token generated:", { email: user.email });
 
     res.status(201).json({
-      message: "✅ User registered successfully",
+      message: "User registered successfully",
       token,
       user: {
         id: user._id,
@@ -85,10 +85,47 @@ router.post("/signup", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("❌ Signup Error:", error);
-    res.status(500).json({ message: "⚠️ Server error, try again later" });
+    console.error("Signup Error:", error);
+    res.status(500).json({ message: "Server error, try again later" });
   }
 });
 
+
+// Google OAuth route
+router.post("/google/token", async (req, res) => {
+  try {
+    const { idToken } = req.body;
+    if (!idToken) return res.status(400).json({ message: "No ID token provided" });
+
+    // Verify Google ID token
+    const { OAuth2Client } = require("google-auth-library");
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+
+    const email = payload.email;
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = new User({ email, password: null });
+      await user.save();
+    }
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "2h" });
+
+    res.json({
+      message: "Google sign-in successful",
+      token,
+      user: { id: user._id, email: user.email },
+    });
+  } catch (err) {
+    console.error("Google sign-in error:", err);
+    res.status(500).json({ message: "Google authentication failed" });
+  }
+});
 
 module.exports = router;

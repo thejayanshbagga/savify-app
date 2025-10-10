@@ -5,9 +5,9 @@ import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { AuthContext } from '../context/AuthContext';
-
+import { useEffect } from 'react';
+import { useGoogleSignIn } from '../hooks/useGoogleSignIn';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { makeRedirectUri } from 'expo-auth-session';
@@ -25,24 +25,23 @@ export default function LoginScreen({ navigation }) {
 
   // Use Google Auth Request with Expo proxy redirect
 
-  const EXPO_PROXY_REDIRECT = 'https://auth.expo.io/@adit1212/SavifyApp';
+  const { request, response, signIn: googleSignIn, exchange } = useGoogleSignIn();
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: '176656121905-h6q8cu9efk5ar4jpuvkodrnbs1bln0oh.apps.googleusercontent.com',
-    iosClientId: '176656121905-bds6583j4j3tofbul6v6d53aq8dkhldv.apps.googleusercontent.com',
-    androidClientId: '176656121905-adtnm84to6tt532endtudoablfmpe67v.apps.googleusercontent.com',
-    useProxy: true,
-    responseType: 'id_token',
-    scopes: ['openid', 'profile', 'email'],
-    redirectUri: EXPO_PROXY_REDIRECT,
-});
-
-console.log('Forced redirect:', EXPO_PROXY_REDIRECT);
-console.log('Auth request redirectUri:', request?.redirectUri);
-
-
-  // API base for your server
-  const API_BASE = 'http://192.168.2.159:5000';
+  useEffect(() => {
+    const handleResponse = async () => {
+      if (response?.type === 'success') {
+        try {
+          const data = await exchange();
+          console.log('Google Sign-in success:', data);
+          navigation.navigate('MainTabs');
+        } catch (err) {
+          console.error('Google Sign-in error:', err);
+          alert('Google sign-in failed. Please try again.');
+        }
+      }
+    };
+    handleResponse();
+  }, [response]);
 
   const handleLogin = async () => {
   try {
@@ -123,7 +122,8 @@ console.log('Auth request redirectUri:', request?.redirectUri);
             tw`mt-2 flex-row items-center justify-center bg-white py-4 rounded-lg border border-gray-300 self-center`,
             { width: 200 },
           ]}
-          onPress={handleGoogleSignIn}
+          onPress={googleSignIn}
+          disabled={!request}
         >
           <View style={tw`flex-row items-center`}>
             <Image

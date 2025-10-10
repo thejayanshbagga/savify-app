@@ -4,6 +4,13 @@
     "owner": "adit1212",
     "slug": "SavifyApp",
     "version": "1.0.0",
+    "sdkVersion": "54.0.0",
+    "extra": {
+      "API_BASE_URL": "http://192.168.2.159:5000",
+      "GOOGLE_EXPO_CLIENT_ID": "176656121905-54f1f4jf6ehdafoqgqeuptj21jh3t37b.apps.googleusercontent.com",
+      "GOOGLE_IOS_CLIENT_ID": "176656121905-bds6583j4j3tofbul6v6d53aq8dkhldv.apps.googleusercontent.com",
+      "GOOGLE_ANDROID_CLIENT_ID": "176656121905-adtnm84to6tt532endtudoablfmpe67v.apps.googleusercontent.com"
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -31,7 +38,8 @@
     },
     "plugins": [
       "expo-localization",
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-web-browser"
     ]
   }
 }
