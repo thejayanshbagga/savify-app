@@ -20,6 +20,9 @@ const emailRoutes = require("./routes/email");
 const splitRoutes = require("./routes/split"); // make sure this file uses CommonJS (module.exports = router)
 const saveRoutes = require("./routes/save");
 
+
+const scoreRoutes = require("./routes/score");
+
 // Initialize Express app
 const app = express();
 app.use(express.json());
@@ -111,6 +114,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api", emailRoutes);
 app.use("/api/splits", splitRoutes); // pluralized here for REST convention
 app.use("/api/saves", saveRoutes);
+
+app.use("/api/scores", scoreRoutes);
 
 // Catch-all route for SPA fallback & API 404
 app.get("*", (req, res) => {
