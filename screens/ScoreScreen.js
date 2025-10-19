@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import styles from '../styles/ScoreScreen.styles';
 import BackgroundBlob from '../components/BackgroundBlob';
 import useTranslation from '../hooks/useTranslations';
@@ -9,91 +9,45 @@ import useTranslation from '../hooks/useTranslations';
 export default function ScoreScreen() {
     const navigation = useNavigation();
     const t = useTranslation();
+    const [score, setScore] = useState(0);
+
+    useEffect(() => {
+        const fetchScore = async () => {
+            try {
+                console.log("Fetching score...");
+                const response = await fetch('http://localhost:5050/api/scores/testUser');
+                console.log("Response status:", response.status);
+                const data = await response.json();
+                console.log("Fetched data:", data);
+
+                const scoreValue = Array.isArray(data) ? data[0]?.score : data?.score;
+                console.log("Parsed scoreValue:", scoreValue);
+
+                if (scoreValue !== undefined) {
+                    setScore(scoreValue);
+                } else {
+                    console.warn("No score found in API response");
+                }
+            } catch (error) {
+                console.error("Error fetching score:", error);
+            }
+        };
+
+        fetchScore();
+    }, []);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#5C8EDC' }}>
             <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-                {/* Score Badge */}
                 <View style={styles.scoreContainer}>
                     <BackgroundBlob>
                         <Text style={styles.scoreLabel}>{t.savifyScore}</Text>
-                        <Text style={styles.scoreValue}>3280</Text>
+                        <Text style={styles.scoreValue}>
+                            {score !== 0 ? score : 'Loading...'}
+                        </Text>
                     </BackgroundBlob>
                 </View>
-
-                {/* Rewards Section */}
-                <View style={styles.section}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>{t.getRewarded}</Text>
-                    </View>
-
-                    <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        snapToInterval={232}
-                        decelerationRate="fast"
-                        contentContainerStyle={styles.rewardsRow}
-                    >
-                        <TouchableOpacity
-                            style={styles.rewardCard}
-                            onPress={() => navigation.navigate('Redeem', {
-                                title: t.largeCaramelFrappucino,
-                                expiry: 'November 30th, 2025',
-                            })}
-                        >
-                            <Text style={styles.rewardTitle}>{t.largeCaramelFrappucino}</Text>
-                            <Text style={styles.rewardSubtitle}>{t.rewardEndsOn} November 30th, 2025</Text>
-                            <Text style={styles.rewardAction}>{t.claimVoucher}</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={styles.rewardCard}
-                            onPress={() => navigation.navigate('Redeem', {
-                                title: t.striveChocolate,
-                                expiry: 'January 21st, 2025',
-                            })}
-                        >
-                            <Text style={styles.rewardTitle}>{t.striveChocolate}</Text>
-                            <Text style={styles.rewardSubtitle}>{t.rewardEndsOn} January 21st, 2025</Text>
-                            <Text style={styles.rewardAction}>{t.claimVoucher}</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={styles.rewardCard}
-                            onPress={() => navigation.navigate('Redeem', {
-                                title: t.freeEnergyDrink,
-                                expiry: 'December 10th, 2025',
-                            })}
-                        >
-                            <Text style={styles.rewardTitle}>{t.freeEnergyDrink}</Text>
-                            <Text style={styles.rewardSubtitle}>{t.rewardEndsOn} December 10th, 2025</Text>
-                            <Text style={styles.rewardAction}>{t.claimVoucher}</Text>
-                        </TouchableOpacity>
-                    </ScrollView>
-                </View>
-
-                {/* Challenges Section */}
-                <View style={styles.section}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>{t.savingsChallenges}</Text>
-                    </View>
-
-                    <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        snapToInterval={112}
-                        decelerationRate="fast"
-                        contentContainerStyle={styles.challengesRow}
-                    >
-                        {[1, 2, 3, 4, 5].map((id) => (
-                            <View key={id} style={styles.challengeBlock} />
-                        ))}
-                    </ScrollView>
-                </View>
-
-                <View style={{ height: 100 }} />
             </ScrollView>
         </SafeAreaView>
     );
 }
-
