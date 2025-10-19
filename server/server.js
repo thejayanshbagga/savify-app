@@ -18,6 +18,7 @@ const LAN_IP = '192.168.2.159';
 const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
 const splitRoutes = require("./routes/split"); // make sure this file uses CommonJS (module.exports = router)
+const saveRoutes = require("./routes/save");
 
 
 const scoreRoutes = require("./routes/score");
@@ -86,8 +87,6 @@ function generateToken(profile) {
 const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/savify";
 mongoose
     .connect(MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
         dbName: "savify",
     })
     .then(() => console.log("MongoDB Connected Successfully"))
@@ -114,6 +113,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api", emailRoutes);
 app.use("/api/splits", splitRoutes); // pluralized here for REST convention
+app.use("/api/saves", saveRoutes);
 
 app.use("/api/scores", scoreRoutes);
 
