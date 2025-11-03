@@ -197,9 +197,7 @@ export default function SettingsScreen() {
             icon="document-text-outline"
             label={tr('termsAndPrivacy', 'Terms & Privacy Policy')}
             subtext={tr('termsAndPrivacySubtext', 'Read legal documents')}
-            onPress={() =>
-              Alert.alert(tr('termsAndPrivacy', 'Terms & Privacy Policy'), tr('termsAndPrivacySubtext', 'Open web browser to terms.'))
-            }
+            onPress={() => navigation.navigate('PrivacyPolicy')}
             isLast
           />
         </View>

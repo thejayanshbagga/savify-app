@@ -14,6 +14,7 @@ import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import MainTabs from './navigation/MainTabs';
 import ScoreScreen from './screens/ScoreScreen';
 import RedeemScreen from './screens/RedeemScreen';
+import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
 import api, { attachToken } from './lib/api';
 
 const Stack = createStackNavigator();
@@ -31,6 +32,7 @@ function RootNavigator() {
           <Stack.Screen name="Score" component={ScoreScreen} />
           <Stack.Screen name="Redeem" component={RedeemScreen} />
           <Stack.Screen name="Calculator" component={CalculatorScreen} />
+          <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ headerShown: true, title: 'Privacy Policy & Terms' }} />
         </>
       ) : (
         <>
