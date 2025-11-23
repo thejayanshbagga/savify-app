@@ -17,6 +17,9 @@ import styles, { modalStyles } from '../styles/SettingsScreen.styles';
 import { useNavigation } from '@react-navigation/native';
 import tw from 'twrnc';
 
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
+
 // safe translator to call tr('key', 'Fallback') whether the hook returns a fn or an object
 const useSafeTranslator = () => {
   const tRaw = useTranslation();
@@ -75,7 +78,11 @@ export default function SettingsScreen() {
 
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [pushNotificationsEnabled, setPushNotificationsEnabled] = useState(true);
-  const [darkModeEnabled, setDarkModeEnabled] = useState(false);
+
+  const { theme, setTheme, currentTheme } = useContext(ThemeContext);
+
+  const darkModeEnabled = currentTheme === "dark"; // convert theme to boolean for the switch to dark mode
+
 
   const currentLanguageLabel = LANGUAGES.find(lang => lang.value === language)?.label || tr('selectLanguage', 'Select Language');
 
@@ -175,7 +182,9 @@ export default function SettingsScreen() {
             label={tr('darkMode', 'Dark Mode')}
             subtext={tr('darkModeSubtext', 'Switch to a dark theme')}
             value={darkModeEnabled}
-            onValueChange={setDarkModeEnabled}
+            onValueChange={(value) => {
+              setTheme(value ? "dark" : "light");
+            }}
             isLast
           />
         </View>
