@@ -40,8 +40,9 @@ yarn-error.*
 
 # local env files
 .env*.local
-
+.env.development
 .env
+
 
 # typescript
 *.tsbuildinfo
@@ -51,6 +52,4 @@ logs/
 *.log
 
 # files
-**/api.js
-**/ScoreScreen.js
-**/server.js
+lib/api.js

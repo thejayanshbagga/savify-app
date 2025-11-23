@@ -12,7 +12,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
 
-const LAN_IP = '192.168.2.159';
+const LAN_IP = process.env.EXPO_PUBLIC_LAN_IP || '127.0.0.1';
 
 // Import routes
 const authRoutes = require("./routes/auth");
@@ -97,21 +97,17 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // CORS setup
 app.use(
-    cors({
-        origin: [
-            // "http://localhost:19006",        // Expo web tools
-            // `http://${LAN_IP}:19006`,       // Expo LAN web preview
-            // `exp://${LAN_IP}:19000`,        // Expo Go on device
-
-            "http://localhost:8081",
-            `http://${LAN_IP}:8081`,
-            `exp://${LAN_IP}:8081`,
-            `http://${LAN_IP}:5000`,       // direct API calls
-            "https://savify.ca",
-        ],
-        credentials: true,
-    })
+  cors({
+    origin: [
+      `http://${LAN_IP}:8081`,
+      `exp://${LAN_IP}:8081`,
+      `http://${LAN_IP}:5000`,
+      "https://savify.ca",
+    ],
+    credentials: true,
+  })
 );
+
 
 // Register routes BEFORE catch-all
 app.use("/api/auth", authRoutes);
