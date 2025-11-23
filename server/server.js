@@ -99,9 +99,13 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(
     cors({
         origin: [
-            "http://localhost:19006",        // Expo web tools
-            `http://${LAN_IP}:19006`,       // Expo LAN web preview
-            `exp://${LAN_IP}:19000`,        // Expo Go on device
+            // "http://localhost:19006",        // Expo web tools
+            // `http://${LAN_IP}:19006`,       // Expo LAN web preview
+            // `exp://${LAN_IP}:19000`,        // Expo Go on device
+
+            "http://localhost:8081",
+            `http://${LAN_IP}:8081`,
+            `exp://${LAN_IP}:8081`,
             `http://${LAN_IP}:5000`,       // direct API calls
             "https://savify.ca",
         ],
