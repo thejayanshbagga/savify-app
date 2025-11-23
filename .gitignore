@@ -50,5 +50,7 @@ yarn-error.*
 logs/
 *.log
 
-# api.js file
+# files
 **/api.js
+**/ScoreScreen.js
+**/server.js
