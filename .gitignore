@@ -49,3 +49,6 @@ yarn-error.*
 # Logs
 logs/
 *.log
+
+# api.js file
+**/api.js
