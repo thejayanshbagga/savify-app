@@ -1,6 +1,10 @@
 // App.js
 import React, { useContext } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { LanguageProvider } from './context/LanguageContext';
@@ -15,46 +19,65 @@ import MainTabs from './navigation/MainTabs';
 import ScoreScreen from './screens/ScoreScreen';
 import RedeemScreen from './screens/RedeemScreen';
 import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
-import api, { attachToken } from './lib/api';
+
+import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
 
 const Stack = createStackNavigator();
 
 function RootNavigator() {
   const { isAuthenticated, loading } = useContext(AuthContext);
 
-  if (loading) return null; // could add splash screen later
+  if (loading) return null;
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isAuthenticated ? (
-        <>
-          <Stack.Screen name="MainTabs" component={MainTabs} />
-          <Stack.Screen name="Score" component={ScoreScreen} />
-          <Stack.Screen name="Redeem" component={RedeemScreen} />
-          <Stack.Screen name="Calculator" component={CalculatorScreen} />
-          <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ headerShown: true, title: 'Privacy Policy & Terms' }} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="Landing" component={LandingScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Signup" component={SignupScreen} />
-          <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-          <Stack.Screen name="MainTabs" component={MainTabs} />
-        </>
-      )}
-    </Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {isAuthenticated ? (
+            <>
+              <Stack.Screen name="MainTabs" component={MainTabs} />
+              <Stack.Screen name="Score" component={ScoreScreen} />
+              <Stack.Screen name="Redeem" component={RedeemScreen} />
+              <Stack.Screen name="Calculator" component={CalculatorScreen} />
+              <Stack.Screen
+                  name="PrivacyPolicy"
+                  component={PrivacyPolicyScreen}
+                  options={{
+                    headerShown: true,
+                    title: 'Privacy Policy & Terms',
+                  }}
+              />
+            </>
+        ) : (
+            <>
+              <Stack.Screen name="Landing" component={LandingScreen} />
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Signup" component={SignupScreen} />
+              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+              <Stack.Screen name="MainTabs" component={MainTabs} />
+            </>
+        )}
+      </Stack.Navigator>
+  );
+}
+
+function ThemedNavigation() {
+  const { currentTheme } = useContext(ThemeContext);
+  const navTheme = currentTheme === "dark" ? DarkTheme : DefaultTheme;
+
+  return (
+      <NavigationContainer theme={navTheme}>
+        <RootNavigator />
+      </NavigationContainer>
   );
 }
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <AuthProvider>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </AuthProvider>
-    </LanguageProvider>
+      <ThemeProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <ThemedNavigation />
+          </AuthProvider>
+        </LanguageProvider>
+      </ThemeProvider>
   );
 }
