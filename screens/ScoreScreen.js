@@ -15,7 +15,7 @@ export default function ScoreScreen() {
         const fetchScore = async () => {
             try {
                 console.log("Fetching score...");
-                const response = await fetch('http://localhost:5050/api/scores/testUser');
+                const response = await fetch("http://10.0.0.158:5000/api/scores/testUser");
                 console.log("Response status:", response.status);
                 const data = await response.json();
                 console.log("Fetched data:", data);
