@@ -11,30 +11,35 @@ export default function ScoreScreen() {
     const t = useTranslation();
     const [score, setScore] = useState(0);
 
+
     useEffect(() => {
-        const fetchScore = async () => {
-            try {
-                console.log("Fetching score...");
-                const response = await fetch("http://10.0.0.158:5000/api/scores/testUser");
-                console.log("Response status:", response.status);
-                const data = await response.json();
-                console.log("Fetched data:", data);
+    const fetchScore = async () => {
+        try {
+            console.log("API URL:", process.env.EXPO_PUBLIC_API_URL);
+            console.log("Fetching score...");
 
-                const scoreValue = Array.isArray(data) ? data[0]?.score : data?.score;
-                console.log("Parsed scoreValue:", scoreValue);
+            const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/scores/testUser`);
+            console.log("Response status:", response.status);
 
-                if (scoreValue !== undefined) {
-                    setScore(scoreValue);
-                } else {
-                    console.warn("No score found in API response");
-                }
-            } catch (error) {
-                console.error("Error fetching score:", error);
+            const data = await response.json();
+            console.log("Fetched data:", data);
+
+            const scoreValue = Array.isArray(data) ? data[0]?.score : data?.score;
+
+            if (scoreValue !== undefined) {
+                setScore(scoreValue);
+            } else {
+                console.warn("No score found in API response");
             }
-        };
 
-        fetchScore();
-    }, []);
+        } catch (error) {
+            console.error("Error fetching score:", error);
+        }
+    };
+
+    fetchScore();
+}, []);
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#5C8EDC' }}>
