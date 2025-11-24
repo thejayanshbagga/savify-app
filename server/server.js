@@ -11,6 +11,7 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
+const twoFARoutes = require("./routes/2fa");
 
 const LAN_IP = process.env.EXPO_PUBLIC_LAN_IP || '127.0.0.1';
 
@@ -116,6 +117,7 @@ app.use("/api/splits", splitRoutes); // pluralized here for REST convention
 app.use("/api/saves", saveRoutes);
 
 app.use("/api/scores", scoreRoutes);
+app.use("/api/2fa", twoFARoutes);
 
 // Catch-all route for SPA fallback & API 404
 app.get("*", (req, res) => {
