@@ -1,4 +1,5 @@
 // screens/SettingsScreen.js
+import { registerForPushNotifications } from '../utils/notifications';
 import React, { useMemo, useState } from 'react';
 import {
   View,
@@ -162,13 +163,30 @@ export default function SettingsScreen() {
         <Text style={styles.sectionHeader}>{tr('generalSettings', 'General')}</Text>
         <View style={styles.optionsCard}>
           <SwitchRow
-            icon="notifications-outline"
-            label={tr('notifications', 'Push Notifications')}
-            subtext={tr('notificationsSubtext', 'Control what you are notified about')}
-            value={pushNotificationsEnabled}
-            onValueChange={setPushNotificationsEnabled}
-          />
+              icon="notifications-outline"
+              label={tr('notifications', 'Push Notifications')}
+              subtext={tr('notificationsSubtext', 'Control what you are notified about')}
+              value={pushNotificationsEnabled}
+              onValueChange={async () => {
+                const newVal = !pushNotificationsEnabled;
+                setPushNotificationsEnabled(newVal);
 
+                if (newVal) {
+                  const token = await registerForPushNotifications();
+
+                  if (token) {
+                    console.log('Expo Push Token:', token);
+
+                    // Optional: send token to backend
+                    // await fetch('https://your-api.com/save-token', {
+                    //   method: 'POST',
+                    //   headers: { 'Content-Type': 'application/json' },
+                    //   body: JSON.stringify({ token }),
+                    // });
+                  }
+                }
+              }}
+            />
           {/* Language row opens modal */}
           <OptionRow
             icon="globe-outline"
@@ -210,6 +228,26 @@ export default function SettingsScreen() {
             isLast
           />
         </View>
+
+        {/* Test Notification Button */}
+        <TouchableOpacity
+            onPress={async () => {
+              const perm = await Notifications.getPermissionsAsync();
+              console.log('iOS notification permission status:', perm);
+
+              await Notifications.scheduleNotificationAsync({
+                content: {
+                  title: 'Savify Test Alert',
+                  body: 'Test Alert Works',
+                },
+                trigger: { seconds: 1 },
+              });
+            }}
+            style={tw`mt-4 mx-5 p-3 rounded-lg bg-blue-500`}
+          >
+            <Text style={tw`text-white text-center`}>Send Test Notification</Text>
+          </TouchableOpacity>
+
 
         <View style={styles.pageBottomSpacer} />
       </ScrollView>
