@@ -10,7 +10,7 @@ export default StyleSheet.create({
     header: {
         alignItems: 'center',
         marginBottom: 24,
-        // paddingTop: 12,
+        position: 'relative',
     },
     monthText: {
         color: '#E5E7EB',
@@ -74,5 +74,20 @@ export default StyleSheet.create({
         fontSize: 12,
         color: '#6B7280',
         marginBottom: 4,
+    },
+    dropdown: {
+    position: 'absolute',
+    top: 25,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    width: 140,
+    zIndex: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 4,
     },
 });
