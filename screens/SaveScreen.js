@@ -30,7 +30,7 @@ export default function SaveScreen() {
             ]
         },
         August: {
-            totalSaved: 32.50,
+            totalSaved: 32.57,
             totalSpending: 540,
             progress: 0.06,
             breakdown: [
@@ -56,7 +56,7 @@ export default function SaveScreen() {
                     </TouchableOpacity>
 
                     {showPicker && (
-                        <View style={{ backgroundColor: '#fff', borderRadius: 12, padding: 8, marginTop: 8 }}>
+                        <View style={styles.dropdown}>
                             {Object.keys(fakeMonths).map(month => (
                                 <TouchableOpacity
                                     key={month}
