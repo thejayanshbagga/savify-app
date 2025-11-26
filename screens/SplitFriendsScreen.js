@@ -208,13 +208,6 @@ export default function FriendsTab() {
           </View>
         )}
 
-        {/* Add expense
-        {selectedTab === 'friends' && (
-          <TouchableOpacity onPress={addFakeExpense} style={styles.addExpenseButton}>
-            <Text style={styles.addExpenseButtonText}>Add Fake Expense</Text>
-          </TouchableOpacity>
-        )} */}
-
         {/* Friends / Activity List */}
         {selectedTab === 'friends' && (
           <FlatList
