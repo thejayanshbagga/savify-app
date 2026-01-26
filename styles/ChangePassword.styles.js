@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 20 },
+  container: { flex: 1, backgroundColor: '#fff', paddingHorizontal: 20 },
   title: { fontSize: 22, fontWeight: '700', marginBottom: 16 },
   field: { marginBottom: 14 },
   label: { fontSize: 14, color: '#333', marginBottom: 6 },

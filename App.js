@@ -30,7 +30,7 @@ function RootNavigator() {
   if (loading) return null;
 
   return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator key={isAuthenticated ? "auth" : "guest"} screenOptions={{ headerShown: false }}>
         {isAuthenticated ? (
             <>
               <Stack.Screen name="MainTabs" component={MainTabs} />
@@ -40,10 +40,7 @@ function RootNavigator() {
               <Stack.Screen
                   name="PrivacyPolicy"
                   component={PrivacyPolicyScreen}
-                  options={{
-                    headerShown: true,
-                    title: 'Privacy Policy & Terms',
-                  }}
+                  options={{  headerShown: true, title: 'Privacy Policy & Terms',}}
               />
             </>
         ) : (

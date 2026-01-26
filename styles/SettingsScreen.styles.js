@@ -1,44 +1,41 @@
-// styles/SettingsScreen.styles.js
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D6E3FF',
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 20,
     paddingTop: 60,
   },
   pageLabel: {
-    fontSize: 22,
-    fontWeight: '600',
-    marginBottom: 20,
-    color: '#243B55',
+    fontSize: 32,
+    fontWeight: '300',
+    marginBottom: 32,
+    color: '#162447',
+    letterSpacing: -0.5,
   },
   sectionHeader: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#243B55',
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#4A6FA5',
     marginTop: 0,
     marginBottom: 12,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
-  // for ScrollView contentContainerStyle
   scrollContent: {
-    paddingBottom: 8,
+    paddingBottom: 40,
   },
-  // Spacer to separate sections
   sectionSpacer: {
-    height: 16,
+    height: 32,
   },
   optionsCard: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    paddingTop: 2,         // top padding only
-    paddingHorizontal: 10,
-    elevation: 4,          // Android shadow
-    shadowColor: '#000',   // iOS shadow
-    shadowOpacity: 0.10,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 10,
+    backgroundColor: '#F8F9FB',
+    borderRadius: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#D8DEE9',
   },
   optionRow: {
     flexDirection: 'row',
@@ -46,58 +43,57 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#D8DEE9',
   },
   lastOptionRow: {
     borderBottomWidth: 0,
-    paddingBottom: 18,
   },
   iconLabel: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   textBlock: {
-    marginLeft: 12,
+    marginLeft: 16,
   },
   optionText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333',
+    fontSize: 15,
+    fontWeight: '400',
+    color: '#162447',
   },
   subtext: {
     fontSize: 13,
-    color: '#999',
-    marginTop: 2,
+    color: '#8894A6',
+    marginTop: 4,
+    fontWeight: '400',
   },
-  // small bottom padding so last card isn't flush with screen bottom
   pageBottomSpacer: {
-    height: 8,
+    height: 24,
   },
 });
 
-// Modal / bottom sheet styles (named export)
 export const modalStyles = StyleSheet.create({
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.35)',
+    backgroundColor: 'rgba(22, 36, 71, 0.4)',
     justifyContent: 'flex-end',
   },
   sheet: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 24,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 32,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   sheetTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 12,
-    color: '#243B55',
+    fontSize: 20,
+    fontWeight: '500',
+    marginBottom: 16,
+    color: '#162447',
+    letterSpacing: -0.3,
   },
   option: {
-    paddingVertical: 12,
+    paddingVertical: 16,
     paddingHorizontal: 4,
     flexDirection: 'row',
     alignItems: 'center',
@@ -105,11 +101,12 @@ export const modalStyles = StyleSheet.create({
   },
   optionText: {
     fontSize: 16,
-    color: '#222',
+    color: '#162447',
+    fontWeight: '400',
   },
   separator: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: '#e6e6e6',
+    height: 1,
+    backgroundColor: '#D8DEE9',
   },
 });
 

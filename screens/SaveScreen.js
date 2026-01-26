@@ -4,20 +4,20 @@ import { Ionicons } from '@expo/vector-icons';
 import styles from '../styles/SaveScreen.styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useTranslation from '../hooks/useTranslations';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SaveScreen() {
-
     const t = useTranslation();
+    const navigation = useNavigation();
 
-    // Fake dynamic data for months
     const fakeMonths = {
         June: {
             totalSaved: 47.97,
             totalSpending: 600,
             progress: 0.08,
             breakdown: [
-                { category: t.food, amount: 321.24, roundup: 28.76, progress: 0.54, icon: "pizza-outline", color: "#A78BFA" },
-                { category: t.travel, amount: 230.79, roundup: 19.21, progress: 0.38, icon: "airplane-outline", color: "#22D3EE" },
+                { category: t.food, amount: 321.24, roundup: 28.76, progress: 0.54, icon: "pizza-outline", color: "#4A6FA5" },
+                { category: t.travel, amount: 230.79, roundup: 19.21, progress: 0.38, icon: "airplane-outline", color: "#4A6FA5" },
             ]
         },
         July: {
@@ -25,8 +25,8 @@ export default function SaveScreen() {
             totalSpending: 720,
             progress: 0.09,
             breakdown: [
-                { category: t.food, amount: 280, roundup: 31, progress: 0.49, icon: "pizza-outline", color: "#A78BFA" },
-                { category: t.shopping, amount: 150, roundup: 15, progress: 0.25, icon: "bag-outline", color: "#FB923C" },
+                { category: t.food, amount: 280, roundup: 31, progress: 0.49, icon: "pizza-outline", color: "#4A6FA5" },
+                { category: t.shopping, amount: 150, roundup: 15, progress: 0.25, icon: "bag-outline", color: "#4A6FA5" },
             ]
         },
         August: {
@@ -34,7 +34,7 @@ export default function SaveScreen() {
             totalSpending: 540,
             progress: 0.06,
             breakdown: [
-                { category: t.travel, amount: 190, roundup: 12, progress: 0.35, icon: "airplane-outline", color: "#22D3EE" },
+                { category: t.travel, amount: 190, roundup: 12, progress: 0.35, icon: "airplane-outline", color: "#4A6FA5" },
             ]
         }
     };
@@ -45,12 +45,15 @@ export default function SaveScreen() {
     const data = fakeMonths[selectedMonth];
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#5C8EDC' }}>
-            <ScrollView style={styles.container}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+            <ScrollView 
+                style={styles.scrollView}
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+            >
 
                 {/* Header */}
                 <View style={styles.header}>
-                    {/* Month Picker */}
                     <TouchableOpacity onPress={() => setShowPicker(!showPicker)}>
                         <Text style={styles.monthText}>{selectedMonth} ▾</Text>
                     </TouchableOpacity>
@@ -60,17 +63,34 @@ export default function SaveScreen() {
                             {Object.keys(fakeMonths).map(month => (
                                 <TouchableOpacity
                                     key={month}
+                                    style={styles.dropdownItem}
                                     onPress={() => { setSelectedMonth(month); setShowPicker(false); }}
                                 >
-                                    <Text style={{ padding: 10 }}>{month}</Text>
+                                    <Text style={styles.dropdownItemText}>{month}</Text>
                                 </TouchableOpacity>
                             ))}
                         </View>
                     )}
 
-                    {/* Total Saved */}
                     <Text style={styles.totalSaved}>${data.totalSaved}</Text>
                 </View>
+
+                {/* Investment Button */}
+                <TouchableOpacity 
+                    style={styles.investmentButton}
+                    onPress={() => navigation.navigate('InvestmentDashboard')}
+                >
+                    <View style={styles.investmentButtonContent}>
+                        <View style={styles.investmentButtonLeft}>
+                            <Ionicons name="trending-up" size={24} color="#FFFFFF" />
+                            <View style={styles.investmentButtonText}>
+                                <Text style={styles.investmentButtonTitle}>Investment Portfolio</Text>
+                                <Text style={styles.investmentButtonSubtitle}>Manage your investments</Text>
+                            </View>
+                        </View>
+                        <Ionicons name="chevron-forward" size={20} color="#FFFFFF" />
+                    </View>
+                </TouchableOpacity>
 
                 {/* Savings Card */}
                 <View style={styles.card}>
@@ -100,16 +120,20 @@ export default function SaveScreen() {
                 {/* Breakdown Card */}
                 <View style={styles.card}>
                     <View style={styles.cardRow}>
-                        <Ionicons name="calendar-outline" size={20} color="#FF647C" />
-                        <Text style={styles.cardTitle}>{t.breakdown}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Ionicons name="calendar-outline" size={20} color="#162447" style={{ marginRight: 8 }} />
+                            <Text style={styles.cardTitle}>{t.breakdown}</Text>
+                        </View>
                         <Text style={styles.cardValue}>${data.totalSpending}</Text>
                     </View>
 
                     {data.breakdown.map((item, index) => (
                         <View key={index} style={styles.breakdownItem}>
                             <View style={styles.cardRow}>
-                                <Ionicons name={item.icon} size={20} color="#6B7280" />
-                                <Text style={styles.breakdownLabel}>{item.category}</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Ionicons name={item.icon} size={20} color="#4A6FA5" />
+                                    <Text style={styles.breakdownLabel}>{item.category}</Text>
+                                </View>
                                 <Text style={styles.cardValue}>${item.amount}</Text>
                             </View>
 
@@ -129,6 +153,7 @@ export default function SaveScreen() {
                     ))}
                 </View>
 
+                {/* Bottom spacing for tab bar */}
                 <View style={{ height: 100 }} />
             </ScrollView>
         </SafeAreaView>

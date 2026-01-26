@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, LayoutAnimation, UIManager, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../styles/SplitFriends.styles';
 import useTranslation from '../hooks/useTranslations';
 
@@ -19,7 +20,7 @@ export default function FriendsTab() {
     { id: '3', name: 'Adit Bhimani', amount: 50, owesYou: true },
     { id: '4', name: 'Shriya Joshi', amount: 25, owesYou: false },
     { id: '5', name: 'Vaishnavi Gudimella', amount: 150, owesYou: false },
-    { id: '6', name: 'Jayansh Bagga', amount: 34, owesYou: false },
+    { id: '6', name: 'John Doe', amount: 34, owesYou: false },
     { id: '7', name: 'Param Pratap Singh', amount: 75, owesYou: true },
   ]);
 
@@ -64,56 +65,32 @@ export default function FriendsTab() {
     ]);
   };
 
-  // Fake add expense
-  const addFakeExpense = () => {
-    const randomFriend = friends[Math.floor(Math.random() * friends.length)];
-    const addedAmount = Math.floor(Math.random() * 40 + 10);
-
-    LayoutAnimation.easeInEaseOut();
-    setFriends(prev =>
-      prev.map(f =>
-        f.id === randomFriend.id
-          ? { ...f, amount: f.amount + addedAmount, owesYou: true }
-          : f
-      )
-    );
-
-    setActivity(prev => [
-      {
-        id: Date.now().toString(),
-        icon: 'receipt-outline',
-        title: `You added an expense`,
-        subtitle: `${randomFriend.name} owes you $${addedAmount}`,
-      },
-      ...prev,
-    ]);
-  };
-
   const renderFriend = ({ item }) => {
-    const initials = item.name.charAt(0);
-    const amountColor = item.owesYou ? 'green' : 'red';
+    const initials = item.name.split(' ').map(n => n[0]).join('');
+    const amountColor = item.owesYou ? '#10B981' : '#EF4444';
     const labelText = item.owesYou ? t.owesYou : t.youOwe;
 
     return (
-      <TouchableOpacity
-        onPress={() => {
-          LayoutAnimation.easeInEaseOut();
-          setExpanded(expanded === item.id ? null : item.id);
-        }}
-        style={{ overflow: 'hidden' }}
-      >
-        <View style={styles.friendCard}>
-          <View style={[styles.avatar, { borderColor: amountColor }]}>
-            <Text style={[styles.avatarText, { color: amountColor }]}>{initials}</Text>
-          </View>
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            LayoutAnimation.easeInEaseOut();
+            setExpanded(expanded === item.id ? null : item.id);
+          }}
+        >
+          <View style={styles.friendCard}>
+            <View style={[styles.avatar, { borderColor: amountColor }]}>
+              <Text style={[styles.avatarText, { color: amountColor }]}>{initials}</Text>
+            </View>
 
-          <View style={styles.friendDetails}>
-            <Text style={styles.friendName}>{item.name}</Text>
-            <Text style={[styles.statusText, { color: amountColor }]}>{labelText}</Text>
-          </View>
+            <View style={styles.friendDetails}>
+              <Text style={styles.friendName}>{item.name}</Text>
+              <Text style={[styles.statusText, { color: amountColor }]}>{labelText}</Text>
+            </View>
 
-          <Text style={styles.amountText}>${item.amount}</Text>
-        </View>
+            <Text style={styles.amountText}>${item.amount}</Text>
+          </View>
+        </TouchableOpacity>
 
         {expanded === item.id && (
           <View style={styles.expandedCard}>
@@ -127,13 +104,15 @@ export default function FriendsTab() {
             </TouchableOpacity>
           </View>
         )}
-      </TouchableOpacity>
+      </View>
     );
   };
 
   const renderActivity = ({ item }) => (
     <View style={styles.activityCard}>
-      <Ionicons name={item.icon} size={24} style={styles.activityIcon} />
+      <View style={styles.activityIconContainer}>
+        <Ionicons name={item.icon} size={24} style={styles.activityIcon} />
+      </View>
       <View style={styles.activityText}>
         <Text style={styles.activityTitle}>{item.title}</Text>
         <Text style={styles.activitySubtitle}>{item.subtitle}</Text>
@@ -141,38 +120,48 @@ export default function FriendsTab() {
     </View>
   );
 
+  const renderEmptyState = () => (
+    <View style={styles.emptyState}>
+      <View style={styles.emptyStateIcon}>
+        <Ionicons name="people-outline" size={64} color="#D8DEE9" />
+      </View>
+      <Text style={styles.emptyStateText}>No friends to show</Text>
+      <Text style={styles.emptyStateSubtext}>
+        Add expenses with friends to see them here
+      </Text>
+    </View>
+  );
+
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }} edges={['top']}>
       <View style={styles.container}>
 
         {/* Top Profile */}
         <View style={styles.topCard}>
           <View style={styles.profileCircle}>
-            <Text style={styles.profileInitial}>TD</Text>
+            <Text style={styles.profileInitial}>JB</Text>
           </View>
-          <Text style={styles.profileName}>Test Dummy</Text>
+          <Text style={styles.profileName}>Jayansh Bagga</Text>
           <View style={styles.balanceCard}>
             <View style={styles.balanceItem}>
               <Text style={styles.balanceLabel}>{t.youAreOwed}</Text>
               <Text style={styles.balanceValue}>
-                {friends.filter(f => f.owesYou).reduce((acc, f) => acc + f.amount, 0)}
+                ${friends.filter(f => f.owesYou).reduce((acc, f) => acc + f.amount, 0)}
               </Text>
             </View>
             <View style={styles.balanceItem}>
               <Text style={styles.balanceLabel}>{t.youOwe}</Text>
               <Text style={styles.balanceValue}>
-                {friends.filter(f => !f.owesYou).reduce((acc, f) => acc + f.amount, 0)}
+                ${friends.filter(f => !f.owesYou).reduce((acc, f) => acc + f.amount, 0)}
               </Text>
             </View>
             <View style={styles.balanceItem}>
               <Text style={styles.balanceLabel}>{t.totalBalance}</Text>
-              <Text style={styles.balanceValue}>
-                {
-                  friends.reduce(
-                    (acc, f) => acc + (f.owesYou ? f.amount : -f.amount),
-                    0
-                  )
-                }
+              <Text style={[
+                styles.balanceValue,
+                { color: friends.reduce((acc, f) => acc + (f.owesYou ? f.amount : -f.amount), 0) >= 0 ? '#10B981' : '#EF4444' }
+              ]}>
+                ${Math.abs(friends.reduce((acc, f) => acc + (f.owesYou ? f.amount : -f.amount), 0))}
               </Text>
             </View>
           </View>
@@ -182,12 +171,12 @@ export default function FriendsTab() {
         <View style={styles.tabSwitch}>
           <TouchableOpacity onPress={() => setSelectedTab('friends')}>
             <Text style={[styles.tabText, selectedTab === 'friends' && styles.activeTab]}>
-              {t.friendsTab}
+              {t.friendsTab || 'Friends'}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setSelectedTab('activity')}>
             <Text style={[styles.tabText, selectedTab === 'activity' && styles.activeTab]}>
-              {t.activityTab}
+              {t.activityTab || 'Activity'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -196,26 +185,39 @@ export default function FriendsTab() {
         {selectedTab === 'friends' && (
           <View style={styles.filterContainer}>
             <TouchableOpacity 
-            onPress={() => setFilter('all')} style={[styles.filterPill, filter === 'all' && styles.filterPillActive]}>
+              onPress={() => setFilter('all')} 
+              style={[styles.filterPill, filter === 'all' && styles.filterPillActive]}
+            >
               <Text style={[styles.filterPillText, filter === 'all' && styles.filterPillTextActive]}>All</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setFilter('owesYou')} style={[styles.filterPill, filter === 'owesYou' && styles.filterPillActive]}>
+            <TouchableOpacity 
+              onPress={() => setFilter('owesYou')} 
+              style={[styles.filterPill, filter === 'owesYou' && styles.filterPillActive]}
+            >
               <Text style={[styles.filterPillText, filter === 'owesYou' && styles.filterPillTextActive]}>Owes You</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setFilter('youOwe')} style={[styles.filterPill, filter === 'youOwe' && styles.filterPillActive]}>
-              <Text style={[styles.filterPillText, filter === 'youOwe' && styles.filterPillTextActive]} >You Owe</Text>
+            <TouchableOpacity 
+              onPress={() => setFilter('youOwe')} 
+              style={[styles.filterPill, filter === 'youOwe' && styles.filterPillActive]}
+            >
+              <Text style={[styles.filterPillText, filter === 'youOwe' && styles.filterPillTextActive]}>You Owe</Text>
             </TouchableOpacity>
           </View>
         )}
 
         {/* Friends / Activity List */}
         {selectedTab === 'friends' && (
+          <View style={{ flex: 1 }}>
           <FlatList
             data={filteredFriends}
             renderItem={renderFriend}
             keyExtractor={item => item.id}
             contentContainerStyle={styles.friendList}
+            ListEmptyComponent={renderEmptyState}
+            showsVerticalScrollIndicator={false}
+            removeClippedSubviews={false}
           />
+          </View>
         )}
 
         {selectedTab === 'activity' && (
@@ -224,10 +226,12 @@ export default function FriendsTab() {
             renderItem={renderActivity}
             keyExtractor={item => item.id}
             contentContainerStyle={styles.activityList}
+            showsVerticalScrollIndicator={false}
+            removeClippedSubviews={false}
           />
         )}
 
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
