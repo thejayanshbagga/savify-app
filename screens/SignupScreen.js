@@ -1,9 +1,8 @@
-// screens/SignupScreen.js
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
-import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../context/AuthContext';
+import styles from '../styles/SignupScreen.styles';
 
 export default function SignupScreen() {
   const [step, setStep] = useState(1);
@@ -20,7 +19,6 @@ export default function SignupScreen() {
 
     try {
       await signUp(email.trim(), password);
-      // ✅ AuthContext will log the user in and App.js will auto-redirect to MainTabs
     } catch (err) {
       console.error(err);
       Alert.alert('Signup failed', 'That email may already be in use or server error.');
@@ -28,49 +26,55 @@ export default function SignupScreen() {
   };
 
   return (
-    <SafeAreaView style={tw`flex-1 bg-[#5C8EDC]`}>
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={tw`flex-1 justify-center px-6`}
+        style={styles.content}
       >
-        <Text style={tw`text-2xl font-bold text-primary text-center mb-6`}>
-          {step === 1 ? 'Join Savify Now!' : `Create a password for ${email}`}
+        <Text style={styles.title}>
+          {step === 1 ? 'Create your account' : 'Set your password'}
+        </Text>
+        <Text style={styles.subtitle}>
+          {step === 1 ? 'Enter your email to get started' : `For ${email}`}
         </Text>
 
         {step === 1 ? (
           <>
             <TextInput
-              style={tw`border border-gray-300 p-3 mb-4 rounded-2 bg-white`}
+              style={styles.input}
               placeholder="Email"
               value={email}
               keyboardType="email-address"
               onChangeText={setEmail}
+              placeholderTextColor="#9CA3AF"
             />
-            <TouchableOpacity style={tw`bg-primary py-3 rounded`} onPress={() => setStep(2)}>
-              <Text style={tw`p-3 rounded-2 bg-black text-center text-white font-bold`}>Next</Text>
+            <TouchableOpacity style={styles.button} onPress={() => setStep(2)}>
+              <Text style={styles.buttonText}>Continue</Text>
             </TouchableOpacity>
           </>
         ) : (
           <>
             <TextInput
-              style={tw`border border-gray-300 p-3 mb-4 rounded-2 bg-white`}
+              style={styles.input}
               placeholder="Password"
               secureTextEntry
               value={password}
               onChangeText={setPassword}
+              placeholderTextColor="#9CA3AF"
             />
             <TextInput
-              style={tw`border border-gray-300 p-3 mb-4 rounded-2 bg-white`}
+              style={styles.input}
               placeholder="Confirm Password"
               secureTextEntry
               value={confirmPassword}
               onChangeText={setConfirmPassword}
+              placeholderTextColor="#9CA3AF"
             />
-            <TouchableOpacity style={tw`bg-primary py-3 rounded mb-3`} onPress={() => setStep(1)}>
-              <Text style={tw`p-3 rounded-2 bg-black text-center text-white font-bold`}>Back</Text>
+            <TouchableOpacity style={styles.buttonSecondary} onPress={() => setStep(1)}>
+              <Text style={styles.buttonSecondaryText}>Back</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={tw`bg-primary py-3 rounded`} onPress={handleSignup}>
-              <Text style={tw`p-3 rounded-2 bg-black text-center text-white font-bold`}>Sign Up</Text>
+            <TouchableOpacity style={styles.button} onPress={handleSignup}>
+              <Text style={styles.buttonText}>Create Account</Text>
             </TouchableOpacity>
           </>
         )}

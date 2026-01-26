@@ -3,57 +3,53 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#5A9BF6',
+    backgroundColor: '#FFFFFF',
   },
 
   // Top profile area
   topCard: {
     alignItems: 'center',
-    paddingTop: 50,
-    paddingBottom: 28,
-    backgroundColor: '#5A9BF6',
+    paddingTop: 24,
+    paddingBottom: 32,
+    backgroundColor: '#FFFFFF',
   },
 
   profileCircle: {
-    backgroundColor: '#fff',
+    backgroundColor: '#F8F9FB',
     borderRadius: 50,
-    width: 90,
-    height: 90,
+    width: 80,
+    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: 2,
+    borderColor: '#4A6FA5',
   },
 
   profileInitial: {
-    fontSize: 34,
-    fontWeight: 'bold',
+    fontSize: 28,
+    fontWeight: '400',
+    color: '#4A6FA5',
   },
 
   profileName: {
-    color: '#fff',
-    fontSize: 18,
-    marginTop: 10,
-    fontWeight: '600',
+    color: '#162447',
+    fontSize: 20,
+    marginTop: 16,
+    fontWeight: '400',
+    letterSpacing: -0.3,
   },
 
   balanceCard: {
-    backgroundColor: '#fff',
-    borderRadius: 14,
-    marginTop: 18,
+    backgroundColor: '#F8F9FB',
+    borderRadius: 12,
+    marginTop: 24,
     flexDirection: 'row',
-    paddingVertical: 14,
-    paddingHorizontal: 12,
-    width: '88%',
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    width: '90%',
     justifyContent: 'space-between',
-    shadowColor: '#000',
-    shadowOpacity: 0.06,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#D8DEE9',
   },
 
   balanceItem: {
@@ -62,125 +58,114 @@ const styles = StyleSheet.create({
   },
 
   balanceLabel: {
-    fontSize: 13,
-    color: '#666',
-    marginBottom: 4,
+    fontSize: 11,
+    color: '#8894A6',
+    marginBottom: 8,
+    fontWeight: '400',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
 
   balanceValue: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#111',
+    fontSize: 24,
+    fontWeight: '300',
+    color: '#162447',
+    letterSpacing: -0.5,
   },
 
   // Tabs
   tabSwitch: {
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
+    backgroundColor: '#FFFFFF',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 14,
-    paddingTop: 18,
+    paddingVertical: 20,
+    paddingTop: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: '#D8DEE9',
   },
 
   tabText: {
     fontSize: 16,
-    color: '#888',
-    paddingVertical: 4,
+    color: '#8894A6',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    fontWeight: '400',
   },
 
   activeTab: {
-    color: '#1B4DB1',
-    fontWeight: '700',
-    textDecorationLine: 'underline',
+    color: '#4A6FA5',
+    fontWeight: '500',
+    borderBottomWidth: 2,
+    borderBottomColor: '#4A6FA5',
   },
 
-  // Filter buttons: outlined pill style
-  // Filter buttons: outlined white pills
-filterContainer: {
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  paddingHorizontal: 20,
-  paddingTop: 12,
-  paddingBottom: 8,
-  backgroundColor: '#fff',  
-},
+  // Filter buttons
+  filterContainer: {
+    flexDirection: 'row',
+    gap: 12,
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 12,
+    backgroundColor: '#FFFFFF',
+  },
 
-filterPill: {
-  paddingVertical: 6,
-  paddingHorizontal: 18,
-  borderRadius: 20,
-  borderWidth: 1.5,
-  borderColor: '#1B4DB1',
-  backgroundColor: '#fff',
-},
-
-filterPillText: {
-  fontSize: 14,
-  color: '#1B4DB1',
-  fontWeight: '600',
-},
-
-filterPillActive: {
-  backgroundColor: '#1B4DB1',
-},
-
-filterPillTextActive: {
-  color: '#fff',
-},
-
-
-  // Add Expense Button
-  addExpenseButton: {
-    backgroundColor: '#1B4DB1',
+  filterPill: {
+    flex: 1,
     paddingVertical: 10,
-    marginHorizontal: 20,
-    marginTop: 6,
-    marginBottom: 14,
-    borderRadius: 14,
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 2,
+    paddingHorizontal: 16,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: '#D8DEE9',
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
   },
 
-  addExpenseButtonText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: '600',
-    textAlign: 'center',
+  filterPillText: {
+    fontSize: 13,
+    color: '#4A6FA5',
+    fontWeight: '500',
+  },
+
+  filterPillActive: {
+    backgroundColor: '#4A6FA5',
+    borderColor: '#4A6FA5',
+  },
+
+  filterPillTextActive: {
+    color: '#FFFFFF',
   },
 
   // Friends List
   friendList: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+    paddingTop: 8,
     paddingBottom: 24,
   },
 
   friendCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 16,
-    borderBottomWidth: 0.6,
-    borderColor: '#ddd',
+    paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderColor: '#D8DEE9',
   },
 
   avatar: {
     borderWidth: 2,
-    borderRadius: 24,
-    width: 44,
-    height: 44,
+    borderRadius: 28,
+    width: 56,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 14,
+    marginRight: 16,
+    backgroundColor: '#F8F9FB',
   },
 
   avatarText: {
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontWeight: '500',
+    fontSize: 20,
+    letterSpacing: -0.5,
   },
 
   friendDetails: {
@@ -188,73 +173,86 @@ filterPillTextActive: {
   },
 
   friendName: {
-    fontWeight: '600',
-    fontSize: 15,
-    marginBottom: 2,
+    fontWeight: '400',
+    fontSize: 16,
+    marginBottom: 4,
+    color: '#162447',
   },
 
   statusText: {
     fontSize: 13,
+    fontWeight: '400',
   },
 
   amountText: {
-    fontWeight: '700',
-    fontSize: 16,
+    fontWeight: '400',
+    fontSize: 20,
+    color: '#162447',
+    letterSpacing: -0.3,
   },
 
   // Expanded friend card
   expandedCard: {
-    padding: 14,
-    backgroundColor: '#f5f6f8',
+    padding: 20,
+    backgroundColor: '#F8F9FB',
     borderRadius: 12,
-    marginBottom: 10,
-    marginTop: -6,
+    marginHorizontal: 20,
+    marginTop: 8,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#D8DEE9',
   },
 
   expandedText: {
-    fontSize: 13,
-    color: '#444',
-    marginBottom: 4,
+    fontSize: 14,
+    color: '#4A6FA5',
+    marginBottom: 8,
+    fontWeight: '400',
   },
 
   settleButton: {
-    backgroundColor: '#1B4DB1',
-    paddingVertical: 7,
-    paddingHorizontal: 14,
-    borderRadius: 10,
-    marginTop: 8,
+    backgroundColor: '#4A6FA5',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 24,
+    marginTop: 12,
+    alignSelf: 'flex-start',
   },
 
   settleButtonText: {
-    color: '#fff',
-    fontSize: 13,
-    fontWeight: '600',
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '500',
   },
 
   // Activity
   activityList: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingBottom: 22,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+    paddingTop: 8,
+    paddingBottom: 100,
   },
 
   activityCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-    padding: 14,
-    marginVertical: 6,
-    borderRadius: 14,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 3,
-    elevation: 1,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#D8DEE9',
+  },
+
+  activityIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#F8F9FB',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
   },
 
   activityIcon: {
-    marginRight: 14,
-    color: '#1B4DB1',
+    color: '#4A6FA5',
   },
 
   activityText: {
@@ -263,14 +261,43 @@ filterPillTextActive: {
 
   activityTitle: {
     fontSize: 15,
-    fontWeight: '600',
-    color: '#222',
+    fontWeight: '400',
+    color: '#162447',
+    marginBottom: 4,
   },
 
   activitySubtitle: {
     fontSize: 13,
-    color: '#777',
+    color: '#8894A6',
     marginTop: 2,
+    fontWeight: '400',
+  },
+
+  // Empty state
+  emptyState: {
+    alignItems: 'center',
+    paddingVertical: 60,
+    paddingHorizontal: 40,
+  },
+
+  emptyStateIcon: {
+    marginBottom: 16,
+  },
+
+  emptyStateText: {
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#162447',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+
+  emptyStateSubtext: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#8894A6',
+    textAlign: 'center',
+    lineHeight: 20,
   },
 });
 

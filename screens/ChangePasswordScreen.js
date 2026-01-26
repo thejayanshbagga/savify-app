@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../styles/ChangePassword.styles';
 import useTranslation from '../hooks/useTranslations';
 import tw from 'twrnc';
@@ -23,14 +24,15 @@ export default function ChangePasswordScreen() {
   // Put the Redeem-style back button in the header so there's only one
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: true,
-      headerTitle: '', // keep title inside the screen body
-      headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()} style={tw`ml-3`}>
-          <Text style={tw`text-blue-500`}>&larr; {tr('back', 'Back')}</Text>
-        </TouchableOpacity>
-      ),
-    });
+        headerShown: false,
+        headerTitle: '',
+        headerStyle: {
+          backgroundColor: '#FFFFFF',
+          elevation: 0,
+          shadowColor: 'transparent',
+        },
+        headerTransparent: false,
+      });
   }, [navigation, tr]);
 
   const [oldPw, setOldPw] = useState('');
@@ -87,7 +89,10 @@ export default function ChangePasswordScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 16 }}>
+        <Text style={{ color: '#000000' }}>← Back</Text>
+      </TouchableOpacity>
       {/* no inline back button here anymore */}
       <Text style={styles.title}>{tr('changePasswordTitle', 'Change Password')}</Text>
 
@@ -148,6 +153,6 @@ export default function ChangePasswordScreen() {
           {loading ? tr('updatePasswordLoading', 'Saving…') : tr('updatePasswordButton', 'Update Password')}
         </Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }

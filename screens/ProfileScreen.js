@@ -2,7 +2,7 @@ import React, { useState, useContext, useMemo } from 'react';
 import { View, Text, Switch, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useTranslation from '../hooks/useTranslations';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../styles/ProfileScreen.styles.js';
 
@@ -29,17 +29,14 @@ export default function ProfileScreen() {
 
   const handleLogout = async () => {
     try {
-      if (!signOut) {
-        throw new Error('Sign out is unavailable. Are you inside <AuthProvider>?');
-      }
-
       await signOut();
 
-      Alert.alert(
-        tr('logoutSuccessTitle', 'Signed out'),
-        tr('logoutSuccessMessage', 'You have been signed out successfully.')
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Landing' }],
+        })
       );
-
       // No manual navigation needed: App.js switches stacks on isAuthenticated=false
       // If you WANT to force it:
       // navigation.getParent()?.navigate('Landing');
@@ -63,8 +60,8 @@ export default function ProfileScreen() {
           style={styles.avatar}
         />
         <View>
-          <Text style={styles.name}>Test Dummy</Text>
-          <Text style={styles.handle}>@testdummy1</Text>
+          <Text style={styles.name}>Jayansh Bagga</Text>
+          <Text style={styles.handle}>@jbagga3</Text>
         </View>
       </View>
 

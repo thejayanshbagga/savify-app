@@ -107,7 +107,7 @@ export default function SettingsScreen() {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={tw`mb-5`}>
-        <Text style={tw`text-blue-500`}>&larr; {tr('back', 'Back')}</Text>
+        <Text style={tw`text-black`}>&larr; {tr('back', 'Back')}</Text>
       </TouchableOpacity>
       <Text style={styles.pageLabel}>{tr('settingsTitle', 'Settings')}</Text>
 

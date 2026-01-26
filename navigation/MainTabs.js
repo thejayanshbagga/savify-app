@@ -7,19 +7,71 @@ import { Ionicons } from '@expo/vector-icons';
 import SaveScreen from '../screens/SaveScreen';
 import SplitScreen from '../screens/SplitFriendsScreen';
 import ScoreScreen from '../screens/ScoreScreen';
+import InvestmentDashboard from '../screens/InvestmentDashboard';
 import ProfileScreen from '../screens/ProfileScreen';
-import SettingsStack from '../navigation/SettingsStack'; // <<— use the stack, not the screen
+import SettingsStack from '../navigation/SettingsStack';
 import useTranslation from '../hooks/useTranslations';
 
 const Tab = createBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
+const SaveStack = createNativeStackNavigator();
+
+function SaveStackScreen() {
+  return (
+    <SaveStack.Navigator 
+      screenOptions={{ 
+        headerShown: false,
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        animation: 'slide_from_right',
+        animationDuration: 300,
+      }}
+    >
+      <SaveStack.Screen 
+        name="SaveHome" 
+        component={SaveScreen}
+        options={{
+          gestureEnabled: false,
+        }}
+      />
+      <SaveStack.Screen 
+        name="InvestmentDashboard" 
+        component={InvestmentDashboard}
+        options={{
+          gestureEnabled: true,
+          animation: 'slide_from_right',
+        }}
+      />
+    </SaveStack.Navigator>
+  );
+}
 
 function ProfileStackScreen() {
   return (
-    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-      <ProfileStack.Screen name="ProfileHome" component={ProfileScreen} />
-      {/* Replace SettingsScreen with SettingsStack */}
-      <ProfileStack.Screen name="Settings" component={SettingsStack} />
+    <ProfileStack.Navigator 
+      screenOptions={{ 
+        headerShown: false,
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        animation: 'slide_from_right',
+        animationDuration: 300,
+      }}
+    >
+      <ProfileStack.Screen 
+        name="ProfileHome" 
+        component={ProfileScreen}
+        options={{ 
+          gestureEnabled: false,
+        }}
+      />
+      <ProfileStack.Screen 
+        name="Settings" 
+        component={SettingsStack}
+        options={{ 
+          gestureEnabled: true,
+          animation: 'slide_from_right',
+        }}
+      />
     </ProfileStack.Navigator>
   );
 }
@@ -39,12 +91,35 @@ export default function MainTabs() {
           else if (route.name === 'Profile') iconName = 'person';
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        tabBarActiveTintColor: '#4A6FA5',
+        tabBarInactiveTintColor: '#8894A6',
+        tabBarStyle: {
+          backgroundColor: '#FFFFFF',
+          borderTopColor: '#D8DEE9',
+          borderTopWidth: 1,
+        },
       })}
     >
-      <Tab.Screen name="Save" component={SaveScreen} options={{ tabBarLabel: t.saveTab }} />
-      <Tab.Screen name="Split" component={SplitScreen} options={{ tabBarLabel: t.splitTab }} />
-      <Tab.Screen name="Score" component={ScoreScreen} options={{ tabBarLabel: t.scoreTab }} />
-      <Tab.Screen name="Profile" component={ProfileStackScreen} options={{ tabBarLabel: t.profileTab }} />
+      <Tab.Screen 
+        name="Save" 
+        component={SaveStackScreen} 
+        options={{ tabBarLabel: t.saveTab || 'Save' }} 
+      />
+      <Tab.Screen 
+        name="Split" 
+        component={SplitScreen} 
+        options={{ tabBarLabel: t.splitTab || 'Split' }} 
+      />
+      <Tab.Screen 
+        name="Score" 
+        component={ScoreScreen} 
+        options={{ tabBarLabel: t.scoreTab || 'Score' }} 
+      />
+      <Tab.Screen 
+        name="Profile" 
+        component={ProfileStackScreen} 
+        options={{ tabBarLabel: t.profileTab || 'Profile' }} 
+      />
     </Tab.Navigator>
   );
 }
