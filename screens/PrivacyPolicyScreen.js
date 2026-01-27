@@ -1,11 +1,16 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import styles from '../styles/PrivacyPolicy.styles';
+import { ScrollView, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
+import createStyles from '../styles/PrivacyPolicy.styles';
+import useTheme from '../hooks/useTheme';
+
+
 export default function PrivacyPolicyScreen() {
   const navigation = useNavigation();
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
 
   return (
     <SafeAreaView style={styles.container}>

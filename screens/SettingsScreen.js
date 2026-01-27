@@ -1,5 +1,5 @@
 // screens/SettingsScreen.js
-import React, { useMemo, useState } from 'react';
+import React, {useMemo, useState } from 'react';
 import {
   View,
   Text,
@@ -13,11 +13,12 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import useTranslation from '../hooks/useTranslations';
 import { useLanguage } from '../context/LanguageContext';
-import styles, { modalStyles } from '../styles/SettingsScreen.styles';
+import createStyles, { createModalStyles } from '../styles/SettingsScreen.styles';
 import { useNavigation } from '@react-navigation/native';
 import tw from 'twrnc';
 
 import { useContext } from 'react';
+import useTheme from '../hooks/useTheme';
 import { ThemeContext } from '../context/ThemeContext';
 
 // safe translator to call tr('key', 'Fallback') whether the hook returns a fn or an object
@@ -30,7 +31,7 @@ const useSafeTranslator = () => {
 };
 
 // Row with chevron
-const OptionRow = ({ icon, label, subtext, onPress, isLast }) => (
+const OptionRow = ({ icon, label, subtext, onPress, isLast, palette, styles }) => (
   <TouchableOpacity
     style={[styles.optionRow, isLast && styles.lastOptionRow]}
     onPress={onPress}
@@ -38,21 +39,34 @@ const OptionRow = ({ icon, label, subtext, onPress, isLast }) => (
     accessibilityRole="button"
   >
     <View style={styles.iconLabel}>
-      <Ionicons name={icon} size={24} color="#555" />
+      <Ionicons name={icon} size={24} color={palette.textPrimary} />
       <View style={styles.textBlock}>
         <Text style={styles.optionText}>{label}</Text>
         {subtext ? <Text style={styles.subtext}>{subtext}</Text> : null}
       </View>
     </View>
-    <Ionicons name="chevron-forward-outline" size={20} color="#999" />
+    <Ionicons name="chevron-forward-outline" size={20} color={palette.textPrimary} />
   </TouchableOpacity>
 );
 
 // Row with switch
-const SwitchRow = ({ icon, label, subtext, value, onValueChange, isLast }) => (
-  <View style={[styles.optionRow, isLast && styles.lastOptionRow]} accessible accessibilityRole="switch">
+const SwitchRow = ({
+  icon,
+  label,
+  subtext,
+  value,
+  onValueChange,
+  isLast,
+  palette,
+  styles,
+}) => (
+  <View
+    style={[styles.optionRow, isLast && styles.lastOptionRow]}
+    accessible
+    accessibilityRole="switch"
+  >
     <View style={styles.iconLabel}>
-      <Ionicons name={icon} size={24} color="#555" />
+      <Ionicons name={icon} size={24} color={palette.textPrimary} />
       <View style={styles.textBlock}>
         <Text style={styles.optionText}>{label}</Text>
         {subtext ? <Text style={styles.subtext}>{subtext}</Text> : null}
@@ -73,13 +87,17 @@ const LANGUAGES = [
 
 export default function SettingsScreen() {
   const tr = useSafeTranslator();
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   const { language, toggleLanguage } = useLanguage();
+
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
+  const modalStyles = createModalStyles(palette);
 
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [pushNotificationsEnabled, setPushNotificationsEnabled] = useState(true);
 
-  const { theme, setTheme, currentTheme } = useContext(ThemeContext);
+  const {setTheme, currentTheme } = useContext(ThemeContext);
 
   const darkModeEnabled = currentTheme === "dark"; // convert theme to boolean for the switch to dark mode
 
@@ -107,7 +125,7 @@ export default function SettingsScreen() {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={tw`mb-5`}>
-        <Text style={tw`text-black`}>&larr; {tr('back', 'Back')}</Text>
+        <Text style={{ color: palette.textPrimary }}>&larr; Back</Text>
       </TouchableOpacity>
       <Text style={styles.pageLabel}>{tr('settingsTitle', 'Settings')}</Text>
 
@@ -120,18 +138,24 @@ export default function SettingsScreen() {
             label={tr('editProfile', 'Edit Profile')}
             subtext={tr('editProfileSubtext', 'Update your personal information')}
             onPress={handleEditProfile}
+            palette={palette}
+            styles={styles}
           />
           <OptionRow
             icon="key-outline"
             label={tr('changePassword', 'Change Password')}
             subtext={tr('changePasswordSubtext', 'Update your password')}
             onPress={handleChangePassword}
+            palette={palette}
+            styles={styles}
           />
           <OptionRow
             icon="mail-outline"
             label={tr('changeEmail', 'Change Email')}
             subtext={tr('changeEmailSubtext', 'Update the email on your account')}
             onPress={handleChangeEmail}
+            palette={palette}
+            styles={styles}
             isLast
           />
         </View>
@@ -146,12 +170,16 @@ export default function SettingsScreen() {
             label={tr('manageDevices', 'Manage Devices')}
             subtext={tr('manageDevicesSubtext', 'View and sign out from connected devices')}
             onPress={handleManageDevices}
+            palette={palette}
+            styles={styles}
           />
           <OptionRow
             icon="shield-checkmark-outline"
             label={tr('twoFA', 'Two-Factor Authentication')}
             subtext={tr('twoFASubtext', 'Enable or disable 2FA')}
             onPress={handleTwoFA}
+            palette={palette}
+            styles={styles}
             isLast
           />
         </View>
@@ -167,6 +195,8 @@ export default function SettingsScreen() {
             subtext={tr('notificationsSubtext', 'Control what you are notified about')}
             value={pushNotificationsEnabled}
             onValueChange={setPushNotificationsEnabled}
+            palette={palette}
+            styles={styles}
           />
 
           {/* Language row opens modal */}
@@ -175,6 +205,8 @@ export default function SettingsScreen() {
             label={tr('language', 'Language')}
             subtext={currentLanguageLabel}
             onPress={() => setLanguageModalVisible(true)}
+            palette={palette}
+            styles={styles}
           />
 
           <SwitchRow
@@ -185,6 +217,8 @@ export default function SettingsScreen() {
             onValueChange={(value) => {
               setTheme(value ? "dark" : "light");
             }}
+            palette={palette}
+            styles={styles}
             isLast
           />
         </View>
@@ -201,6 +235,8 @@ export default function SettingsScreen() {
             onPress={() =>
               Alert.alert(tr('helpSupport', 'Help & Support'), tr('helpSupportSubtext', 'Navigation to help & support page.'))
             }
+            palette={palette}
+            styles={styles}
           />
           <OptionRow
             icon="document-text-outline"
@@ -208,6 +244,8 @@ export default function SettingsScreen() {
             subtext={tr('termsAndPrivacySubtext', 'Read legal documents')}
             onPress={() => navigation.navigate('PrivacyPolicy')}
             isLast
+            palette={palette}
+            styles={styles}
           />
         </View>
 

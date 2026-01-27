@@ -3,12 +3,16 @@ import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'rea
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import styles from '../styles/InvestmentDashboard.styles';
+import createStyles from '../styles/InvestmentDashboard.styles';
+import useTheme from '../hooks/useTheme';
 
 export default function InvestmentDashboard() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [timeframe, setTimeframe] = useState('month');
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
+
   
   const [dashboardData, setDashboardData] = useState({
     investmentFund: {
@@ -188,7 +192,7 @@ export default function InvestmentDashboard() {
       {dashboardData.myHoldings.length === 0 ? (
         <View style={styles.emptyState}>
           <View style={styles.emptyStateIcon}>
-            <Ionicons name="trending-up-outline" size={48} color="#D1D5DB" />
+            <Ionicons name="trending-up-outline" size={48} color={palette.textSecondary} />
           </View>
           <Text style={styles.emptyStateText}>Start investing today</Text>
           <Text style={styles.emptyStateSubtext}>
@@ -300,7 +304,7 @@ export default function InvestmentDashboard() {
               <Ionicons 
                 name={activity.action === 'Bought' ? 'arrow-down' : 'cash-outline'} 
                 size={20} 
-                color={activity.action === 'Bought' ? '#000000' : '#10B981'} 
+                color={activity.action === 'Bought' ? palette.textPrimary : palette.success} 
               />
             </View>
             <View style={styles.activityInfo}>
@@ -326,13 +330,13 @@ export default function InvestmentDashboard() {
   if (loading) {
     return (
       <SafeAreaView style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#000000" />
+        <ActivityIndicator size="large" color={palette.textPrimary} />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: palette.background }}>
       <ScrollView 
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}

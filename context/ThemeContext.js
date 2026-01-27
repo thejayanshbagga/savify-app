@@ -10,13 +10,15 @@ export const ThemeProvider = ({ children }) => {
     const [currentTheme, setCurrentTheme] = useState(deviceTheme);
 
     useEffect(() => {
-        if (theme === "system") {
-            const listener = Appearance.addChangeListener(({ colorScheme }) => {
-                setCurrentTheme(colorScheme);
-            });
-            return () => listener.remove();
-        }
-    }, [theme]);
+        if (theme !== "system") return;
+
+        const listener = Appearance.addChangeListener(({ colorScheme }) => {
+            setCurrentTheme(colorScheme);
+        });
+
+        return () => listener.remove();
+        }, [theme]);
+
 
     useEffect(() => {
         if (theme !== "system") {

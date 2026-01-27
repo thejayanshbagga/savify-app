@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import styles from '../styles/SaveScreen.styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import useTranslation from '../hooks/useTranslations';
 import { useNavigation } from '@react-navigation/native';
+
+import createStyles from '../styles/SaveScreen.styles';
+import useTheme from '../hooks/useTheme';
+import useTranslation from '../hooks/useTranslations';
 
 export default function SaveScreen() {
     const t = useTranslation();
     const navigation = useNavigation();
+    const { palette } = useTheme();
+    const styles = createStyles(palette);
 
     const fakeMonths = {
         June: {
@@ -45,7 +49,7 @@ export default function SaveScreen() {
     const data = fakeMonths[selectedMonth];
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }}>
             <ScrollView 
                 style={styles.scrollView}
                 contentContainerStyle={styles.scrollContent}
@@ -82,13 +86,15 @@ export default function SaveScreen() {
                 >
                     <View style={styles.investmentButtonContent}>
                         <View style={styles.investmentButtonLeft}>
-                            <Ionicons name="trending-up" size={24} color="#FFFFFF" />
+                            <View style={styles.iconWrapper}>
+                            <Ionicons name="trending-up" size={20} color={palette.textPrimaryr} />
+                            </View>
                             <View style={styles.investmentButtonText}>
                                 <Text style={styles.investmentButtonTitle}>Investment Portfolio</Text>
                                 <Text style={styles.investmentButtonSubtitle}>Manage your investments</Text>
                             </View>
                         </View>
-                        <Ionicons name="chevron-forward" size={20} color="#FFFFFF" />
+                        <Ionicons name="chevron-forward" size={20} color={palette.onAccent} />
                     </View>
                 </TouchableOpacity>
 
@@ -121,7 +127,9 @@ export default function SaveScreen() {
                 <View style={styles.card}>
                     <View style={styles.cardRow}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Ionicons name="calendar-outline" size={20} color="#162447" style={{ marginRight: 8 }} />
+                            <View style={{marginTop: 2}}>
+                                <Ionicons name="calendar-outline" size={20} color={palette.textPrimary} />
+                            </View>
                             <Text style={styles.cardTitle}>{t.breakdown}</Text>
                         </View>
                         <Text style={styles.cardValue}>${data.totalSpending}</Text>
@@ -131,7 +139,7 @@ export default function SaveScreen() {
                         <View key={index} style={styles.breakdownItem}>
                             <View style={styles.cardRow}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <Ionicons name={item.icon} size={20} color="#4A6FA5" />
+                                    <Ionicons name={item.icon} size={20} color={palette.accent} />
                                     <Text style={styles.breakdownLabel}>{item.category}</Text>
                                 </View>
                                 <Text style={styles.cardValue}>${item.amount}</Text>

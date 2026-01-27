@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, LayoutAnimation, UIManager, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import styles from '../styles/SplitFriends.styles';
+import useTheme from '../hooks/useTheme';
+import createStyles from '../styles/SplitFriends.styles';
 import useTranslation from '../hooks/useTranslations';
 
 // Enable animation on Android
@@ -12,6 +13,9 @@ if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental
 
 export default function FriendsTab() {
   const t = useTranslation();
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
+
 
   // Main fake friend data
   const [friends, setFriends] = useState([
@@ -133,7 +137,7 @@ export default function FriendsTab() {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }} edges={['top']}>
       <View style={styles.container}>
 
         {/* Top Profile */}

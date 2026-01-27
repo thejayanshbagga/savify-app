@@ -2,11 +2,12 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 
-export default StyleSheet.create({
+export default function createStyles(palette) {
+  return StyleSheet.create({
   // Container styles
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
   },
   scrollContent: {
     paddingHorizontal: 20,
@@ -19,18 +20,18 @@ export default StyleSheet.create({
   backButtonText: {
     fontSize: 16,
     fontWeight: '400',
-    color: '#4A6FA5',
+    color: palette.accent,
   },
   pageTitle: {
     fontSize: 32,
     fontWeight: '300',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 24,
     letterSpacing: -0.5,
   },
   loadingContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -42,24 +43,24 @@ export default StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: '500',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 16,
     letterSpacing: -0.3,
   },
 
   // Investment Fund Balance styles
   fundCard: {
-    backgroundColor: '#F8F9FB',
+    backgroundColor: palette.card,
     borderRadius: 12,
     padding: 24,
     marginBottom: 32,
     borderWidth: 1,
-    borderColor: '#D8DEE9',
+    borderColor: palette.border,
   },
   fundLabel: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#4A6FA5',
+    color: palette.accent,
     marginBottom: 8,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
@@ -67,7 +68,7 @@ export default StyleSheet.create({
   fundBalance: {
     fontSize: 48,
     fontWeight: '300',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 24,
     letterSpacing: -1,
   },
@@ -81,37 +82,37 @@ export default StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
     borderWidth: 1,
-    borderColor: '#D8DEE9',
+    borderColor: palette.border,
   },
   timeframeButtonActive: {
-    backgroundColor: '#4A6FA5',
-    borderColor: '#4A6FA5',
+    backgroundColor: palette.accent,
+    borderColor: palette.accent,
   },
   timeframeText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#8894A6',
+    color: palette.textSecondary,
     marginBottom: 4,
   },
   timeframeTextActive: {
-    color: '#FFFFFF',
+    color: palette.background,
   },
   timeframeValue: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#162447',
+    color: palette.textPrimary,
   },
   timeframeValueActive: {
-    color: '#FFFFFF',
+    color: palette.background,
   },
   fundFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 20,
     borderTopWidth: 1,
-    borderTopColor: '#D8DEE9',
+    borderTopColor: palette.border,
   },
   fundFooterItem: {
     flex: 1,
@@ -119,18 +120,18 @@ export default StyleSheet.create({
   fundFooterLabel: {
     fontSize: 12,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
     marginBottom: 6,
   },
   fundFooterValue: {
     fontSize: 22,
     fontWeight: '400',
-    color: '#162447',
+    color: palette.textPrimary,
   },
   fundFooterReturns: {
     fontSize: 22,
     fontWeight: '400',
-    color: '#10B981',
+    color: palette.success,
   },
 
   // My Holdings styles
@@ -144,20 +145,20 @@ export default StyleSheet.create({
   emptyStateText: {
     fontSize: 18,
     fontWeight: '400',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 8,
   },
   emptyStateSubtext: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
     textAlign: 'center',
     lineHeight: 20,
   },
   holdingCard: {
     paddingVertical: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#D8DEE9',
+    borderBottomColor: palette.border,
   },
   holdingHeader: {
     flexDirection: 'row',
@@ -171,14 +172,14 @@ export default StyleSheet.create({
   holdingSymbol: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 4,
     letterSpacing: -0.2,
   },
   holdingName: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#4A6FA5',
+    color: palette.accent,
     marginBottom: 8,
     lineHeight: 18,
   },
@@ -190,7 +191,7 @@ export default StyleSheet.create({
   holdingType: {
     fontSize: 11,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
   },
   holdingValues: {
     alignItems: 'flex-end',
@@ -198,18 +199,18 @@ export default StyleSheet.create({
   holdingTotalValue: {
     fontSize: 24,
     fontWeight: '400',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 4,
   },
   holdingGrowthPositive: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#10B981',
+    color: palette.success,
   },
   holdingGrowthNegative: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#EF4444',
+    color: palette.error,
   },
   holdingDetails: {
     marginTop: 12,
@@ -217,7 +218,7 @@ export default StyleSheet.create({
   holdingDetailsText: {
     fontSize: 13,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
   },
 
   // Risk Badge styles
@@ -229,7 +230,7 @@ export default StyleSheet.create({
   riskBadgeText: {
     fontSize: 10,
     fontWeight: '500',
-    color: '#FFFFFF',
+    color: palette.background,
     letterSpacing: 0.3,
   },
 
@@ -237,7 +238,7 @@ export default StyleSheet.create({
   recommendedCard: {
     paddingVertical: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#D8DEE9',
+    borderBottomColor: palette.border,
   },
   recommendedHeader: {
     marginBottom: 16,
@@ -252,7 +253,7 @@ export default StyleSheet.create({
   recommendedSymbol: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#162447',
+    color: palette.textPrimary,
     letterSpacing: -0.2,
   },
   ownedBadge: {
@@ -267,19 +268,19 @@ export default StyleSheet.create({
   ownedBadgeText: {
     fontSize: 11,
     fontWeight: '500',
-    color: '#10B981',
+    color: palette.success,
   },
   recommendedName: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#4A6FA5',
+    color: palette.accent,
     marginBottom: 8,
     lineHeight: 18,
   },
   recommendedDescription: {
     fontSize: 13,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
     marginBottom: 12,
     lineHeight: 19,
   },
@@ -292,7 +293,7 @@ export default StyleSheet.create({
   recommendedType: {
     fontSize: 11,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
   },
   recommendedFooter: {
     flexDirection: 'row',
@@ -308,39 +309,39 @@ export default StyleSheet.create({
   recommendedPriceLabel: {
     fontSize: 11,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
     marginBottom: 4,
   },
   recommendedPrice: {
     fontSize: 16,
     fontWeight: '400',
-    color: '#162447',
+    color: palette.textPrimary,
   },
   recommendedReturnSection: {},
   recommendedReturnLabel: {
     fontSize: 11,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
     marginBottom: 4,
   },
   recommendedReturnPositive: {
     fontSize: 16,
     fontWeight: '400',
-    color: '#10B981',
+    color: palette.success,
   },
   recommendedReturnNegative: {
     fontSize: 16,
     fontWeight: '400',
-    color: '#EF4444',
+    color: palette.error,
   },
   investButton: {
-    backgroundColor: '#4A6FA5',
+    backgroundColor: palette.accent,
     paddingHorizontal: 24,
     paddingVertical: 10,
     borderRadius: 24,
   },
   investButtonText: {
-    color: '#FFFFFF',
+    color: palette.background,
     fontWeight: '500',
     fontSize: 14,
   },
@@ -351,7 +352,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#D8DEE9',
+    borderBottomColor: palette.border,
   },
   activityIcon: {
     width: 40,
@@ -360,7 +361,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 16,
-    backgroundColor: '#F8F9FB',
+    backgroundColor: palette.card,
   },
   activityInfo: {
     flex: 1,
@@ -368,23 +369,24 @@ export default StyleSheet.create({
   activityAction: {
     fontSize: 15,
     fontWeight: '400',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 4,
   },
   activityDetails: {
     fontSize: 13,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
     marginBottom: 2,
   },
   activityDate: {
     fontSize: 12,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
   },
   activityAmount: {
     fontSize: 16,
     fontWeight: '400',
-    color: '#162447',
+    color: palette.textPrimary,
   },
 });
+}
