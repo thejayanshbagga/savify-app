@@ -3,12 +3,15 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../constants/translations';
-import styles from '../styles/LandingScreen.styles';
+import createStyles from '../styles/LandingScreen.styles';
+import useTheme from '../hooks/useTheme';
 
 export default function LandingScreen() {
   const navigation = useNavigation();
   const { language } = useLanguage();
   const t = translations[language];
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
 
   return (
     <View style={styles.container}>

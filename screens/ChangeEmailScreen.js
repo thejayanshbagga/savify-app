@@ -2,7 +2,8 @@ import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import styles from '../styles/ChangeEmailScreen.styles';
+import createStyles from '../styles/ChangeEmailScreen.styles';
+import useTheme from '../hooks/useTheme';
 import useTranslation from '../hooks/useTranslations';
 import tw from 'twrnc';
 
@@ -21,6 +22,8 @@ const useSafeTranslator = () => {
 export default function ChangeEmailScreen() {
   const navigation = useNavigation();
   const tr = useSafeTranslator();
+  const { palette } = useTheme();
+  const styles = createStyles(palette); 
 
   // Put the Redeem-style back button in the header so there's only one
   useLayoutEffect(() => {
@@ -28,7 +31,7 @@ export default function ChangeEmailScreen() {
       headerShown: false,
       headerTitle: '',
       headerStyle: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: palette.background,
         elevation: 0,
         shadowColor: 'transparent',
       },
@@ -74,7 +77,7 @@ export default function ChangeEmailScreen() {
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 16 }}>
-        <Text style={{ color: '#000000' }}>← Back</Text>
+        <Text style={styles.backText}>← Back</Text>
       </TouchableOpacity>
       {/* no inline back button here anymore */}
       <Text style={styles.title}>{tr('changeEmailTitle', 'Change Email')}</Text>
@@ -112,7 +115,7 @@ export default function ChangeEmailScreen() {
             accessibilityRole="button"
             accessibilityLabel={tr('togglePasswordVisibility', 'Toggle password visibility')}
           >
-            <Text style={{ fontSize: 12 }}>{showPw ? tr('hide', 'HIDE') : tr('show', 'SHOW')}</Text>
+            <Text style={{ fontSize: 12, color: palette.textSecondary }}>{showPw ? tr('hide', 'HIDE') : tr('show', 'SHOW')}</Text>
           </TouchableOpacity>
         </View>
       </View>

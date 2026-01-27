@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+export default function createStyles(palette) {
+  return StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
   },
 
   // Top profile area
@@ -11,28 +12,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 24,
     paddingBottom: 32,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
   },
 
   profileCircle: {
-    backgroundColor: '#F8F9FB',
+    backgroundColor: palette.card,
     borderRadius: 50,
     width: 80,
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#4A6FA5',
+    borderColor: palette.accent,
   },
 
   profileInitial: {
     fontSize: 28,
     fontWeight: '400',
-    color: '#4A6FA5',
+    color: palette.accent,
   },
 
   profileName: {
-    color: '#162447',
+    color: palette.textPrimary,
     fontSize: 20,
     marginTop: 16,
     fontWeight: '400',
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   },
 
   balanceCard: {
-    backgroundColor: '#F8F9FB',
+    backgroundColor: palette.card,
     borderRadius: 12,
     marginTop: 24,
     flexDirection: 'row',
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     width: '90%',
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: '#D8DEE9',
+    borderColor: palette.border,
   },
 
   balanceItem: {
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
 
   balanceLabel: {
     fontSize: 11,
-    color: '#8894A6',
+    color: palette.textSecondary,
     marginBottom: 8,
     fontWeight: '400',
     textTransform: 'uppercase',
@@ -69,34 +70,34 @@ const styles = StyleSheet.create({
   balanceValue: {
     fontSize: 24,
     fontWeight: '300',
-    color: '#162447',
+    color: palette.textPrimary,
     letterSpacing: -0.5,
   },
 
   // Tabs
   tabSwitch: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 20,
     paddingTop: 24,
     borderBottomWidth: 1,
-    borderBottomColor: '#D8DEE9',
+    borderBottomColor: palette.border,
   },
 
   tabText: {
     fontSize: 16,
-    color: '#8894A6',
+    color: palette.textSecondary,
     paddingVertical: 8,
     paddingHorizontal: 16,
     fontWeight: '400',
   },
 
   activeTab: {
-    color: '#4A6FA5',
+    color: palette.accent,
     fontWeight: '500',
     borderBottomWidth: 2,
-    borderBottomColor: '#4A6FA5',
+    borderBottomColor: palette.accent,
   },
 
   // Filter buttons
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 16,
     paddingBottom: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
   },
 
   filterPill: {
@@ -115,29 +116,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 24,
     borderWidth: 1,
-    borderColor: '#D8DEE9',
-    backgroundColor: '#FFFFFF',
+    borderColor: palette.border,
+    backgroundColor: palette.card,
     alignItems: 'center',
   },
 
   filterPillText: {
     fontSize: 13,
-    color: '#4A6FA5',
+    color: palette.accent,
     fontWeight: '500',
   },
 
   filterPillActive: {
-    backgroundColor: '#4A6FA5',
-    borderColor: '#4A6FA5',
+    backgroundColor: palette.accent,
+    borderColor: palette.accent,
   },
 
   filterPillTextActive: {
-    color: '#FFFFFF',
+    color: palette.background,
   },
 
   // Friends List
   friendList: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
     paddingHorizontal: 20,
     paddingTop: 8,
     paddingBottom: 24,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 20,
     borderBottomWidth: 1,
-    borderColor: '#D8DEE9',
+    borderColor: palette.border,
   },
 
   avatar: {
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
-    backgroundColor: '#F8F9FB',
+    backgroundColor: palette.card,
   },
 
   avatarText: {
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 16,
     marginBottom: 4,
-    color: '#162447',
+    color: palette.textPrimary,
   },
 
   statusText: {
@@ -187,31 +188,31 @@ const styles = StyleSheet.create({
   amountText: {
     fontWeight: '400',
     fontSize: 20,
-    color: '#162447',
+    color: palette.textPrimary,
     letterSpacing: -0.3,
   },
 
   // Expanded friend card
   expandedCard: {
     padding: 20,
-    backgroundColor: '#F8F9FB',
+    backgroundColor: palette.card,
     borderRadius: 12,
     marginHorizontal: 20,
     marginTop: 8,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#D8DEE9',
+    borderColor: palette.border,
   },
 
   expandedText: {
     fontSize: 14,
-    color: '#4A6FA5',
+    color: palette.accent,
     marginBottom: 8,
     fontWeight: '400',
   },
 
   settleButton: {
-    backgroundColor: '#4A6FA5',
+    backgroundColor: palette.accent,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 24,
@@ -220,14 +221,14 @@ const styles = StyleSheet.create({
   },
 
   settleButtonText: {
-    color: '#FFFFFF',
+    color: palette.background,
     fontSize: 14,
     fontWeight: '500',
   },
 
   // Activity
   activityList: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.background,
     paddingHorizontal: 20,
     paddingTop: 8,
     paddingBottom: 100,
@@ -238,21 +239,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#D8DEE9',
+    borderBottomColor: palette.border,
   },
 
   activityIconContainer: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#F8F9FB',
+    backgroundColor: palette.card,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
   },
 
   activityIcon: {
-    color: '#4A6FA5',
+    color: palette.accent,
   },
 
   activityText: {
@@ -262,13 +263,13 @@ const styles = StyleSheet.create({
   activityTitle: {
     fontSize: 15,
     fontWeight: '400',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 4,
   },
 
   activitySubtitle: {
     fontSize: 13,
-    color: '#8894A6',
+    color: palette.textSecondary,
     marginTop: 2,
     fontWeight: '400',
   },
@@ -287,7 +288,7 @@ const styles = StyleSheet.create({
   emptyStateText: {
     fontSize: 18,
     fontWeight: '400',
-    color: '#162447',
+    color: palette.textPrimary,
     marginBottom: 8,
     textAlign: 'center',
   },
@@ -295,10 +296,9 @@ const styles = StyleSheet.create({
   emptyStateSubtext: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#8894A6',
+    color: palette.textSecondary,
     textAlign: 'center',
     lineHeight: 20,
   },
 });
-
-export default styles;
+}

@@ -3,7 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { AuthContext } from '../context/AuthContext';
-import styles from '../styles/LoginScreen.styles';
+import createStyles from '../styles/LoginScreen.styles';
+import useTheme from '../hooks/useTheme';
 
 export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -20,7 +21,8 @@ export default function LoginScreen({navigation}) {
       alert('Login failed. Check your email or password.');
     }
   };
-
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -33,7 +35,7 @@ export default function LoginScreen({navigation}) {
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
-          placeholderTextColor="#9CA3AF"
+          placeholderTextColor={palette.textSecondary}
         />
 
         <View style={styles.passwordContainer}>
@@ -43,10 +45,10 @@ export default function LoginScreen({navigation}) {
             secureTextEntry={!showPassword}
             value={password}
             onChangeText={setPassword}
-            placeholderTextColor="#9CA3AF"
+            placeholderTextColor={palette.textSecondary}
           />
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <Feather name={showPassword ? 'eye-off' : 'eye'} size={20} color="#6B7280" />
+            <Feather name={showPassword ? 'eye-off' : 'eye'} size={20} color={palette.textSecondary} />
           </TouchableOpacity>
         </View>
 

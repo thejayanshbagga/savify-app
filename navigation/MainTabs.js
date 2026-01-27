@@ -1,8 +1,9 @@
 // MainTabs.js
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
+import { ThemeContext } from '../context/ThemeContext';
 
 import SaveScreen from '../screens/SaveScreen';
 import SplitScreen from '../screens/SplitFriendsScreen';
@@ -78,6 +79,8 @@ function ProfileStackScreen() {
 
 export default function MainTabs() {
   const t = useTranslation();
+  const { currentTheme } = useContext(ThemeContext);
+  const isDark = currentTheme === "dark";
 
   return (
     <Tab.Navigator
@@ -91,11 +94,11 @@ export default function MainTabs() {
           else if (route.name === 'Profile') iconName = 'person';
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#4A6FA5',
-        tabBarInactiveTintColor: '#8894A6',
+        tabBarActiveTintColor: isDark ? '#FFFFFF' : '#4A6FA5',
+        tabBarInactiveTintColor: isDark ? '#9CA3AF' : '#8894A6',
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
-          borderTopColor: '#D8DEE9',
+          backgroundColor: isDark ? '#162447' : '#FFFFFF',
+          borderTopColor: isDark ? '#1F2A44' : '#D8DEE9',
           borderTopWidth: 1,
         },
       })}

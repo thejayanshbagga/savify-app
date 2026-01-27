@@ -2,12 +2,15 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../context/AuthContext';
-import styles from '../styles/SignupScreen.styles';
+import createStyles from '../styles/SignupScreen.styles';
+import useTheme from '../hooks/useTheme';
 
 export default function SignupScreen() {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
   const [confirmPassword, setConfirmPassword] = useState('');
   const { signUp } = useContext(AuthContext);
 
@@ -46,7 +49,7 @@ export default function SignupScreen() {
               value={email}
               keyboardType="email-address"
               onChangeText={setEmail}
-              placeholderTextColor="#9CA3AF"
+              placeholderTextColor={palette.textSecondary}
             />
             <TouchableOpacity style={styles.button} onPress={() => setStep(2)}>
               <Text style={styles.buttonText}>Continue</Text>
@@ -60,7 +63,7 @@ export default function SignupScreen() {
               secureTextEntry
               value={password}
               onChangeText={setPassword}
-              placeholderTextColor="#9CA3AF"
+              placeholderTextColor={palette.textSecondary}
             />
             <TextInput
               style={styles.input}
@@ -68,7 +71,7 @@ export default function SignupScreen() {
               secureTextEntry
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              placeholderTextColor="#9CA3AF"
+              placeholderTextColor={palette.textSecondary}
             />
             <TouchableOpacity style={styles.buttonSecondary} onPress={() => setStep(1)}>
               <Text style={styles.buttonSecondaryText}>Back</Text>

@@ -3,7 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import styles from '../styles/ChangePassword.styles';
+import createStyles from '../styles/ChangePassword.styles';
+import useTheme from '../hooks/useTheme'
 import useTranslation from '../hooks/useTranslations';
 import tw from 'twrnc';
 
@@ -20,6 +21,9 @@ const useSafeTranslator = () => {
 export default function ChangePasswordScreen() {
   const navigation = useNavigation();
   const tr = useSafeTranslator();
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
+
 
   // Put the Redeem-style back button in the header so there's only one
   useLayoutEffect(() => {
@@ -27,7 +31,7 @@ export default function ChangePasswordScreen() {
         headerShown: false,
         headerTitle: '',
         headerStyle: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: palette.background,
           elevation: 0,
           shadowColor: 'transparent',
         },
@@ -84,14 +88,14 @@ export default function ChangePasswordScreen() {
       accessibilityRole="button"
       accessibilityLabel={tr('togglePasswordVisibility', 'Toggle password visibility')}
     >
-      <Ionicons name={show[which] ? 'eye-off-outline' : 'eye-outline'} size={20} color="#666" />
+      <Ionicons name={show[which] ? 'eye-off-outline' : 'eye-outline'} size={20} color={palette.textPrimary} />
     </TouchableOpacity>
   );
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 16 }}>
-        <Text style={{ color: '#000000' }}>← Back</Text>
+        <Text style={styles.backText}>← Back</Text>
       </TouchableOpacity>
       {/* no inline back button here anymore */}
       <Text style={styles.title}>{tr('changePasswordTitle', 'Change Password')}</Text>

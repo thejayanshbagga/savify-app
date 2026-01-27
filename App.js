@@ -26,33 +26,39 @@ const Stack = createStackNavigator();
 
 function RootNavigator() {
   const { isAuthenticated, loading } = useContext(AuthContext);
+  const { currentTheme } = useContext(ThemeContext);
 
   if (loading) return null;
 
   return (
-      <Stack.Navigator key={isAuthenticated ? "auth" : "guest"} screenOptions={{ headerShown: false }}>
-        {isAuthenticated ? (
-            <>
-              <Stack.Screen name="MainTabs" component={MainTabs} />
-              <Stack.Screen name="Score" component={ScoreScreen} />
-              <Stack.Screen name="Redeem" component={RedeemScreen} />
-              <Stack.Screen name="Calculator" component={CalculatorScreen} />
-              <Stack.Screen
-                  name="PrivacyPolicy"
-                  component={PrivacyPolicyScreen}
-                  options={{  headerShown: true, title: 'Privacy Policy & Terms',}}
-              />
-            </>
-        ) : (
-            <>
-              <Stack.Screen name="Landing" component={LandingScreen} />
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Signup" component={SignupScreen} />
-              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-              <Stack.Screen name="MainTabs" component={MainTabs} />
-            </>
-        )}
-      </Stack.Navigator>
+    <Stack.Navigator
+      key={isAuthenticated ? "auth" : "guest"}
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: currentTheme === "dark" ? "#162447" : "#FFFFFF",
+        },
+        headerTintColor: currentTheme === "dark" ? "#FFFFFF" : "#000000",
+      }}
+    >
+      {isAuthenticated ? (
+        <>
+          <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
+          <Stack.Screen name="Score" component={ScoreScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Redeem" component={RedeemScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Calculator" component={CalculatorScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ headerShown: true, title: 'Privacy Policy & Terms'}}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
+        </>
+      )}
+    </Stack.Navigator>
   );
 }
 

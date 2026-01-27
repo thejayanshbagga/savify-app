@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import { themePalette } from "../constants/theme";
+import { themePalette } from "../constants/themes";
 
 export default function useTheme() {
     const { currentTheme } = useContext(ThemeContext);
