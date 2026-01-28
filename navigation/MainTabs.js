@@ -7,7 +7,7 @@ import { ThemeContext } from '../context/ThemeContext';
 
 import SaveScreen from '../screens/SaveScreen';
 import SplitScreen from '../screens/SplitFriendsScreen';
-import ScoreScreen from '../screens/ScoreScreen';
+import ScoreStack from '../navigation/ScoreStack';
 import InvestmentDashboard from '../screens/InvestmentDashboard';
 import ProfileScreen from '../screens/ProfileScreen';
 import SettingsStack from '../navigation/SettingsStack';
@@ -115,7 +115,7 @@ export default function MainTabs() {
       />
       <Tab.Screen 
         name="Score" 
-        component={ScoreScreen} 
+        component={ScoreStack} 
         options={{ tabBarLabel: t.scoreTab || 'Score' }} 
       />
       <Tab.Screen 

@@ -1,112 +1,124 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+export default function createStyles(palette) {
+  return StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        paddingHorizontal: 20,
-        paddingTop: 40,
+      paddingHorizontal: 20,
+      paddingBottom: 40,
+      backgroundColor: palette.background,
     },
+
+    /* HERO */
     scoreContainer: {
-        alignItems: 'center',
-        marginBottom: 40,
+      alignItems: 'center',
+      marginTop: 24,
     },
     badge: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-        backgroundColor: '#F8F9FB',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 2,
-        borderColor: '#D8DEE9',
+      alignItems: 'center',
     },
     scoreLabel: {
-        fontSize: 13,
-        color: '#4A6FA5',
-        fontWeight: '400',
-        textTransform: 'uppercase',
-        letterSpacing: 0.5,
-        marginBottom: 8,
+      fontSize: 16,
+      color: palette.textSecondary,
     },
     scoreValue: {
-        fontSize: 56,
-        fontWeight: '300',
-        color: '#162447',
-        letterSpacing: -1.5,
+      fontSize: 40,
+      fontWeight: '600',
+      color: palette.textPrimary,
+      marginTop: 4,
+    },
+    heroSubtitle: {
+      marginTop: 14,
+      color: palette.textSecondary,
+      opacity: 0.75,
+      fontSize: 14,
+      textAlign: 'center',
     },
     redeemButton: {
-        backgroundColor: '#4A6FA5',
-        borderRadius: 24,
-        paddingHorizontal: 24,
-        paddingVertical: 10,
-        marginTop: 20,
+      marginTop: 20,
+      backgroundColor: palette.accent,
+      paddingHorizontal: 24,
+      paddingVertical: 12,
+      borderRadius: 24,
     },
     redeemText: {
-        color: '#FFFFFF',
-        fontWeight: '500',
-        fontSize: 14,
+      color: palette.textOnAccent ?? '#FFFFFF',
+      fontWeight: '500',
+      fontSize: 15,
     },
+
+    /* SECTIONS */
     section: {
-        marginBottom: 32,
+      marginTop: 32,
     },
     sectionHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 16,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 12,
     },
     sectionTitle: {
-        fontWeight: '500',
-        fontSize: 18,
-        color: '#162447',
-        letterSpacing: -0.3,
+      fontSize: 18,
+      fontWeight: '500',
+      color: palette.textPrimary,
     },
     seeAll: {
-        color: '#4A6FA5',
-        fontSize: 14,
-        fontWeight: '400',
+      fontSize: 14,
+      color: palette.textSecondary,
+    },
+
+    /* CARD */
+    card: {
+      backgroundColor: palette.card,
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: palette.border,
+      padding: 16,
+      marginTop: 12,
+    },
+    cardTitle: {
+      fontSize: 15,
+      fontWeight: '500',
+      color: palette.textPrimary,
+    },
+    cardSubtitle: {
+      fontSize: 13,
+      color: palette.textSecondary,
+      marginTop: 4,
+    },
+    divider: {
+      height: 1,
+      backgroundColor: palette.border,
+      marginVertical: 10,
+    },
+
+    /* REWARDS */
+    rewardsRow: {
+      flexDirection: 'row',
     },
     rewardCard: {
-        backgroundColor: '#F8F9FB',
-        padding: 20,
-        borderRadius: 12,
-        marginRight: 12,
-        width: 220,
-        borderWidth: 1,
-        borderColor: '#D8DEE9',
+      backgroundColor: palette.card,
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: palette.border,
+      padding: 16,
+      marginRight: 12,
+      width: 160,
     },
     rewardTitle: {
-        fontWeight: '500',
-        fontSize: 15,
-        marginBottom: 6,
-        color: '#162447',
+      fontSize: 15,
+      fontWeight: '500',
+      color: palette.textPrimary,
     },
     rewardSubtitle: {
-        color: '#8894A6',
-        fontSize: 13,
-        fontWeight: '400',
+      fontSize: 13,
+      color: palette.textSecondary,
+      marginTop: 6,
     },
     rewardAction: {
-        color: '#4A6FA5',
-        fontWeight: '500',
-        marginTop: 12,
-        fontSize: 14,
+      marginTop: 10,
+      fontSize: 14,
+      color: palette.accent,
+      fontWeight: '500',
     },
-    challengeBlock: {
-        width: 100,
-        height: 100,
-        backgroundColor: '#F8F9FB',
-        borderRadius: 12,
-        marginRight: 12,
-        borderWidth: 1,
-        borderColor: '#D8DEE9',
-    },
-    rewardsRow: {
-        flexDirection: 'row',
-        paddingHorizontal: 0,
-    },
-    challengesRow: {
-        flexDirection: 'row',
-        paddingHorizontal: 0,
-    },
-});
+  });
+}
