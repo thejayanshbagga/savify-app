@@ -43,8 +43,6 @@ function RootNavigator() {
       {isAuthenticated ? (
         <>
           <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
-          <Stack.Screen name="Score" component={ScoreScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Redeem" component={RedeemScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Calculator" component={CalculatorScreen} options={{ headerShown: false }} />
           <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ headerShown: true, title: 'Privacy Policy & Terms'}}
           />
