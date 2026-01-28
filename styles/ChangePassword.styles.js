@@ -40,7 +40,8 @@ export default function createStyles(palette) {
     },
     hint: {
       fontSize: 12,
-      color: palette.textSecondary,
+      color: palette.textPrimary,
+      opacity: 0.7,
       marginTop: 6,
     },
     button: {

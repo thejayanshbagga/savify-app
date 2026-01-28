@@ -108,6 +108,7 @@ export default function ChangePasswordScreen() {
             onChangeText={setOldPw}
             secureTextEntry={!show.old}
             placeholder={tr('currentPasswordPlaceholder2', 'Enter current password')}
+            placeholderTextColor={palette.textSecondary}
             style={styles.input}
             autoCapitalize="none"
             textContentType="password"
@@ -124,6 +125,7 @@ export default function ChangePasswordScreen() {
             onChangeText={setNewPw}
             secureTextEntry={!show.next}
             placeholder={tr('newPasswordPlaceholder', 'Enter new password')}
+            placeholderTextColor={palette.textSecondary}
             style={styles.input}
             autoCapitalize="none"
           />
@@ -140,6 +142,7 @@ export default function ChangePasswordScreen() {
             onChangeText={setConfirmPw}
             secureTextEntry={!show.confirm}
             placeholder={tr('confirmPasswordPlaceholder', 'Re-enter new password')}
+            placeholderTextColor={palette.textSecondary}
             style={styles.input}
             autoCapitalize="none"
           />
