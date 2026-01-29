@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { FONT_FAMILY } from '../styles/typography';
 
 export default function createStyles(palette) {
   return StyleSheet.create({
@@ -16,7 +17,7 @@ export default function createStyles(palette) {
     },
     headline: {
       fontSize: 32,
-      fontWeight: '300',
+      fontFamily: FONT_FAMILY.title,
       color: palette.textPrimary,
       textAlign: 'center',
       marginBottom: 12,
@@ -24,7 +25,7 @@ export default function createStyles(palette) {
     },
     subheadline: {
       fontSize: 24,
-      fontWeight: '400',
+      fontFamily: FONT_FAMILY.subheading,
       color: palette.accent,
       textAlign: 'center',
       marginBottom: 16,
@@ -32,7 +33,7 @@ export default function createStyles(palette) {
     },
     description: {
       fontSize: 16,
-      fontWeight: '400',
+      fontFamily: FONT_FAMILY.body,
       color: palette.textSecondary,
       textAlign: 'center',
       marginBottom: 48,
@@ -49,8 +50,8 @@ export default function createStyles(palette) {
     },
     buttonPrimaryText: {
       color: '#FFFFFF',
-      fontWeight: '500',
       fontSize: 16,
+      fontFamily: FONT_FAMILY.subheading,
     },
     buttonSecondary: {
       backgroundColor: palette.card,
@@ -64,8 +65,8 @@ export default function createStyles(palette) {
     },
     buttonSecondaryText: {
       color: palette.textPrimary,
-      fontWeight: '400',
       fontSize: 16,
+      fontFamily: FONT_FAMILY.body,
     },
     skipButton: {
       marginTop: 24,
@@ -73,7 +74,7 @@ export default function createStyles(palette) {
     skipText: {
       color: palette.textSecondary,
       fontSize: 14,
-      fontWeight: '400',
+      fontFamily: FONT_FAMILY.body,
     },
   });
 }

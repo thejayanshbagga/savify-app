@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { FONT_FAMILY } from './typography';
 
 export default function createStyles(palette) {
   return StyleSheet.create({
@@ -13,25 +14,27 @@ export default function createStyles(palette) {
     },
     title: {
       fontSize: 32,
-      fontWeight: '300',
+      fontFamily: FONT_FAMILY.title,
       color: palette.textPrimary,
       marginBottom: 8,
       letterSpacing: -0.5,
     },
     subtitle: {
       fontSize: 16,
-      fontWeight: '400',
+      fontFamily: FONT_FAMILY.body,
       color: palette.textSecondary,
       marginBottom: 40,
+      lineHeight: 24,
     },
     input: {
       borderWidth: 1,
       borderColor: palette.border,
       padding: 16,
       marginBottom: 16,
-      borderRadius: 8,
+      borderRadius: 12,
       backgroundColor: palette.card,
       fontSize: 16,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textPrimary,
     },
     passwordContainer: {
@@ -39,7 +42,7 @@ export default function createStyles(palette) {
       alignItems: 'center',
       borderWidth: 1,
       borderColor: palette.border,
-      borderRadius: 8,
+      borderRadius: 12,
       backgroundColor: palette.card,
       marginBottom: 16,
       paddingHorizontal: 16,
@@ -48,6 +51,7 @@ export default function createStyles(palette) {
       flex: 1,
       paddingVertical: 16,
       fontSize: 16,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textPrimary,
     },
     optionsRow: {
@@ -56,12 +60,38 @@ export default function createStyles(palette) {
       alignItems: 'center',
       marginBottom: 24,
     },
+    rememberMe: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    checkbox: {
+      width: 20,
+      height: 20,
+      borderWidth: 2,
+      borderColor: palette.border,
+      borderRadius: 4,
+      marginRight: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    checkboxActive: {
+      borderColor: palette.accent,
+      backgroundColor: palette.accent,
+    },
+    checkboxInner: {
+      width: 10,
+      height: 10,
+      backgroundColor: palette.background,
+      borderRadius: 2,
+    },
     rememberMeText: {
       fontSize: 14,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textPrimary,
     },
     forgotPassword: {
       fontSize: 14,
+      fontFamily: FONT_FAMILY.body,
       color: palette.accent,
     },
     button: {
@@ -69,16 +99,17 @@ export default function createStyles(palette) {
       paddingVertical: 16,
       borderRadius: 24,
       alignItems: 'center',
+      marginBottom: 24,
     },
     buttonText: {
       color: '#FFFFFF',
       fontSize: 16,
-      fontWeight: '500',
+      fontFamily: FONT_FAMILY.subheading,
     },
     divider: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginVertical: 32,
+      marginBottom: 24,
     },
     dividerLine: {
       flex: 1,
@@ -86,9 +117,10 @@ export default function createStyles(palette) {
       backgroundColor: palette.border,
     },
     dividerText: {
-      marginHorizontal: 16,
       fontSize: 14,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textSecondary,
+      paddingHorizontal: 16,
     },
     googleButton: {
       flexDirection: 'row',
@@ -100,8 +132,14 @@ export default function createStyles(palette) {
       borderWidth: 1,
       borderColor: palette.border,
     },
+    googleLogo: {
+      width: 20,
+      height: 20,
+      marginRight: 12,
+    },
     googleButtonText: {
       fontSize: 16,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textPrimary,
     },
   });

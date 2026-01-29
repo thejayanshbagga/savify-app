@@ -1,52 +1,72 @@
 import { StyleSheet } from 'react-native';
+import { FONT_FAMILY } from './typography';
 
 export default function createStyles(palette) {
   return StyleSheet.create({
     container: {
       paddingHorizontal: 20,
+      paddingTop: 20,
       paddingBottom: 40,
-      backgroundColor: palette.background,
     },
-
-    /* HERO */
     scoreContainer: {
       alignItems: 'center',
-      marginTop: 24,
+      marginBottom: 40,
     },
     badge: {
       alignItems: 'center',
+      marginBottom: 16,
     },
     scoreLabel: {
       fontSize: 16,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textSecondary,
+      marginBottom: 8,
     },
     scoreValue: {
-      fontSize: 40,
-      fontWeight: '600',
+      fontSize: 56,
+      fontFamily: FONT_FAMILY.title,
       color: palette.textPrimary,
-      marginTop: 4,
+      letterSpacing: -2,
     },
     heroSubtitle: {
-      marginTop: 14,
-      color: palette.textSecondary,
-      opacity: 0.75,
       fontSize: 14,
+      fontFamily: FONT_FAMILY.body,
+      color: palette.textSecondary,
       textAlign: 'center',
+      marginBottom: 24,
+      paddingHorizontal: 20,
     },
     redeemButton: {
-      marginTop: 20,
       backgroundColor: palette.accent,
-      paddingHorizontal: 24,
-      paddingVertical: 12,
+      paddingHorizontal: 32,
+      paddingVertical: 14,
       borderRadius: 24,
     },
     redeemText: {
-      color: palette.textOnAccent ?? '#FFFFFF',
-      fontWeight: '500',
-      fontSize: 15,
+      color: '#FFFFFF',
+      fontSize: 16,
+      fontFamily: FONT_FAMILY.subheading,
     },
-
-    /* SECTIONS */
+    card: {
+      backgroundColor: palette.card,
+      borderRadius: 16,
+      padding: 20,
+      marginBottom: 16,
+      borderWidth: 1,
+      borderColor: palette.border,
+    },
+    cardTitle: {
+      fontSize: 18,
+      fontFamily: FONT_FAMILY.subheading,
+      color: palette.textPrimary,
+      marginBottom: 8,
+    },
+    cardSubtitle: {
+      fontSize: 14,
+      fontFamily: FONT_FAMILY.body,
+      color: palette.textSecondary,
+      lineHeight: 20,
+    },
     section: {
       marginTop: 32,
     },
@@ -54,71 +74,46 @@ export default function createStyles(palette) {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: 12,
+      marginBottom: 16,
     },
     sectionTitle: {
-      fontSize: 18,
-      fontWeight: '500',
+      fontSize: 20,
+      fontFamily: FONT_FAMILY.subheading,
       color: palette.textPrimary,
     },
     seeAll: {
       fontSize: 14,
-      color: palette.textSecondary,
+      fontFamily: FONT_FAMILY.body,
+      color: palette.accent,
     },
-
-    /* CARD */
-    card: {
-      backgroundColor: palette.card,
-      borderRadius: 16,
-      borderWidth: 1,
-      borderColor: palette.border,
-      padding: 16,
-      marginTop: 12,
-    },
-    cardTitle: {
-      fontSize: 15,
-      fontWeight: '500',
-      color: palette.textPrimary,
-    },
-    cardSubtitle: {
-      fontSize: 13,
-      color: palette.textSecondary,
-      marginTop: 4,
-    },
-    divider: {
-      height: 1,
-      backgroundColor: palette.border,
-      marginVertical: 10,
-    },
-
-    /* REWARDS */
     rewardsRow: {
       flexDirection: 'row',
+      gap: 16,
     },
     rewardCard: {
       backgroundColor: palette.card,
-      borderRadius: 16,
+      borderRadius: 12,
+      padding: 16,
+      width: 200,
       borderWidth: 1,
       borderColor: palette.border,
-      padding: 16,
-      marginRight: 12,
-      width: 160,
     },
     rewardTitle: {
-      fontSize: 15,
-      fontWeight: '500',
+      fontSize: 16,
+      fontFamily: FONT_FAMILY.subheading,
       color: palette.textPrimary,
+      marginBottom: 8,
     },
     rewardSubtitle: {
       fontSize: 13,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textSecondary,
-      marginTop: 6,
+      marginBottom: 12,
     },
     rewardAction: {
-      marginTop: 10,
       fontSize: 14,
+      fontFamily: FONT_FAMILY.subheading,
       color: palette.accent,
-      fontWeight: '500',
     },
   });
 }

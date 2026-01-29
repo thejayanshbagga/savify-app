@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { FONT_FAMILY } from '../styles/typography';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,11 +21,12 @@ const styles = StyleSheet.create({
   },
   profileInitial: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontFamily: FONT_FAMILY.title,
   },
   profileName: {
     color: '#fff',
     fontSize: 16,
+    fontFamily: FONT_FAMILY.subheading,
     marginTop: 8,
   },
   balanceCard: {
@@ -41,11 +43,12 @@ const styles = StyleSheet.create({
   },
   balanceLabel: {
     fontSize: 12,
+    fontFamily: FONT_FAMILY.body,
     color: '#666',
   },
   balanceValue: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: FONT_FAMILY.subheading,
   },
   tabSwitch: {
     backgroundColor: '#fff',
@@ -57,11 +60,12 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 16,
+    fontFamily: FONT_FAMILY.body,
     color: '#888',
   },
   activeTab: {
     color: '#1B4DB1',
-    fontWeight: 'bold',
+    fontFamily: FONT_FAMILY.subheading,
     textDecorationLine: 'underline',
   },
   friendList: {
@@ -86,23 +90,24 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   avatarText: {
-    fontWeight: 'bold',
+    fontFamily: FONT_FAMILY.subheading,
     fontSize: 14,
   },
   friendDetails: {
     flex: 1,
   },
   friendName: {
-    fontWeight: '500',
+    fontFamily: FONT_FAMILY.subheading,
     fontSize: 14,
   },
   statusText: {
+    fontFamily: FONT_FAMILY.body,
     fontSize: 12,
   },
   amountText: {
-    fontWeight: 'bold',
+    fontFamily: FONT_FAMILY.subheading,
     fontSize: 14,
-  }
+  },
 });
 
 export default styles;

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { FONT_FAMILY } from '../styles/typography';
 
 export default function createStyles(palette) {
   return StyleSheet.create({
@@ -9,13 +10,14 @@ export default function createStyles(palette) {
     },
     title: {
       fontSize: 22,
-      fontWeight: '700',
+      fontFamily: FONT_FAMILY.title,
       marginBottom: 16,
       color: palette.textPrimary,
     },
     field: { marginBottom: 14 },
     label: {
       fontSize: 14,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textSecondary,
       marginBottom: 6,
     },
@@ -30,6 +32,7 @@ export default function createStyles(palette) {
     },
     input: {
       fontSize: 16,
+      fontFamily: FONT_FAMILY.body,
       paddingRight: 36,
       color: palette.textPrimary,
     },
@@ -40,6 +43,7 @@ export default function createStyles(palette) {
     },
     hint: {
       fontSize: 12,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textPrimary,
       opacity: 0.7,
       marginTop: 6,
@@ -54,11 +58,12 @@ export default function createStyles(palette) {
     buttonText: {
       color: '#FFFFFF',
       fontSize: 16,
-      fontWeight: '600',
+      fontFamily: FONT_FAMILY.subheading,
     },
     backText: {
       color: palette.textPrimary,
       fontSize: 15,
+      fontFamily: FONT_FAMILY.body,
     },
   });
 }

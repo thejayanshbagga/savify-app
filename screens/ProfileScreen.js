@@ -1,6 +1,7 @@
 import React, { useState, useContext, useMemo } from 'react';
 import { View, Text, Switch, TouchableOpacity, Image, Alert } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import useTranslation from '../hooks/useTranslations';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
@@ -11,10 +12,10 @@ export default function ProfileScreen() {
   const tRaw = useTranslation();
   const navigation = useNavigation();
   const [faceIdEnabled, setFaceIdEnabled] = useState(false);
+  const [profileImage, setProfileImage] = useState(null); // State for profile picture
   const { signOut } = useContext(AuthContext);
   const { palette } = useTheme();
   const styles = createStyles(palette);
-
 
   // Safe translator: works whether hook returns fn or object
   const tr = useMemo(() => {
@@ -41,9 +42,6 @@ export default function ProfileScreen() {
           routes: [{ name: 'Landing' }],
         })
       );
-      // No manual navigation needed: App.js switches stacks on isAuthenticated=false
-      // If you WANT to force it:
-      // navigation.getParent()?.navigate('Landing');
     } catch (error) {
       Alert.alert(
         tr('logoutFailedTitle', 'Sign out failed'),
@@ -52,17 +50,55 @@ export default function ProfileScreen() {
     }
   };
 
+  const pickImage = async () => {
+    // Request permission
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+    if (status !== 'granted') {
+      Alert.alert(
+        'Permission required',
+        'Please allow access to your photo library to change your profile picture.'
+      );
+      return;
+    }
+
+    // Launch image picker
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+
+    if (!result.canceled && result.assets[0]) {
+      setProfileImage(result.assets[0].uri);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Page Label */}
       <Text style={styles.pageLabel}>{tr('profileTitle', 'Profile')}</Text>
 
-      {/* User Card */}
+      {/* User Card with Profile Picture */}
       <View style={styles.headerCard}>
-        <Image
-          source={{ uri: 'https://i.imgur.com/WxNkK1n.png' }}
-          style={styles.avatar}
-        />
+        <TouchableOpacity onPress={pickImage} style={styles.avatarContainer}>
+          {profileImage ? (
+            <Image
+              source={{ uri: profileImage }}
+              style={styles.avatar}
+            />
+          ) : (
+            <Image
+              source={{ uri: 'https://i.imgur.com/WxNkK1n.png' }}
+              style={styles.avatar}
+            />
+          )}
+          {/* Camera icon overlay */}
+          <View style={styles.cameraIconContainer}>
+            <Ionicons name="camera" size={16} color={palette.background} />
+          </View>
+        </TouchableOpacity>
         <View>
           <Text style={styles.name}>Jayansh Bagga</Text>
           <Text style={styles.handle}>@jbagga3</Text>
@@ -150,7 +186,6 @@ const OptionRow = ({
   </TouchableOpacity>
 );
 
-
 const SwitchRow = ({
   icon,
   label,
@@ -171,4 +206,3 @@ const SwitchRow = ({
     <Switch value={value} onValueChange={onValueChange} />
   </View>
 );
-
