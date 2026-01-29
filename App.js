@@ -1,11 +1,13 @@
 // App.js
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
 import { LanguageProvider } from './context/LanguageContext';
 import AuthProvider, { AuthContext } from './context/AuthContext';
@@ -21,6 +23,9 @@ import RedeemScreen from './screens/RedeemScreen';
 import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
 
 import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 const Stack = createStackNavigator();
 
@@ -72,6 +77,31 @@ function ThemedNavigation() {
 }
 
 export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFonts() {
+      try {
+        await Font.loadAsync({
+          'HostGrotesk-ExtraBold': require('./assets/fonts/HostGrotesk-ExtraBold.ttf'),
+          'HostGrotesk-Medium': require('./assets/fonts/HostGrotesk-Medium.ttf'),
+          'HostGrotesk-Regular': require('./assets/fonts/HostGrotesk-Regular.ttf'),
+        });
+        setFontsLoaded(true);
+      } catch (e) {
+        console.warn('Error loading fonts:', e);
+      } finally {
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    loadFonts();
+  }, []);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
       <ThemeProvider>
         <LanguageProvider>

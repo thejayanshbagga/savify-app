@@ -3,6 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, Dimensions, StyleS
 import { LineChart } from 'react-native-chart-kit';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import COLORS from '../styles/colors';
+import { FONT_FAMILY } from '../styles/typography';
+
 const screenWidth = Dimensions.get('window').width;
 
 export default function CalculatorScreen() {
@@ -64,18 +67,20 @@ export default function CalculatorScreen() {
           <Text style={styles.inputLabel}>Contribution Frequency</Text>
           <View style={styles.frequencyContainer}>
             {['Weekly', 'Monthly'].map((f) => (
-              <TouchableOpacity 
-                key={f} 
+              <TouchableOpacity
+                key={f}
                 onPress={() => setFrequency(f)}
                 style={[
                   styles.frequencyButton,
-                  frequency === f && styles.frequencyButtonActive
+                  frequency === f && styles.frequencyButtonActive,
                 ]}
               >
-                <Text style={[
-                  styles.frequencyText,
-                  frequency === f && styles.frequencyTextActive
-                ]}>
+                <Text
+                  style={[
+                    styles.frequencyText,
+                    frequency === f && styles.frequencyTextActive,
+                  ]}
+                >
                   {f}
                 </Text>
               </TouchableOpacity>
@@ -91,7 +96,10 @@ export default function CalculatorScreen() {
           <View style={styles.resultCard}>
             <Text style={styles.resultLabel}>Estimated Balance</Text>
             <Text style={styles.resultValue}>
-              ${parseFloat(futureValue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              ${parseFloat(futureValue).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </Text>
           </View>
         )}
@@ -101,8 +109,9 @@ export default function CalculatorScreen() {
             <Text style={styles.chartTitle}>Growth Over Time</Text>
             <LineChart
               data={{
-                labels: Array.from({ length: Math.min(chartData.length, 10) }, (_, i) => 
-                  i === 0 ? '0' : `${Math.floor((i * chartData.length) / 10)}`
+                labels: Array.from(
+                  { length: Math.min(chartData.length, 10) },
+                  (_, i) => (i === 0 ? '0' : `${Math.floor((i * chartData.length) / 10)}`)
                 ),
                 datasets: [{ data: chartData }],
               }}
@@ -110,12 +119,12 @@ export default function CalculatorScreen() {
               height={220}
               yAxisLabel="$"
               chartConfig={{
-                backgroundColor: '#FFFFFF',
-                backgroundGradientFrom: '#FFFFFF',
-                backgroundGradientTo: '#FFFFFF',
+                backgroundColor: COLORS.backgroundLight,
+                backgroundGradientFrom: COLORS.backgroundLight,
+                backgroundGradientTo: COLORS.backgroundLight,
                 decimalPlaces: 0,
-                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(107, 114, 128, ${opacity})`,
+                color: (opacity = 1) => `rgba(0,0,0,${opacity})`,
+                labelColor: (opacity = 1) => `rgba(107,114,128,${opacity})`,
                 propsForDots: {
                   r: '4',
                   strokeWidth: '2',
@@ -140,11 +149,9 @@ export default function CalculatorScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.backgroundLight,
   },
-  scrollView: {
-    flex: 1,
-  },
+  scrollView: { flex: 1 },
   scrollContent: {
     paddingHorizontal: 20,
     paddingTop: 20,
@@ -152,15 +159,15 @@ const styles = StyleSheet.create({
   },
   pageTitle: {
     fontSize: 32,
-    fontWeight: '300',
-    color: '#000000',
+    fontFamily: FONT_FAMILY.title,
+    color: COLORS.textPrimary,
     marginBottom: 8,
     letterSpacing: -0.5,
   },
   pageSubtitle: {
     fontSize: 16,
-    fontWeight: '400',
-    color: '#6B7280',
+    fontFamily: FONT_FAMILY.body,
+    color: COLORS.textSecondary,
     marginBottom: 32,
   },
   card: {
@@ -169,24 +176,22 @@ const styles = StyleSheet.create({
     padding: 24,
     marginBottom: 24,
   },
-  inputGroup: {
-    marginBottom: 20,
-  },
+  inputGroup: { marginBottom: 20 },
   inputLabel: {
-    color: '#6B7280',
+    fontFamily: FONT_FAMILY.subheading,
     fontSize: 13,
-    fontWeight: '400',
+    color: COLORS.textSecondary,
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: COLORS.borderLight,
     padding: 14,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.backgroundLight,
     fontSize: 16,
-    fontWeight: '400',
-    color: '#000000',
+    fontFamily: FONT_FAMILY.body,
+    color: COLORS.textPrimary,
   },
   frequencyContainer: {
     flexDirection: 'row',
@@ -198,33 +203,31 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.backgroundLight,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: COLORS.borderLight,
     alignItems: 'center',
   },
   frequencyButtonActive: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: COLORS.textPrimary,
+    borderColor: COLORS.textPrimary,
   },
   frequencyText: {
+    fontFamily: FONT_FAMILY.body,
     fontSize: 14,
-    fontWeight: '400',
-    color: '#6B7280',
+    color: COLORS.textSecondary,
   },
-  frequencyTextActive: {
-    color: '#FFFFFF',
-  },
+  frequencyTextActive: { color: '#FFFFFF' },
   calculateButton: {
-    backgroundColor: '#000000',
+    backgroundColor: COLORS.textPrimary,
     paddingVertical: 14,
     borderRadius: 24,
     alignItems: 'center',
   },
   calculateButtonText: {
-    color: '#FFFFFF',
+    fontFamily: FONT_FAMILY.subheading,
     fontSize: 15,
-    fontWeight: '500',
+    color: '#FFFFFF',
   },
   resultCard: {
     backgroundColor: '#FAFAFA',
@@ -234,17 +237,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   resultLabel: {
+    fontFamily: FONT_FAMILY.subheading,
     fontSize: 13,
-    fontWeight: '400',
     color: '#9CA3AF',
     marginBottom: 12,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   resultValue: {
+    fontFamily: FONT_FAMILY.title,
     fontSize: 48,
-    fontWeight: '300',
-    color: '#000000',
+    color: COLORS.textPrimary,
     letterSpacing: -1,
   },
   chartCard: {
@@ -254,13 +257,11 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   chartTitle: {
+    fontFamily: FONT_FAMILY.subheading,
     fontSize: 18,
-    fontWeight: '500',
-    color: '#000000',
+    color: COLORS.textPrimary,
     marginBottom: 20,
     letterSpacing: -0.3,
   },
-  chart: {
-    borderRadius: 8,
-  },
+  chart: { borderRadius: 8 },
 });

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { FONT_FAMILY } from './typography';
 
 export default function createStyles(palette) {
   return StyleSheet.create({
@@ -6,41 +7,63 @@ export default function createStyles(palette) {
       flex: 1,
       backgroundColor: palette.background,
       paddingHorizontal: 20,
+      paddingTop: 20,
+    },
+    backButton: {
+      marginBottom: 20,
+    },
+    backText: {
+      fontSize: 16,
+      fontFamily: FONT_FAMILY.body,
+      color: palette.accent,
+    },
+    content: {
+      alignItems: 'center',
+      marginTop: 10,
     },
     title: {
-      fontSize: 24,
-      fontWeight: '700',
+      fontSize: 28,
+      fontFamily: FONT_FAMILY.title,
       color: palette.textPrimary,
-      marginTop: 24,
+      marginBottom: 8,
+      textAlign: 'center',
+      letterSpacing: -0.5,
+    },
+    rewardMeta: {
+      fontSize: 14,
+      fontFamily: FONT_FAMILY.body,
+      color: palette.textSecondary,
+      marginBottom: 32,
     },
     rewardCard: {
       backgroundColor: palette.card,
-      borderRadius: 14,
+      borderRadius: 16,
+      padding: 24,
+      width: '100%',
       borderWidth: 1,
       borderColor: palette.border,
-      padding: 16,
-      marginTop: 16,
+      marginBottom: 20,
     },
     rewardTitle: {
       fontSize: 16,
-      fontWeight: '500',
+      fontFamily: FONT_FAMILY.subheading,
       color: palette.textPrimary,
-    },
-    rewardMeta: {
-      fontSize: 13,
-      color: palette.textSecondary,
-      marginTop: 4,
+      lineHeight: 24,
+      textAlign: 'center',
     },
     redeemButton: {
       backgroundColor: palette.accent,
-      paddingVertical: 12,
-      borderRadius: 20,
-      marginTop: 12,
+      paddingVertical: 16,
+      paddingHorizontal: 32,
+      borderRadius: 24,
+      width: '100%',
       alignItems: 'center',
+      marginTop: 20,
     },
     redeemText: {
-      color: palette.textOnAccent ?? '#FFFFFF',
-      fontWeight: '500',
+      color: '#FFFFFF',
+      fontSize: 16,
+      fontFamily: FONT_FAMILY.subheading,
     },
   });
 }

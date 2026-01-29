@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { FONT_FAMILY } from './typography';
 
 const createStyles = (palette) =>
   StyleSheet.create({
@@ -6,42 +7,49 @@ const createStyles = (palette) =>
       flex: 1,
       backgroundColor: palette.background,
       paddingHorizontal: 20,
-      paddingTop: 60,
+      paddingTop: 60, // FIXED: Added proper top padding for back button
+    },
+    backButton: {
+      marginBottom: 20, // FIXED: Proper spacing after back button
+    },
+    scrollContent: {
+      paddingBottom: 40,
     },
     pageLabel: {
       fontSize: 32,
-      fontWeight: '300',
+      fontFamily: FONT_FAMILY.title,
       marginBottom: 32,
       color: palette.textPrimary,
       letterSpacing: -0.5,
     },
     sectionHeader: {
       fontSize: 14,
-      fontWeight: '500',
+      fontFamily: FONT_FAMILY.subheading,
       color: palette.accent,
       marginBottom: 12,
+      marginTop: 8,
       textTransform: 'uppercase',
       letterSpacing: 0.5,
     },
-    scrollContent: {
-      paddingBottom: 40,
-    },
     sectionSpacer: {
-      height: 32,
+      height: 24,
+    },
+    pageBottomSpacer: {
+      height: 60,
     },
     optionsCard: {
       backgroundColor: palette.card,
       borderRadius: 12,
-      paddingVertical: 8,
-      paddingHorizontal: 16,
       borderWidth: 1,
       borderColor: palette.border,
+      overflow: 'hidden',
     },
     optionRow: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
       alignItems: 'center',
+      justifyContent: 'space-between',
       paddingVertical: 16,
+      paddingHorizontal: 16,
       borderBottomWidth: 1,
       borderBottomColor: palette.border,
     },
@@ -51,23 +59,23 @@ const createStyles = (palette) =>
     iconLabel: {
       flexDirection: 'row',
       alignItems: 'center',
+      flex: 1,
     },
     textBlock: {
-      marginLeft: 16,
+      marginLeft: 12,
+      flex: 1,
     },
     optionText: {
       fontSize: 15,
-      fontWeight: '400',
+      fontFamily: FONT_FAMILY.body,
       color: palette.textPrimary,
+      marginBottom: 2,
     },
     subtext: {
       fontSize: 13,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textSecondary,
-      marginTop: 4,
-      fontWeight: '400',
-    },
-    pageBottomSpacer: {
-      height: 24,
+      lineHeight: 18,
     },
   });
 
@@ -75,38 +83,34 @@ export const createModalStyles = (palette) =>
   StyleSheet.create({
     backdrop: {
       flex: 1,
-      backgroundColor:
-        palette.background === '#FFFFFF'
-          ? 'rgba(22, 36, 71, 0.4)'
-          : 'rgba(0, 0, 0, 0.6)',
+      backgroundColor: 'rgba(0,0,0,0.5)',
       justifyContent: 'flex-end',
     },
     sheet: {
-      backgroundColor: palette.background,
-      paddingHorizontal: 20,
-      paddingTop: 20,
-      paddingBottom: 32,
+      backgroundColor: palette.card,
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
+      paddingTop: 24,
+      paddingBottom: 40,
+      paddingHorizontal: 20,
+      maxHeight: '70%',
     },
     sheetTitle: {
       fontSize: 20,
-      fontWeight: '500',
-      marginBottom: 16,
+      fontFamily: FONT_FAMILY.subheading,
       color: palette.textPrimary,
-      letterSpacing: -0.3,
+      marginBottom: 20,
     },
     option: {
-      paddingVertical: 16,
-      paddingHorizontal: 4,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+      paddingVertical: 16,
     },
     optionText: {
       fontSize: 16,
+      fontFamily: FONT_FAMILY.body,
       color: palette.textPrimary,
-      fontWeight: '400',
     },
     separator: {
       height: 1,
