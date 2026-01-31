@@ -90,7 +90,7 @@ export default function ProfileScreen() {
             />
           ) : (
             <Image
-              source={{ uri: 'https://i.imgur.com/WxNkK1n.png' }}
+              source={require('../assets/savify-S.png')}
               style={styles.avatar}
             />
           )}
@@ -107,14 +107,14 @@ export default function ProfileScreen() {
 
       {/* Options */}
       <View style={styles.optionsCard}>
-        <OptionRow
+        {/* <OptionRow
           icon="person-outline"
           label={tr('myAccount', 'My Account')}
           subtext={tr('myAccountSubtext', 'Manage your account details')}
           warning
           styles={styles}
           palette={palette}
-        />
+        /> */}
 
         {/* Navigate to Settings stack */}
         <OptionRow
