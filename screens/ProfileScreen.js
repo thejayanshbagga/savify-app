@@ -107,15 +107,6 @@ export default function ProfileScreen() {
 
       {/* Options */}
       <View style={styles.optionsCard}>
-        {/* <OptionRow
-          icon="person-outline"
-          label={tr('myAccount', 'My Account')}
-          subtext={tr('myAccountSubtext', 'Manage your account details')}
-          warning
-          styles={styles}
-          palette={palette}
-        /> */}
-
         {/* Navigate to Settings stack */}
         <OptionRow
           icon="settings-outline"
