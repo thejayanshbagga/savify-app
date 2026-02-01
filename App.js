@@ -21,6 +21,7 @@ import MainTabs from './navigation/MainTabs';
 import ScoreScreen from './screens/ScoreScreen';
 import RedeemScreen from './screens/RedeemScreen';
 import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
+import { Asset } from 'expo-asset';
 
 import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
 
@@ -87,6 +88,12 @@ export default function App() {
           'HostGrotesk-Medium': require('./assets/fonts/HostGrotesk-Medium.ttf'),
           'HostGrotesk-Regular': require('./assets/fonts/HostGrotesk-Regular.ttf'),
         });
+
+        await Asset.loadAsync([
+          require('./assets/logo-light.png'),
+          require('./assets/logo-dark.png'),
+        ]);
+        
         setFontsLoaded(true);
       } catch (e) {
         console.warn('Error loading fonts:', e);

@@ -11,9 +11,9 @@ export default function createStyles(palette) {
       paddingHorizontal: 32,
     },
     logo: {
-      width: 80,
+      width: '80%',
       height: 80,
-      marginBottom: 40,
+      marginBottom: 24,
     },
     headline: {
       fontSize: 32,
