@@ -6,17 +6,20 @@ import { translations } from '../constants/translations';
 import createStyles from '../styles/LandingScreen.styles';
 import useTheme from '../hooks/useTheme';
 
+const logoLight = require('../assets/logo-light.png');
+const logoDark = require('../assets/logo-dark.png');
+
 export default function LandingScreen() {
   const navigation = useNavigation();
   const { language } = useLanguage();
   const t = translations[language];
-  const { palette } = useTheme();
+  const { palette, currentTheme } = useTheme();
   const styles = createStyles(palette);
 
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/savify-S.png')}
+        source={currentTheme === 'dark' ? logoDark : logoLight}
         style={styles.logo}
         resizeMode="contain"
       />
