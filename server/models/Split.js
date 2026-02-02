@@ -1,14 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const splitSchema = new mongoose.Schema({
-    payer: { type: String, required: true },
-    amount: { type: Number, required: true },
-    participants: [
-        {
-            user: { type: String, required: true },
-            amount: { type: Number, required: true }
-        }
-    ]
-}, { timestamps: true });
+const SplitSchema = new mongoose.Schema({
+  amount: Number,
+  description: String,
+  participants: Array,
+});
 
-module.exports = mongoose.model('Split', splitSchema);
+export default mongoose.model('Split', SplitSchema);

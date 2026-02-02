@@ -1,38 +1,45 @@
-const express = require("express");
+import express from 'express';
+import Split from '../models/Split.js';
+
 const router = express.Router();
-const Score = require("../models/Score");
 
-// GET /api/scores/:userId --> get user score
-router.get("/:userId", async (req, res) => {
-    try {
-        const userScore = await Score.findOne({ userId: req.params.userId });
-        if (!userScore) {
-            return res.status(404).json({ message: "User score not found" });
-        }
-        res.json(userScore);
-    } catch (error) {
-        console.error("Error fetching user score:", error);
-        res.status(500).json({ message: "Error fetching user score", error });
-    }
+router.get('/', async (req, res) => {
+  try {
+    const splits = await Split.find();
+    res.json(splits);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// POST /api/scores --> create or update user score
-router.post("/", async (req, res) => {
-    try {
-        const { userId, score } = req.body;
-
-        // upsert (create or update)
-        const updatedScore = await Score.findOneAndUpdate(
-            { userId },
-            { score, lastUpdated: new Date() },
-            { new: true, upsert: true }
-        );
-
-        res.status(201).json(updatedScore);
-    } catch (error) {
-        console.error("Error saving user score:", error);
-        res.status(500).json({ message: "Error saving user score", error });
-    }
+router.post('/', async (req, res) => {
+  try {
+    const newSplit = new Split(req.body);
+    const saved = await newSplit.save();
+    res.status(201).json(saved);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
-module.exports = router;
+router.put('/:id', async (req, res) => {
+  try {
+    const updated = await Split.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    await Split.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Split deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+export default router;

@@ -1,6 +1,7 @@
-const express = require("express");
-const Investment = require("../models/Investment");
-const Expense = require("../models/Expense");
+import express from 'express';
+import Investment from '../models/Investment.js';
+import Expense from '../models/Expense.js';
+
 
 const router = express.Router();
 
@@ -211,4 +212,4 @@ router.get("/trending/etfs", async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

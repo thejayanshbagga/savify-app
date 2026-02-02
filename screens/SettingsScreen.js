@@ -1,5 +1,5 @@
 // screens/SettingsScreen.js
-import React, {useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -20,6 +20,8 @@ import tw from 'twrnc';
 import { useContext } from 'react';
 import useTheme from '../hooks/useTheme';
 import { ThemeContext } from '../context/ThemeContext';
+import { AuthContext } from '../context/AuthContext';
+import api from '../lib/api';
 
 // safe translator to call tr('key', 'Fallback') whether the hook returns a fn or an object
 const useSafeTranslator = () => {
@@ -101,6 +103,21 @@ export default function SettingsScreen() {
 
   const darkModeEnabled = currentTheme === "dark"; // convert theme to boolean for the switch to dark mode
 
+  const { token } = useContext(AuthContext);
+  const [is2FAEnabled, setIs2FAEnabled] = useState(false);
+
+  // Fetch current 2FA status from the backend on mount
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await api.get("/api/auth/2fa/status");
+        setIs2FAEnabled(data.enabled);
+      } catch (err) {
+        console.error("Failed to fetch 2FA status:", err);
+      }
+    })();
+  }, [token]);
+
 
   const currentLanguageLabel = LANGUAGES.find(lang => lang.value === language)?.label || tr('selectLanguage', 'Select Language');
 
@@ -113,8 +130,9 @@ export default function SettingsScreen() {
         navigation.navigate('ChangeEmail');
     const handleManageDevices = () =>
         Alert.alert(tr('manageDevices', 'Manage Devices'), tr('manageDevicesSubtext', 'Navigation to manage devices screen.'));
-    const handleTwoFA = () =>
-        Alert.alert(tr('twoFA', 'Two-Factor Authentication'), tr('twoFASubtext', 'Navigation to 2FA settings screen.'));
+    const handleTwoFA = () => {
+        navigation.navigate('Setup2FA');
+    };
     const handleLanguage = () =>
         Alert.alert(tr('language', 'Language'), tr('languageSubtext', 'Show language selection modal or page.'));
     const handleHelpSupport = () =>
@@ -176,7 +194,7 @@ export default function SettingsScreen() {
           <OptionRow
             icon="shield-checkmark-outline"
             label={tr('twoFA', 'Two-Factor Authentication')}
-            subtext={tr('twoFASubtext', 'Enable or disable 2FA')}
+            subtext={is2FAEnabled ? tr('twoFAEnabled', 'Currently enabled') : tr('twoFADisabled', 'Not enabled — add an extra layer of security')}
             onPress={handleTwoFA}
             palette={palette}
             styles={styles}

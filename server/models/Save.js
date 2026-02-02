@@ -1,27 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
-const saveSchema = new mongoose.Schema({
-    userId: {
-        type: String, // userId is a simple string filed for now until user authentication is properly setup
-        ref: "User",
-        required: true,
-    },
-    goal: {
-        type: String,
-        required: true,
-    },
-    amount: {
-        type: Number,
-        required: true,
-    },
-    progress: {
-        type: Number,
-        default: 0,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
+const SaveSchema = new mongoose.Schema({
+  userId: String,
+  goal: String,
+  amount: Number,
+  progress: Number,
 });
 
-module.exports = mongoose.model("Save", saveSchema);
+export default mongoose.model('Save', SaveSchema);

@@ -21,6 +21,9 @@ import MainTabs from './navigation/MainTabs';
 import ScoreScreen from './screens/ScoreScreen';
 import RedeemScreen from './screens/RedeemScreen';
 import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
+import TwoFactorScreen from './screens/TwoFactorScreen';
+import Setup2FAScreen from './screens/Setup2FAScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import { Asset } from 'expo-asset';
 
 import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
@@ -50,8 +53,9 @@ function RootNavigator() {
         <>
           <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
           <Stack.Screen name="Calculator" component={CalculatorScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ headerShown: true, title: 'Privacy Policy & Terms'}}
-          />
+          <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ headerShown: true, title: 'Privacy Policy & Terms'}}/>
+          <Stack.Screen name="Setup2FA" component={Setup2FAScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
         </>
       ) : (
         <>
@@ -59,7 +63,8 @@ function RootNavigator() {
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
           <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
+          <Stack.Screen name="TwoFactor" component={TwoFactorScreen} options={{ headerShown: false }} />
+          {/* <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} /> */}
         </>
       )}
     </Stack.Navigator>

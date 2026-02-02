@@ -35,13 +35,6 @@ export default function ProfileScreen() {
   const handleLogout = async () => {
     try {
       await signOut();
-
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: 'Landing' }],
-        })
-      );
     } catch (error) {
       Alert.alert(
         tr('logoutFailedTitle', 'Sign out failed'),
@@ -123,14 +116,6 @@ export default function ProfileScreen() {
           subtext={tr('faceIdSubtext', 'Use Face ID to unlock')}
           value={faceIdEnabled}
           onValueChange={setFaceIdEnabled}
-          styles={styles}
-          palette={palette}
-        />
-
-        <OptionRow
-          icon="shield-checkmark-outline"
-          label={tr('twoFA', 'Two‑Factor Auth')}
-          subtext={tr('twoFASubtext', 'Add extra security')}
           styles={styles}
           palette={palette}
         />

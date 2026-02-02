@@ -1,29 +1,32 @@
 // Load environment variables only in non-production environments
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-}
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import path from 'path';
+import passport from 'passport';
+import session from 'express-session';
+import jwt from 'jsonwebtoken';
 
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const path = require("path");
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const session = require("express-session");
-const jwt = require("jsonwebtoken");
+dotenv.config();
+
 
 const LAN_IP = process.env.EXPO_PUBLIC_LAN_IP || '127.0.0.1';
 
 // Import routes
-const authRoutes = require("./routes/auth");
-const emailRoutes = require("./routes/email");
-const splitRoutes = require("./routes/split"); // make sure this file uses CommonJS (module.exports = router)
-const saveRoutes = require("./routes/save");
-const investmentRoutes = require("./routes/investment");
-const expenseRoutes = require("./routes/expense");
+import authRoutes from './routes/auth.js';
+import emailRoutes from './routes/email.js';
+import splitRoutes from './routes/split.js';
+import saveRoutes from './routes/save.js';
+import investmentRoutes from './routes/investment.js';
+import expenseRoutes from './routes/expense.js';
+import scoreRoutes from './routes/score.js';
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const scoreRoutes = require("./routes/score");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Initialize Express app
 const app = express();
@@ -94,6 +97,11 @@ mongoose
     .then(() => console.log("MongoDB Connected Successfully"))
     .catch((err) => console.error("MongoDB Connection Error:", err));
 
+mongoose.connection.once("open", () => {
+  console.log("Connected to Mongo DB:", mongoose.connection.name);
+});
+
+
 // Serve static frontend files (if deployed together)
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -123,12 +131,12 @@ app.use('/api/investments', investmentRoutes);
 app.use('/api/expenses', expenseRoutes);
 
 // Catch-all route for SPA fallback & API 404
-app.get("*", (req, res) => {
-    if (req.path.startsWith("/api") || req.path.startsWith("/auth")) {
-        return res.status(404).json({ message: "API Route not found" });
-    }
-    res.sendFile(path.join(__dirname, "../public", "index.html"));
-});
+// app.get("*", (req, res) => {
+//     if (req.path.startsWith("/api") || req.path.startsWith("/auth")) {
+//         return res.status(404).json({ message: "API Route not found" });
+//     }
+//     res.sendFile(path.join(__dirname, "../public", "index.html"));
+// });
 
 // Log registered routes for debugging
 console.log("\nRegistered Routes:");
@@ -138,14 +146,19 @@ app._router.stack
         const methods = Object.keys(r.route.methods)
             .map((m) => m.toUpperCase())
             .join(", ");
-        console.log(`➡️  ${methods} ${r.route.path}`);
     });
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
+app.get("/debug/users", async (req, res) => {
+  const users = await mongoose.connection.collection("users").find({}).toArray();
+  res.json(users);
+});
+
+
 // Export for Vercel deployment
-module.exports = app;
+export default app;

@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+// screens/LoginScreen.js
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
@@ -6,23 +7,40 @@ import { AuthContext } from '../context/AuthContext';
 import createStyles from '../styles/LoginScreen.styles';
 import useTheme from '../hooks/useTheme';
 
-export default function LoginScreen({navigation}) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginScreen({ navigation }) {
+  const [email, setEmail]             = useState('');
+  const [password, setPassword]       = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-  const { signIn } = useContext(AuthContext);
+  const [rememberMe, setRememberMe]   = useState(false);
+  const [loading, setLoading]         = useState(false);
+
+  const { signIn, requires2FA } = useContext(AuthContext);
+  const { palette } = useTheme();
+  const styles = createStyles(palette);
+
+  // ── Navigate to 2FA screen as soon as the context flips the flag ─────────
+  useEffect(() => {
+    if (requires2FA) {
+      navigation.navigate('TwoFactor');
+    }
+  }, [requires2FA, navigation]);
+  // ──────────────────────────────────────────────────────────────────────────
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       await signIn(email.trim(), password);
+      // If 2FA is NOT required, signIn already set the token and the app
+      // will navigate via its normal auth-state-based routing.
+      // If 2FA IS required, the useEffect above handles navigation.
     } catch (error) {
       console.error(error);
       alert('Login failed. Check your email or password.');
+    } finally {
+      setLoading(false);
     }
   };
-  const { palette } = useTheme();
-  const styles = createStyles(palette);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -36,6 +54,8 @@ export default function LoginScreen({navigation}) {
           value={email}
           onChangeText={setEmail}
           placeholderTextColor={palette.textSecondary}
+          autoCapitalize="none"
+          autoCorrect={false}
         />
 
         <View style={styles.passwordContainer}>
@@ -53,9 +73,9 @@ export default function LoginScreen({navigation}) {
         </View>
 
         <View style={styles.optionsRow}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.rememberMe}
-            onPress={() => setRememberMe(!rememberMe)} 
+            onPress={() => setRememberMe(!rememberMe)}
           >
             <View style={[styles.checkbox, rememberMe && styles.checkboxActive]}>
               {rememberMe && <View style={styles.checkboxInner} />}
@@ -68,8 +88,12 @@ export default function LoginScreen({navigation}) {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Sign In</Text>
+        <TouchableOpacity
+          style={[styles.button, loading && { opacity: 0.5 }]}
+          onPress={handleLogin}
+          disabled={loading}
+        >
+          <Text style={styles.buttonText}>{loading ? 'Signing in…' : 'Sign In'}</Text>
         </TouchableOpacity>
 
         <View style={styles.divider}>

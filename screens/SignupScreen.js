@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext } from '../context/AuthContext';
 import createStyles from '../styles/SignupScreen.styles';
 import useTheme from '../hooks/useTheme';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SignupScreen() {
   const [step, setStep] = useState(1);
@@ -13,8 +14,10 @@ export default function SignupScreen() {
   const styles = createStyles(palette);
   const [confirmPassword, setConfirmPassword] = useState('');
   const { signUp } = useContext(AuthContext);
+  const navigation = useNavigation();
 
   const handleSignup = async () => {
+    console.log('Signup attempt with:', email, password, confirmPassword);
     if (password !== confirmPassword) {
       Alert.alert('Passwords do not match', 'Please ensure both passwords are the same.');
       return;
@@ -22,9 +25,18 @@ export default function SignupScreen() {
 
     try {
       await signUp(email.trim(), password);
+
+      Alert.alert(
+        "Account created",
+        "Your account has been created successfully. Please log in."
+      );
+
+      navigation.navigate("Login");
     } catch (err) {
-      console.error(err);
-      Alert.alert('Signup failed', 'That email may already be in use or server error.');
+      Alert.alert(
+        "Signup failed",
+        err?.response?.data?.message || "Server error"
+      );
     }
   };
 

@@ -1,18 +1,9 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const ScoreSchema = new mongoose.Schema({
-    userId: {
-        type: String, // keep string for now (need to switch to ObjectId when users are added)
-        required: true,
-    },
-    score: {
-        type: Number,
-        default: 0,
-    },
-    lastUpdated: {
-        type: Date,
-        default: Date.now,
-    },
-}, { timestamps: true });
+  userId: String,
+  score: Number,
+  lastUpdated: Date,
+});
 
-module.exports = mongoose.model("Score", ScoreSchema);
+export default mongoose.model('Score', ScoreSchema);

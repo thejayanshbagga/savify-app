@@ -1,27 +1,25 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+// models/User.js
+// ---------------------------------------------------------------------------
+// ADD these three fields to your existing User schema.  The rest of the schema
+// (email, password, timestamps, etc.) stays exactly as it is.
+// ---------------------------------------------------------------------------
 
-const UserSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String, select: false }, // Optional for Google users
-  googleId: { type: String, unique: true, sparse: true }, // Only for Google users
-  name: { type: String },
-  picture: { type: String },
-});
+import mongoose from "mongoose";
 
-// ✅ Hash password before saving (only if password is present)
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+const userSchema = new mongoose.Schema(
+  {
+    email:    { type: String, required: true, unique: true, lowercase: true },
+    password: { type: String, required: true, select: false },
+    resetPasswordToken: { type: String, },
+    resetPasswordExpires: { type: Date,},
 
-  // Prevent re-hashing if already hashed
-  if (this.password?.startsWith("$2b$")) {
-    console.log(`🔹 Password for ${this.email} already hashed. Skipping.`);
-    return next();
-  }
 
-  console.log(`🔹 Hashing password for: ${this.email}`);
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
+    // ── 2FA fields (new) ──────────────────────────────────────────────────
+    twoFactorSecret:  { type: String, default: null, select: false }, // encrypted base32 secret
+    twoFactorEnabled: { type: Boolean, default: false },              // true once enrollment is confirmed
+    // ──────────────────────────────────────────────────────────────────────
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("User", UserSchema);
+export default mongoose.model("users", userSchema);
